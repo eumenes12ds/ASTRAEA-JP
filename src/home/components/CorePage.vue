@@ -159,7 +159,7 @@ async function runStartSequence() {
     if (extra) {
       if (extra['モデル出典'] && extra['モデル出典'] !== 'カスタム') {
         api = '追加API';
-      } else if (extra['apiアドレス'] && extra['キー'] && extra['モデル名']) {
+      } else if (extra['apiアドレス'] && extra['APIキー'] && extra['モデル名']) {
         api = '追加API';
       }
     }
