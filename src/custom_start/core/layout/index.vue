@@ -66,7 +66,9 @@ const handleNext = async () => {
   if (isLastStep.value) {
     const matchingPresetName = findMatchingPreset(characterStore);
     if (matchingPresetName) {
-      toastr.info(`現在の設定はプリセット「${matchingPresetName}」と同じです。そのまま旅を開始します`);
+      toastr.info(
+        `現在の設定はプリセット「${matchingPresetName}」と同じです。そのまま旅を開始します`,
+      );
       executeJourney();
     } else {
       showSaveConfirm.value = true;

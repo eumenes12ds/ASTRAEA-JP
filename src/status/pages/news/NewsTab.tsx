@@ -61,7 +61,11 @@ const NewsTabContent: FC<WithMvuDataProps> = ({ data }) => {
     return (
       <div className={styles.newsTab}>
         <Card className={styles.emptyCard} bodyClassName={styles.emptyCardBody}>
-          <EmptyHint className={styles.emptyHint} icon="fa-solid fa-newspaper" text="ニュースなし" />
+          <EmptyHint
+            className={styles.emptyHint}
+            icon="fa-solid fa-newspaper"
+            text="ニュースなし"
+          />
         </Card>
       </div>
     );

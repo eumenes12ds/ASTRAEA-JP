@@ -493,7 +493,9 @@ export function parsePresetFile(data: unknown): CharacterPreset[] | null {
     return null;
   }
 
-  toastr.error('インポート失敗：ファイル形式が正しくありません。プリセットオブジェクトまたはプリセット配列が必要です');
+  toastr.error(
+    'インポート失敗：ファイル形式が正しくありません。プリセットオブジェクトまたはプリセット配列が必要です',
+  );
   return null;
 }
 

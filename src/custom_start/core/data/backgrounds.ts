@@ -10,7 +10,10 @@ interface Backgrounds {
  */
 const Backgrounds: Backgrounds = {
   共通開始: [
-    { name: '【カスタム開始】', description: '自由に想像力を働かせて、自分だけのキャラクターの初期背景を作り上げよう。' },
+    {
+      name: '【カスタム開始】',
+      description: '自由に想像力を働かせて、自分だけのキャラクターの初期背景を作り上げよう。',
+    },
   ],
 };
 

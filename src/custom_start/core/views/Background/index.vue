@@ -193,7 +193,9 @@ onMounted(() => {
         <div class="summary-content">
           <!-- パートナー要約 -->
           <div v-if="characterStore.selectedPartners.length > 0" class="summary-group">
-            <div class="summary-label">パートナーリスト ({{ characterStore.selectedPartners.length }})</div>
+            <div class="summary-label">
+              パートナーリスト ({{ characterStore.selectedPartners.length }})
+            </div>
             <div class="summary-items">
               <div
                 v-for="partner in characterStore.selectedPartners"

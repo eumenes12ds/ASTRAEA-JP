@@ -136,7 +136,9 @@ watch(
 
 <template>
   <div class="background-list">
-    <div v-if="parsedItems.length === 0" class="empty-message">この分類にはまだ初期シナリオがありません</div>
+    <div v-if="parsedItems.length === 0" class="empty-message">
+      この分類にはまだ初期シナリオがありません
+    </div>
     <div
       v-for="item in parsedItems"
       :key="item.name"

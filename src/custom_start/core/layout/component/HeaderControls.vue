@@ -30,13 +30,21 @@ const emit = defineEmits<{
       <button
         class="control-button roll-button"
         :disabled="!canRollPoints"
-        :title="canRollPoints ? '新しい転生ポイントをランダム生成' : 'コストポイントがあるため Roll できません（先にリセットしてください）'"
+        :title="
+          canRollPoints
+            ? '新しい転生ポイントをランダム生成'
+            : 'コストポイントがあるため Roll できません（先にリセットしてください）'
+        "
         @click="rollPoints"
       >
         <i class="fa-solid fa-dice"></i>
         <span class="button-text">Roll ポイント</span>
       </button>
-      <button class="control-button preset-button" title="キャラクタープリセットを管理" @click="emit('openPreset')">
+      <button
+        class="control-button preset-button"
+        title="キャラクタープリセットを管理"
+        @click="emit('openPreset')"
+      >
         <i class="fa-solid fa-bookmark"></i>
         <span class="button-text">プリセット管理</span>
       </button>

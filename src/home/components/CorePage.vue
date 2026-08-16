@@ -9,7 +9,9 @@
       <div class="tab-content">
         <div class="control-group">
           <div v-if="isLoading" class="loading-text">コアリストを読み込み中...</div>
-          <div v-else-if="coreOptions.length === 0" class="empty-text">利用可能なコアが見つかりません</div>
+          <div v-else-if="coreOptions.length === 0" class="empty-text">
+            利用可能なコアが見つかりません
+          </div>
           <div v-else class="list-detail-layout">
             <div class="item-list">
               <button

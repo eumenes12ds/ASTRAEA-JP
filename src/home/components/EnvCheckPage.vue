@@ -68,7 +68,9 @@
         <button class="recheck-button" :disabled="isChecking" @click="handleRecheck">
           {{ isChecking ? '検査中...' : '再検査' }}
         </button>
-        <button v-if="canSkip" class="skip-button" @click="showSkipConfirm = true">検査をスキップ</button>
+        <button v-if="canSkip" class="skip-button" @click="showSkipConfirm = true">
+          検査をスキップ
+        </button>
       </div>
     </div>
 
@@ -86,11 +88,19 @@
         <div class="modal-content">
           <h3 class="modal-title">⚠️ 環境チェックをスキップ</h3>
           <div class="modal-body">
-            <p>環境チェックをスキップしようとしています。以下の内容をよく読んで確認してください：</p>
+            <p>
+              環境チェックをスキップしようとしています。以下の内容をよく読んで確認してください：
+            </p>
             <ul class="modal-list">
-              <li>現在の実行環境のすべてのコンポーネントに<strong>異常がない</strong>ことを確認しました</li>
-              <li>環境チェックをスキップすると、以降の機能が<strong>正常に使用できなくなる</strong>可能性があることを理解しています</li>
-              <li>環境に起因するいかなる異常についても、<strong>作者は一切の責任を負いません</strong></li>
+              <li>
+                現在の実行環境のすべてのコンポーネントに<strong>異常がない</strong>ことを確認しました
+              </li>
+              <li>
+                環境チェックをスキップすると、以降の機能が<strong>正常に使用できなくなる</strong>可能性があることを理解しています
+              </li>
+              <li>
+                環境に起因するいかなる異常についても、<strong>作者は一切の責任を負いません</strong>
+              </li>
             </ul>
           </div>
           <div class="modal-actions">

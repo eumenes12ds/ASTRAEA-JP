@@ -302,7 +302,12 @@ const confirmAdd = () => {
       <!-- 数量（道具分類のみ） -->
       <div v-if="categoryType === 'item'" class="form-row">
         <FormLabel label="数量" />
-        <FormNumber v-model="itemQuantity" :min="1" :max="99" placeholder="アイテム数量を入力してください" />
+        <FormNumber
+          v-model="itemQuantity"
+          :min="1"
+          :max="99"
+          placeholder="アイテム数量を入力してください"
+        />
       </div>
 
       <!-- コスト（スキル分類のみ） -->
@@ -332,7 +337,11 @@ const confirmAdd = () => {
       <!-- 説明 -->
       <div class="form-row">
         <FormLabel label="説明" />
-        <FormTextarea v-model="itemDescription" placeholder="アイテムの背景ストーリーを説明してください..." :rows="2" />
+        <FormTextarea
+          v-model="itemDescription"
+          placeholder="アイテムの背景ストーリーを説明してください..."
+          :rows="2"
+        />
       </div>
 
       <!-- 操作ボタン -->

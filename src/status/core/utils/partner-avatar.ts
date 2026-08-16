@@ -41,7 +41,11 @@ const getChatPartnerAvatarMap = (partner_names: string[]) => {
       const allowedAvatarUrl = getAllowedExternalImageUrl(avatarUrl);
 
       if (allowedAvatarUrl) {
-        console.log('[PartnerAvatar] chat のパートナーアバターにヒット:', partner_name, allowedAvatarUrl);
+        console.log(
+          '[PartnerAvatar] chat のパートナーアバターにヒット:',
+          partner_name,
+          allowedAvatarUrl,
+        );
         result[partner_name] = allowedAvatarUrl;
       }
 
@@ -102,7 +106,11 @@ export const getDefaultPartnerAvatarMap = async (partner_names: string[]) => {
       partner_name,
     );
     if (predefinedAvatarUrl) {
-      console.log('[PartnerAvatar] プリセットのパートナーアバターにヒット:', partner_name, predefinedAvatarUrl);
+      console.log(
+        '[PartnerAvatar] プリセットのパートナーアバターにヒット:',
+        partner_name,
+        predefinedAvatarUrl,
+      );
       result[partner_name] = predefinedAvatarUrl;
     }
   });

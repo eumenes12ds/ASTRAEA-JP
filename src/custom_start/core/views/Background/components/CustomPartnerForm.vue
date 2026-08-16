@@ -348,7 +348,9 @@ const confirmAdd = () => {
 
       <!-- レベル -->
       <div class="form-row">
-        <FormLabel :label="`レベル（${currentLevelInfo.minGrade}-${currentLevelInfo.maxGrade}級）`" />
+        <FormLabel
+          :label="`レベル（${currentLevelInfo.minGrade}-${currentLevelInfo.maxGrade}級）`"
+        />
         <FormNumber
           v-model="itemGrade"
           :min="currentLevelInfo.minGrade"
@@ -426,7 +428,11 @@ const confirmAdd = () => {
         <FormTextarea
           v-model="itemStairway"
           :disabled="itemGrade < 13"
-          :placeholder="itemGrade >= 13 ? '登神長階の情報を説明...' : 'レベルが13級以上にならないと記入できません'"
+          :placeholder="
+            itemGrade >= 13
+              ? '登神長階の情報を説明...'
+              : 'レベルが13級以上にならないと記入できません'
+          "
           :rows="2"
         />
         <div v-if="itemGrade < 13" class="field-hint">
@@ -449,13 +455,21 @@ const confirmAdd = () => {
       <!-- 本音 -->
       <div class="form-row">
         <FormLabel label="本音" />
-        <FormTextarea v-model="itemComment" placeholder="このキャラクターのあなたへの評価..." :rows="2" />
+        <FormTextarea
+          v-model="itemComment"
+          placeholder="このキャラクターのあなたへの評価..."
+          :rows="2"
+        />
       </div>
 
       <!-- 背景ストーリー -->
       <div class="form-row">
         <FormLabel label="背景ストーリー" />
-        <FormTextarea v-model="itemBackgroundInfo" placeholder="背景ストーリーを説明..." :rows="3" />
+        <FormTextarea
+          v-model="itemBackgroundInfo"
+          placeholder="背景ストーリーを説明..."
+          :rows="3"
+        />
       </div>
 
       <!-- 操作ボタン -->

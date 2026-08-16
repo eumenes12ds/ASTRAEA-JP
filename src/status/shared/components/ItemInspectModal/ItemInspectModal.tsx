@@ -69,7 +69,12 @@ export const ItemInspectModal: FC<ItemInspectModalProps> = ({
             <div className={styles.title}>{title}</div>
             {subtitle ? <div className={styles.subtitle}>{subtitle}</div> : null}
           </div>
-          <button type="button" className={styles.closeButton} onClick={onClose} title="詳細を閉じる">
+          <button
+            type="button"
+            className={styles.closeButton}
+            onClick={onClose}
+            title="詳細を閉じる"
+          >
             <i className="fa-solid fa-xmark" />
           </button>
         </div>

@@ -371,7 +371,9 @@ const QuestsTabContent: FC<WithMvuDataProps> = ({ data }) => {
             </div>
           ) : (
             <span className={styles.overviewFocusEmpty}>
-              {questEntries.length === 0 ? 'タスク焦点なし' : '上の一覧から焦点にするタスクを選択してください'}
+              {questEntries.length === 0
+                ? 'タスク焦点なし'
+                : '上の一覧から焦点にするタスクを選択してください'}
             </span>
           )}
         </div>

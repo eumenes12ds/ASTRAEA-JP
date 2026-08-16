@@ -5,7 +5,8 @@ import { getWorldBookName, updateWorldBook } from '@/home/services/worldbookload
 // 固定のエントリ名
 const OUTPUT_ENTRY_MAIN_API = 'output_format (AI出力に合わせてオン、メインAPI)';
 const OUTPUT_ENTRY_EXTRA_API = '[mvu_update]output_format (追加モデルで変数を更新する時にオン)';
-const OUTPUT_ENTRY_EXTRA_API_LATEST_INPUT = '[mvu_update]ユーザーの最新入力(追加モデルで変数を更新する時にオン)';
+const OUTPUT_ENTRY_EXTRA_API_LATEST_INPUT =
+  '[mvu_update]ユーザーの最新入力(追加モデルで変数を更新する時にオン)';
 
 // 変数出力方式の選択肢
 export const OUTPUT_OPTIONS = [

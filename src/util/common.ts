@@ -69,7 +69,10 @@ export function uuidv4(): string {
 
 export async function checkMinimumVersion(expected: string, title: string) {
   if (compare(await getTavernHelperVersion(), expected, '<')) {
-    toastr.error(`'${title}' には Tavern Helper バージョン >= '${expected}' が必要です`, 'バージョン非互換');
+    toastr.error(
+      `'${title}' には Tavern Helper バージョン >= '${expected}' が必要です`,
+      'バージョン非互換',
+    );
   }
 }
 

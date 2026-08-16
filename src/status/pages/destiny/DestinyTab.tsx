@@ -532,7 +532,11 @@ const DestinyTabContent: FC<WithMvuDataProps> = ({ data }) => {
     const next = !partner.在席;
     const success = await updateField(`関係一覧.${partnerName}.在席`, next);
     if (success) {
-      toastr.success(next ? `「${partnerName}」を在席に切り替えました` : `「${partnerName}」を離席に切り替えました`);
+      toastr.success(
+        next
+          ? `「${partnerName}」を在席に切り替えました`
+          : `「${partnerName}」を離席に切り替えました`,
+      );
     } else {
       toastr.error('在席状態の切り替えに失敗しました');
     }
@@ -1042,7 +1046,8 @@ const DestinyTabContent: FC<WithMvuDataProps> = ({ data }) => {
           {predefinedGalleryItems.length > 0 ? (
             <div className={styles.partnerGalleryPredefinedPrompt}>
               <div className={styles.partnerGalleryPredefinedText}>
-                プリセットアルバム画像が {predefinedGalleryItems.length} 枚あります。読み込みますか？
+                プリセットアルバム画像が {predefinedGalleryItems.length}{' '}
+                枚あります。読み込みますか？
               </div>
               <button
                 type="button"

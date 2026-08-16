@@ -192,7 +192,9 @@ export const StatusEffectDisplay: FC<StatusEffectDisplayProps> = ({
                 <div className={styles.effectReadHeader}>
                   <div className={styles.effectHeaderMain}>
                     <span className={styles.effectName}>{name}</span>
-                    {effect.タイプ ? <span className={styles.effectType}>{effect.タイプ}</span> : null}
+                    {effect.タイプ ? (
+                      <span className={styles.effectType}>{effect.タイプ}</span>
+                    ) : null}
                   </div>
                   <div className={styles.effectMetaInline}>
                     {typeof effect.スタック数 === 'number' && effect.スタック数 > 1 ? (

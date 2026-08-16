@@ -236,7 +236,9 @@ watch(
           <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="highlightMatch(item.path)"></span>
         </div>
-        <div v-if="filteredFlatOptions.length === 0" class="no-results">一致する結果がありません</div>
+        <div v-if="filteredFlatOptions.length === 0" class="no-results">
+          一致する結果がありません
+        </div>
       </div>
 
       <!-- ツリー閲覧モード -->

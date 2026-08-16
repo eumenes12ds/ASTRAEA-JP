@@ -201,7 +201,9 @@ export function generateAIPrompt(
   const lines: string[] = [];
   const displayGender = character.gender === 'カスタム' ? character.customGender : character.gender;
   const displayLocation =
-    character.startLocation === 'カスタム' ? character.customStartLocation : character.startLocation;
+    character.startLocation === 'カスタム'
+      ? character.customStartLocation
+      : character.startLocation;
 
   lines.push('【シナリオ生成コンテキスト】');
   lines.push(

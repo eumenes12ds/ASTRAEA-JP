@@ -44,7 +44,9 @@
       <!-- タブコンテンツ領域 -->
       <div class="tab-content">
         <div class="control-group">
-          <div v-if="isLoading" class="loading-text">{{ categoryLabels[activeTab] }}リストを読み込み中...</div>
+          <div v-if="isLoading" class="loading-text">
+            {{ categoryLabels[activeTab] }}リストを読み込み中...
+          </div>
           <div v-else-if="currentTabOptions.length === 0" class="empty-text">
             利用可能な{{ categoryLabels[activeTab] }}が見つかりません
           </div>

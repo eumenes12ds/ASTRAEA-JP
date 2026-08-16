@@ -92,7 +92,9 @@ const handleSavePreset = () => {
       emit('saved', preset);
     } else {
       presetToOverwrite.value = name;
-      toastr.info(`プリセット「${name}」は既に存在します。もう一度保存をクリックすると上書きします`);
+      toastr.info(
+        `プリセット「${name}」は既に存在します。もう一度保存をクリックすると上書きします`,
+      );
     }
   } else {
     savePreset(preset, false);
@@ -258,14 +260,18 @@ const cancelImport = () => {
                   class="fa-solid"
                   :class="presetToOverwrite === newPresetName.trim() ? 'fa-check' : 'fa-save'"
                 ></i>
-                {{ presetToOverwrite === newPresetName.trim() ? '上書きを確認' : 'プリセットを保存' }}
+                {{
+                  presetToOverwrite === newPresetName.trim() ? '上書きを確認' : 'プリセットを保存'
+                }}
               </button>
             </div>
           </div>
 
           <!-- プリセットインポート領域 -->
           <div v-if="showSaveSection" class="import-section">
-            <h3 class="section-title"><i class="fa-solid fa-file-import"></i> プリセットをインポート</h3>
+            <h3 class="section-title">
+              <i class="fa-solid fa-file-import"></i> プリセットをインポート
+            </h3>
             <div class="import-row">
               <button class="action-button import-button" @click="handleImport">
                 <i class="fa-solid fa-upload"></i> プリセットファイルをインポート
@@ -289,7 +295,9 @@ const cancelImport = () => {
             <div v-if="presetList.length === 0" class="empty-state">
               <i class="fa-solid fa-inbox empty-icon"></i>
               <p>保存されたプリセットはありません</p>
-              <p v-if="showSaveSection" class="hint">上の入力欄に名前を入れて現在の設定を保存できます</p>
+              <p v-if="showSaveSection" class="hint">
+                上の入力欄に名前を入れて現在の設定を保存できます
+              </p>
             </div>
             <div v-else class="preset-list">
               <div
@@ -378,7 +386,9 @@ const cancelImport = () => {
     >
       <div class="modal-container conflict-container">
         <div class="modal-header">
-          <h2 class="modal-title"><i class="fa-solid fa-triangle-exclamation"></i> インポート衝突</h2>
+          <h2 class="modal-title">
+            <i class="fa-solid fa-triangle-exclamation"></i> インポート衝突
+          </h2>
           <button class="close-button" title="閉じる" @click="cancelImport">✕</button>
         </div>
         <div class="modal-content">

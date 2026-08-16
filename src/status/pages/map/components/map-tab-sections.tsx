@@ -267,7 +267,9 @@ export const MarkerWorkbench: FC<MarkerWorkbenchProps> = ({
                           className={styles.markerItemDot}
                           style={{ backgroundColor: marker.color ?? DEFAULT_MARKER_COLOR }}
                         />
-                        <div className={styles.markerItemText}>{marker.name || '無名のマーカー'}</div>
+                        <div className={styles.markerItemText}>
+                          {marker.name || '無名のマーカー'}
+                        </div>
                       </div>
                       <div className={styles.markerItemActions}>
                         <button
@@ -544,7 +546,10 @@ export const MapStage: FC<MapStageProps> = ({
 
             {mapViewerStatus === 'error' && (
               <div className={styles.mapPlaceholder}>
-                <span>{mapLoadError || '地図の読み込みに失敗しました。しばらくしてから再試行してください'}</span>
+                <span>
+                  {mapLoadError ||
+                    '地図の読み込みに失敗しました。しばらくしてから再試行してください'}
+                </span>
               </div>
             )}
             <div className={drawLayerClassName}>

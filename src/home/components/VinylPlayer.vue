@@ -68,7 +68,11 @@
       <!-- コントロールボタン -->
       <div class="player-controls">
         <button class="ctrl-btn" title="前の曲" @click="prevTrack">⏮</button>
-        <button class="ctrl-btn play-btn" :title="isPlaying ? '一時停止' : '再生'" @click="togglePlay">
+        <button
+          class="ctrl-btn play-btn"
+          :title="isPlaying ? '一時停止' : '再生'"
+          @click="togglePlay"
+        >
           {{ isPlaying ? '⏸' : '▶' }}
         </button>
         <button class="ctrl-btn" title="次の曲" @click="nextTrack">⏭</button>

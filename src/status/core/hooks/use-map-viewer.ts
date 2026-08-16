@@ -203,7 +203,9 @@ export const useMapViewer = ({
       try {
         openTimeoutId = window.setTimeout(() => {
           controller.abort();
-          onErrorRef.current?.(new Error('地図の読み込みがタイムアウトしました。しばらくしてから再試行してください'));
+          onErrorRef.current?.(
+            new Error('地図の読み込みがタイムアウトしました。しばらくしてから再試行してください'),
+          );
         }, MAP_OPEN_TIMEOUT_MS);
 
         const cachedObjectUrl = objectUrlMapRef.current.get(mapSourceKey);

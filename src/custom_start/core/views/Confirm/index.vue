@@ -99,7 +99,10 @@ const getStairwayView = (partner: Partner) => {
       <!-- タイトル -->
       <div class="panel-header">
         <h2 class="panel-title">情報確認</h2>
-        <p class="panel-subtitle">構造化できるデータは MVU 変数に書き込まれます。AI は少量のシナリオコンテキストのみを受け取ります</p>
+        <p class="panel-subtitle">
+          構造化できるデータは MVU 変数に書き込まれます。AI
+          は少量のシナリオコンテキストのみを受け取ります
+        </p>
       </div>
 
       <!-- ドキュメント内容 -->
@@ -484,7 +487,10 @@ const getStairwayView = (partner: Partner) => {
         <div v-if="remainingPoints !== 0" class="final-notice">
           <div v-if="remainingPoints < 0" class="notice warning">
             <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-            <span>警告：転生ポイントが {{ Math.abs(remainingPoints) }} 点不足しています。戻って調整してください</span>
+            <span
+              >警告：転生ポイントが
+              {{ Math.abs(remainingPoints) }} 点不足しています。戻って調整してください</span
+            >
           </div>
           <div v-else class="notice info">
             <i class="fa-solid fa-circle-info" aria-hidden="true"></i>

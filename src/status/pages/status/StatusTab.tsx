@@ -47,8 +47,21 @@ const BasicInfoFields: BasicInfoFieldConfig[] = [
   { key: '職業', label: '職業', type: 'tags', editable: true, defaultValue: [] },
   { key: '身分', label: '身分', type: 'tags', editable: true, defaultValue: [] },
   { key: '生命階層', label: '生命階層', type: 'text', editable: false, defaultValue: '第一階層' },
-  { key: 'レベル', label: 'レベル', type: 'number', editable: false, defaultValue: 1, prefix: 'Lv.' },
-  { key: '冒険者ランク', label: '冒険者ランク', type: 'text', editable: true, defaultValue: '未評価' },
+  {
+    key: 'レベル',
+    label: 'レベル',
+    type: 'number',
+    editable: false,
+    defaultValue: 1,
+    prefix: 'Lv.',
+  },
+  {
+    key: '冒険者ランク',
+    label: '冒険者ランク',
+    type: 'text',
+    editable: true,
+    defaultValue: '未評価',
+  },
 ];
 
 // キャラクタープロフィールフィールド（重複フィールドを除外）
@@ -356,7 +369,9 @@ const StatusTabContent: FC<WithMvuDataProps> = ({ data }) => {
             type="number"
             numberConfig={{
               min: 0,
-              max: _.isNumber(player.レベルアップ必要経験) ? player.レベルアップ必要経験 - 1 : undefined,
+              max: _.isNumber(player.レベルアップ必要経験)
+                ? player.レベルアップ必要経験 - 1
+                : undefined,
               step: 1,
             }}
           />

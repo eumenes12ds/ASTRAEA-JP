@@ -270,7 +270,13 @@ const handleEditCustomItem = (
   customItemFormRef.value?.fillFormByItem(item, type);
   toastr.info(
     `カスタム${
-      type === 'equipment' ? '装備' : type === 'item' ? '道具' : type === 'asset' ? '資産' : 'スキル'
+      type === 'equipment'
+        ? '装備'
+        : type === 'item'
+          ? '道具'
+          : type === 'asset'
+            ? '資産'
+            : 'スキル'
     }「${item.name}」の値をフォームに戻しました`,
   );
 };

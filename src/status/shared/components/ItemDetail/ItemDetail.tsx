@@ -78,9 +78,9 @@ export const ItemDetail: FC<ItemDetailProps> = ({
   };
 
   const qualityClass = getQualityClass(data.品質, styles);
-  const metaItems = [data.タイプ ? { key: 'type', label: 'タイプ', value: data.タイプ } : null].filter(
-    Boolean,
-  ) as Array<{ key: string; label: string; value: string }>;
+  const metaItems = [
+    data.タイプ ? { key: 'type', label: 'タイプ', value: data.タイプ } : null,
+  ].filter(Boolean) as Array<{ key: string; label: string; value: string }>;
 
   const effectEntries = _.entries(data.効果 ?? {});
   const effectNames = effectEntries.map(([key]) => key);

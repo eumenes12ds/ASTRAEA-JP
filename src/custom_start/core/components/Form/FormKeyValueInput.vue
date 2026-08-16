@@ -158,7 +158,9 @@ const handleKeydown = (event: KeyboardEvent) => {
             </div>
             <div class="row-actions">
               <button type="button" class="action-btn" @click="saveEdit">保存</button>
-              <button type="button" class="action-btn subtle" @click="cancelEdit">キャンセル</button>
+              <button type="button" class="action-btn subtle" @click="cancelEdit">
+                キャンセル
+              </button>
             </div>
           </template>
 
