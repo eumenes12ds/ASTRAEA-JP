@@ -1,0 +1,81 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "コンパイル＆酒場ページデバッグ (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "タスク開始",
+      "postDebugTask": "タスク終了",
+      "url": "http://localhost:6622",
+      "disableNetworkCache": true,
+      "internalConsoleOptions": "neverOpen",
+      "cwd": "${workspaceFolder}",
+      "timeout": 100000,
+      "sourceMapPathOverrides": {
+        "src://tavern_helper_template/*": "${workspaceFolder}/*",
+        "webpack://tavern_helper_template/*": "${workspaceFolder}/*",
+      },
+      "skipFiles": [
+        "**/jquery*.min.js",
+        "**/node_modules/**"
+      ],
+    },
+    {
+      "name": "コンパイル＆酒場ページデバッグ (Edge)",
+      "type": "msedge",
+      "request": "launch",
+      "preLaunchTask": "タスク開始",
+      "postDebugTask": "タスク終了",
+      "url": "http://localhost:8000",
+      "disableNetworkCache": true,
+      "internalConsoleOptions": "neverOpen",
+      "cwd": "${workspaceFolder}",
+      "timeout": 100000,
+      "sourceMapPathOverrides": {
+        "src://tavern_helper_template/*": "${workspaceFolder}/*",
+        "webpack://tavern_helper_template/*": "${workspaceFolder}/*",
+      },
+      "skipFiles": [
+        "**/jquery*.min.js",
+        "**/node_modules/**"
+      ],
+    },
+    {
+      "name": "酒場ページのみデバッグ (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:8000",
+      "disableNetworkCache": true,
+      "internalConsoleOptions": "neverOpen",
+      "cwd": "${workspaceFolder}",
+      "timeout": 100000,
+      "sourceMapPathOverrides": {
+        "src://tavern_helper_template/*": "${workspaceFolder}/*",
+        "webpack://tavern_helper_template/*": "${workspaceFolder}/*",
+      },
+      "skipFiles": [
+        "**/jquery*.min.js",
+        "**/node_modules/**"
+      ],
+    },
+    {
+      "name": "酒場ページのみデバッグ (Edge)",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://localhost:8000",
+      "disableNetworkCache": true,
+      "internalConsoleOptions": "neverOpen",
+      "cwd": "${workspaceFolder}",
+      "timeout": 100000,
+      "sourceMapPathOverrides": {
+        "src://tavern_helper_template/*": "${workspaceFolder}/*",
+        "webpack://tavern_helper_template/*": "${workspaceFolder}/*",
+      },
+      "skipFiles": [
+        "**/jquery*.min.js",
+        "**/node_modules/**"
+      ],
+    }
+  ]
+}

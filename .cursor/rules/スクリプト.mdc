@@ -1,0 +1,105 @@
+---
+description: スクリプトを作成する必要がある場合、このファイルを参照してください
+alwaysApply: false
+---
+# スクリプト
+
+`src/xxx` フォルダに `index.ts` ファイルのみがある場合、それはスクリプトプロジェクトです。
+
+スクリプトはサンドボックスのない iframe の形で酒場のバックグラウンドで実行され、独自のUIはなく、コード部分のみを作成できます。
+
+## jquery
+
+スクリプト内の jquery は、スクリプトのある iframe だけでなく、酒場ページ全体に直接作用します。なぜなら `window.$ = window.parent.$` で取得されるからです。例えば `$('body')` はスクリプトのある iframe の `<body>` タグではなく、酒場のウェブページの `<body>` タグを選択します。
+
+## vue
+
+スクリプトは iframe 内で実行されるため、スクリプトから酒場ページに vue コンポーネントをマウントする必要がある場合、jquery を使ってマウント位置を作成し、それを酒場のウェブページに追加して、`app.mount($app[0])` でマウントする必要があります。
+
+## 酒場ページに vue コンポーネントをマウントする際のスタイル問題
+
+スクリプトは iframe 内で実行されるため、スクリプトが設定した style（tailwindcss が生成したものも含む）は iframe 内でのみ有効になり、酒場ページ全体には適用されません。つまり、jquery でマウント位置を作成し、vue コンポーネントを酒場のウェブページにマウントしようとする場合、コンポーネントに必要なスタイルや記述した tailwindcss の class はすべて有効になりません。
+
+vue コンポーネントの用途に基づいて、これには 2 つの解決策があります。
+
+### コンポーネントが酒場ページの補足であり、酒場ページのスタイルを使う必要がある場合
+
+コンポーネントが酒場のウェブページのUI体験を強化するため、または酒場ページの現在のスタイルと一致させる必要がある場合、非 iframe DOM にマウントするべきです。例えば:
+
+```ts
+$(() => {
+  const app = createApp(App).use(createPinia());
+
+  const $app = createScriptIdDiv().appendTo('置きたい場所');
+  app.mount($app[0]);
+
+  // スクリプト終了時にコンポーネントをアンマウントする
+  $(window).on('pagehide', () => {
+    app.unmount();
+    $app.remove();
+  });
+});
+```
+
+このようなコンポーネントは、できるだけ酒場ページの既存スタイルを参考にすべきです。スクリプト内でコンポーネントに設定した追加スタイルを有効にするには、`util/script.ts` の `teleportStyle` 関数を使ってスタイルを酒場のウェブページの `<head>` にコピーする必要があります。
+
+```ts
+const { destroy } = teleportStyle();
+```
+
+スクリプト終了時には、`destroy` 関数を呼び出してスタイルをアンマウントする必要があります。
+
+```ts
+$(window).on('pagehide', () => {
+  destroy();
+});
+```
+
+**ただし、酒場ページにすでにあるクラス名と衝突しないように、この場合 tailwindcss の使用は禁止です。**
+
+### コンポーネントが独立しており、酒場ページのスタイルを使う必要がない場合
+
+コンポーネントが独立したフローティングウィンドウ、スマホ風の会話画面、または酒場ページの大幅な調整であり、酒場ページの既存スタイルから分離する必要がある場合、iframe DOM にマウントするべきです。このために `util/script.ts` の `createScriptIdIframe` 関数を使って iframe DOM を作成し、iframe の load 完了後に vue コンポーネントを iframe 内部の body にマウントします（`iframe_element.contentDocument!.body`）:
+
+```ts
+$(() => {
+  const app = createApp(App).use(createPinia());
+
+  const $app = createScriptIdIframe()
+    .appendTo('置きたい場所')
+    .on('load', () => {
+      teleportStyle($app[0].contentDocument!.head);
+      app.mount($app[0].contentDocument!.body);
+    });
+
+  // スクリプト終了時にコンポーネントをアンマウントする
+  $(window).on('pagehide', () => {
+    app.unmount();
+    $app.remove();
+  });
+});
+```
+
+この場合、**スタイルを自分でコピーする必要のない tailwindcss の class を優先して使用すべき**です。コピーが必要なスタイルがある場合は、`teleportStyle($app[0].contentDocument!.head)` 関数を使ってスタイルをコピーします。
+
+## スクリプト設定
+
+ユーザーにカスタム設定を提供する必要がある場合、スクリプト変数を使い、`zod` で設定のタイプとデフォルト値を定義できます。
+
+## ボタン
+
+スクリプトは酒場アシスタントのスクリプトライブラリUIにボタンを設定でき、ユーザーがボタンをクリックすると対応するイベントがトリガーされます。
+
+ボタンは次のように追加できます:
+
+```typescript
+appendInexistentScriptButtons([{ name: 'ボタン名', visible: true }]);
+```
+
+そして、コード内で次のようにボタンイベントを登録できます:
+
+```typescript
+eventOn(getButtonEvent('ボタン名'), () => {
+  console.log('ボタンがクリックされました');
+});
+```

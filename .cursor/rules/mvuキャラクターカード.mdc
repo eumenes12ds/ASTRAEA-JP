@@ -1,0 +1,209 @@
+---
+description: ユーザーの入力で MVU が明確に言及された場合、このファイルを参照してください
+alwaysApply: false
+---
+# MVU キャラクターカードフォルダ
+
+MVU キャラクターカードフォルダは、酒場のキャラクターカードの内容を保存するためのファイル構造を提供します:
+
+- `角色卡/脚本/*/` にはキャラクターカードのすべてのスクリプトプロジェクトがあります
+- `角色卡/界面/*/` にはキャラクターカードのすべてのフロントエンドUIプロジェクトがあります
+- `角色卡/世界书/*/` にはキャラクターカードの世界書エントリ、つまりキャラクターカードの設定プロンプトがあります。キャラクターカードのその他の内容を書くときは、それを参照してキャラクターの世界設定を把握する必要があります
+- `角色卡/schema.ts` には zod 4 ライブラリで書かれたキャラクターカードの MVU 変数構造定義があります
+  - スクリプト・フロントエンドUIへのインポート用に提供される
+  - `pnpm build` または `pnpm watch` 時に、対応する json schema ファイル `角色卡/schema.json` が生成される。変数初期値ファイル initvar.yaml の作成に便利 `# yaml-language-server: $schema=schemaファイルパス`
+- `角色卡/界面/store.ts` には pinia であらかじめ書かれたキャラクターカードのメッセージフロア MVU 変数の取得方法があり、すべてのフロントエンドUIにインポート用に提供される
+
+プレイヤーが MVU キャラクターカードのスクリプト・フロントエンドUIの作成を要求した場合、`初始模板/脚本` や `初始模板/前端界面` に加えて、`初始模板/角色卡` 内のスクリプトとフロントエンドUIのテンプレートも参照するべきです。
+
+**単独のスクリプト・フロントエンドUIと、MVU キャラクターカード用のスクリプト・フロントエンドUIの増補を区別してください。ユーザーが単独のスクリプト・フロントエンドUIを作成したいだけなら、このファイルを参照すべきではありません。**
+
+## MVU 変数構造
+
+MVU は zod 4 ライブラリで変数構造定義を書きます。これは `角色卡/schema.ts` に対応します。例:
+
+```ts
+export const Schema = z.object({
+  好感度: z.coerce.number().transform(value => _.clamp(value, 0, 100)),
+});
+```
+
+ユーザーに変数構造ファイルの提供を要求するか、自分で作成するべきです。以下の要件に従う必要があります:
+
+```yaml
+task: Explorer requests to design the zod schema of variables which records the world status, you should reappear an instance of it using zod 4.x inside `<context>`, which is the main content of your reply
+rule:
+  - libraries: "`z` from zod 4.x (stick to it instead of 3.x!) and `_` from lodash are available by default, so you can use them directly and should prefer to use them; don't import them in the generated code"
+  - idempotent operation: the schema is intended to parse the updates of the world status incrementally, thus, the output of `Schema.parse(input)` must be a valid input of `Schema.parse` itself; that is, you should use z.transform carefully, keeping `Schema.parse(Schema.parse(input))` equal to `Schema.parse(input)`
+  - for number schema: prefer `z.coerce.number()` over `z.number()` whenever you expect a number since it will try to convert the input to a number if it's not a number; but don't use other `z.coerce.xxx()` such as `z.coerce.boolean()`, just use `z.boolean()` directly
+  - prefer object schema over array schema: "the array index is hard to understand and maintain, so you should use `物品栏: z.record(z.string().describe('物品名'), z.object({ 説明: z.string(), ... }))` instead of `物品栏: z.array(z.object({ 名称: z.string(), 説明: z.string(), ... }))`"
+  - for object schema:
+      - fixed required keys + the same type: use `z.record(z.enum(['key1', 'key2', ...]), ${value type})`
+        fixed optional keys + the same type: use `z.partialRecord(z.enum(['key1', 'key2', ...]), ${value type})`
+        dynamic optional keys + the same type: use `z.record(z.string(), ${value type})`
+        fixed required keys + different types: 'use `z.object({ key1: ${type1}, key2: ${type2}, ... })`'
+        dynamic keys but some keys are required + the same type: 'use `z.intersection(z.object({ requiredKey1: ${type1}, requiredKey2: ${type2}, ... }), z.record(z.string(), ${value type}))`'
+      - on clearable object: 'if the object is clearable by JSON patch `{ "op": "remove", "path": "/path/to/object" }`, set `z.object({ ${field}: ${type}.prefault(...), ... }).prefault({})` instead of `z.object({ ... }).optional()` for better compatibility with the incremental update'
+  - for special format (rare to happen): prefer `z.templateLiteral` over regex or manual parsing
+  - for restrictions: when accepting a update that breaks the schema, users are tend to expect the update takes some effect instead of being discarded completely; therefore, you should try your best to use `z.transform` to convert the broken input to a valid input. For example, if Explorer requests a value to be between 0 and 100, prefer `z.number().transform(value => _.clamp(value, 0, 100))` over `z.number().min(0).max(100)`; if an object could only contain 10 keys, when a new key comes, discard the oldest key instead. **but only impose these restrictions when Explorer requests**
+  - on default value:
+      - prefer `z.prefault` over `z.default`
+      - if a `z.object` or the whole Schema is complicated enough, set `.prefault('${suitable default value}')` or `.or(z.literal('待初始化')).prefault('待初始化')` for every field of it
+      - if a compund type is prefault-ed, all its fields should be prefault-ed as well
+      - don't set `z.prefault` for other situatioins unless Explorer requests it
+  - when to describe: use `z.describe` only when there's no field name to explain the usage of the schema such as the key type of `z.record`; in contrast, you should never use `z.describe` if the field name has already explained the usage well
+  - determine the order of keys: 'if Explorer requests you to do something with the insertion time of keys, prefer to use `_(data).entries()` which almost always lists keys in insertion order, e.g. you can remove old keys with a simple `_(data).entries().takeRight(10)`; when keys are already additionally sorted inside `z.transform`, you should use `$time: z.coerce.number().prefault(() => Date.now())` to automatically assign a timestamp'
+  - don't repeat yourself: merge the same variable schemas whenever possible, but don't define extra variables to do so - you can only define schema inside `export const Schema = z.object({ ... })`
+  - some function definition corrections:
+      z.transform:
+        type: '(fn: (value: Output) => NewOutput) => z.ZodType'
+        limit: '`fn` can only take the parsed output as input, never ever use `context`. i.e. `z.string().transform(value => value)` is valid, while `z.string().transform((value, context) => value)` is not'
+        example: 'z.object({ 好感度: z.coerce.number() }).transform(data => ({ 好感度: _.clamp(data.好感度, 0, 100) }))'
+      z.prefault:
+        type: '(value: Input | (() => Input)) => z.ZodType'
+        limit: '`value` must be a valid input of the schema itself. i.e. `z.object({ 好感度: z.coerce.number().prefault(0) }).prefault({})` is valid, while `z.object({ 好感度: z.coerce.number() }).prefault({})` is not (the input must contain the `好感度` field in this case)'
+      z.extend:
+        limit: only `z.object`、`z.looseObject`、`z.strictObject` can be extended, even if `z.object(...).prefault({})` could not be extended! i.e. `z.object({...}).extend({...})` is valid, while `z.object({...}).prefault({}).extend({...})` is not
+      z.passthrough、z.strict: they are not exist, never ever use them!
+```
+
+ユーザーが `export const Schema` を提供した場合、それが直接の `schema.ts` なのか変数構造スクリプトなのかを区別するべきです。具体的には、
+
+- `schema.ts` には変数構造の定義とエクスポートを担当する `export const Schema` だけがあるべきで、その他の副作用はない;
+- 変数構造スクリプトは冒頭に `import { registerMvuSchema } from 'https://testingcf.jsdelivr.net/gh/StageDog/tavern_resource/dist/util/mvu_zod.js';` があり、末尾に `$(() => { registerMvuSchema(Schema); });` がある可能性があります。その場合、**冒頭と末尾を取り除き、`export const Schema` だけを残すべきです**。
+
+## スクリプト
+
+MVU キャラクターカードには常に `角色卡/脚本/変数结构` スクリプトがあり、変数構造をインポートして MVU に登録します:
+
+```ts
+import { registerMvuSchema } from 'https://testingcf.jsdelivr.net/gh/StageDog/tavern_resource/dist/util/mvu_zod.js';
+import { Schema } from '../../schema';
+
+$(() => {
+  registerMvuSchema(Schema);
+});
+```
+
+必要に応じて他のスクリプトを `角色卡/脚本/*/index.ts` に新規作成できます。
+
+## フロントエンドUI
+
+MVU キャラクターカードはステータスバーUIを設定することがあるため、`初始模板/角色卡/新建为src文件夹中的文件夹/界面` にステータスバーテンプレートが用意されています。
+
+さらに、テンプレートは `util/mvu.ts` で `defineMvuDataStore` 関数を定義しています。これはテンプレート推奨の Vue による MVU 変数アクセス方法です:
+
+```ts
+function defineMvuDataStore<T extends z.ZodObject>(
+  schema: T,
+  variable_option: VariableOption,
+  additional_setup?: (data: Ref<z.infer<T>>) => void,
+): ReturnType<typeof defineStore>;
+```
+
+ここで `Schema` は変数構造、`variable_option` はアクセスする変数のタイプ、`additional_setup` はオプションの追加設定関数です。
+
+例えば、`示例/角色卡示例示例/store.ts` では `useDataStore` 関数へのアクセスが定義されています:
+
+```ts
+import { defineMvuDataStore } from '@util/mvu';
+export const useDataStore = defineMvuDataStore(Schema, { type: 'message', message_id: getCurrentMessageId() });
+```
+
+ここで `const message_id = getCurrentMessageId()` はUIのあるフロアのフロア番号を取得するもので、したがって `const data = useDataStore()` でそのフロアの MVU 変数を取得・変更できます。
+
+また、フロントエンドUIがUI初期化時に MVU 変数への追加設定を必要とする場合、`additional_setup` を使えます:
+
+```ts
+export const useDataStore = defineMvuDataStore(Schema, { type: 'message', message_id: getCurrentMessageId() }, data => {
+  // UIのあるフロアが元々どんなログを記録していても、初期化時に強制的に空にする
+  data.value.システム状態.プレイヤー本轮操作日志 = [];
+});
+```
+
+## 世界書
+
+`schema.ts` で定義された変数構造はコードで使われるだけでなく、世界書の作成にも使えます。
+
+`pnpm build` または `pnpm watch` を実行すると、`schema.ts` と同じディレクトリに json schema ファイル `schema.json` が生成されます。このファイルは `export const Schema = z.object({...})` がサポートする入力データを説明しています。これに基づいて`世界书/変数/initvar.yaml`、つまり`世界书/index.yaml`内の`[initvar]変数初始化勿开`エントリを作成できます。
+
+`[initvar]変数初始化勿开`の他に、世界書には`変数列表`、`[mvu_update]変数更新规则`、`[mvu_update]変数输出格式`の 3 つのエントリも必要です。このうち`変数列表`と`[mvu_update]変数输出格式`は完全に固定で、まだ設定していない場合は初期テンプレートの設定に従えます。
+
+`[mvu_update]変数更新规则`は以下の要件に従うべきです:
+
+```yaml
+task: reappear an instance of the variable incremental update rule according to Explorer's request and the zod schema of variables, which is the main content of your reply
+rule:
+  - merge rules of the same variable types into one rule:
+    - for fixed keys: "non-object type, `z.object({...})` and `z.record(z.enum(...), ...)` indicate that their keys always exist, so `主人公.能力面板.筋力`、`主人公.能力面板.敏捷`、`主人公.能力面板.耐久`、`主人公.能力面板.知覚`、`主人公.能力面板.意志`、`主人公.能力面板.魅力` can be merged as `主人公.能力面板.${六维}`, because their update rules are similar; the same applies to `${変数}.主人公评价`"
+    - for dynamic keys: |-
+        `物品栏: z.record(z.string().describe('物品名'), ...)` may be empty or contain various items, so you should specify the path as `物品栏`, and put the key part into `type`'s index signature:
+        物品栏:
+          type: |-
+            {
+              [物品名: string]: {
+                ...
+              }
+            }
+  - nest fields of the same object to reduce tokens and make it more readable. for example, since `主人公.能力面板` and `主人公.装備栏` are both fields of `主人公`, nest them under `主人公` mapping
+  - omit the type field for string variables
+  - don't update readonly fields: field names starts with `_` are readonly, such as `_変数`, so don't list update rules for them
+  - avoid listing update rules for variables whose names are self-explanatory unless Explorer specifies special rules for them
+format: |-
+  ---
+  変数更新规则:
+    ${変数名}:
+      type: ${変数タイプ，**如果タイプ是string则省略这一字段**，否则要么是number、boolean等基础タイプ，要么使用typescriptタイプ定义或zod schema定义（使用|-字符串块）}
+      ${その他合适字段，仅当非常需要时才添加如format、range等...}
+      check:
+        - ${该変数更新时需要检查的更新规则，如：update it by ±(3~6) according to characters' attitudes towards <user>'s behavior respectively only if they're currently aware of it}
+        - ...$(根据Explorer的説明确定需要几个check，尽量简练，不要过于扩展情况)
+    ...
+example: |- # just examples, don't copy them literally
+  ---
+  変数更新规则:
+    世界:
+      当前時間:
+        format: ${xx历}-${YYYY/MM/DD}-${HH:MM}
+        check:
+          - 每次イベント推进、休息或旅行后更新，保持時間流逝合理
+          - 若场景跳转跨度较大，应说明跳跃原因
+    主人公:
+      能力面板.${六维}.数值:
+        type: number
+        range: 0~100
+        category:
+          20~40: ノーマル人
+          40~70: 冒险者常驻
+        check:
+          - 训练、战斗、重伤、系统報酬等显著イベント才调整
+          - 单次变化不超过 ±10，除非剧情有明确强化/削弱
+      装備栏.${部位}:
+        type: |-
+          {
+            装備: string; // 装備名称 + 状態; 若未装備，使用“空置”或“なし”
+            主人公评价: string;
+          }
+        check:
+          - 穿戴、损毁、替换装備时更新装備説明
+    タスク一覧:
+      type: |-
+        {
+          [任务名: string]: {
+            タイプ: '主线' | '支线' | '每日' | '临危受命' ;
+            说明: string; # 面向主人公的任务背景或细则
+            目標: string; # 明确可执行的目標説明，可包含步骤
+            報酬: string;
+            惩罚: string; # 失败后触发的负面効果
+          }
+        }
+      check:
+        - 避免一次性添加超过3个主线任务，保持焦点
+        - 日常任务完成后可重置但需记录冷却
+    ${変数}.主人公评价:
+      value: 主人公对某个変数内容的即时感受
+      check:
+        - 在对应変数值发生变化或遭遇相关イベント后可更新，その他情况不应更新
+        - 语言应保持第一人称/贴近主人公口吻
+        - 主人公的评价并不会被主人公本人看到，也不会在剧情中出现
+```

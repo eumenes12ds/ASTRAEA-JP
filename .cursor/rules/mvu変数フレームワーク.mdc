@@ -1,0 +1,280 @@
+---
+description: ユーザーの入力で MVU が明確に言及された場合、このファイルを参照してください
+alwaysApply: false
+---
+# MVU 変数フレームワーク
+
+MVU 変数フレームワークは独立した酒場アシスタントスクリプトです。メッセージフロア変数に作用し、酒場のキャラクターカード作成者が世界書でメッセージフロア変数を設定したり、世界書やチャット記録でメッセージフロア変数を初期化したり、AI の出力でメッセージフロア変数を更新したりできるようにします。
+
+`@types/iframe/exported.mvu.d.ts` に MVU 変数フレームワークのインターフェースが定義されています。「変数」ではなく「MVU 変数」に言及する場合、MVU 変数フレームワークのインターフェースを優先して使用するべきです。
+
+## 使用方法
+
+MVU を使うスクリプトやフロントエンドUIでは、**コードの読み込み時に、先頭で以下のコードを実行する必要があります**:
+
+- `await waitGlobalInitialized('Mvu');` を使って MVU 変数フレームワークの初期化完了を待ち、**`Mvu` オブジェクトを使えるようにする**（以下の例では、このことを思い出させるために冒頭で MVU 変数フレームワークの初期化を毎回待っていますが、**実際に書くときはコードの先頭で 1 回だけ待てばよいです**）;
+- フロントエンドUIの場合、`await waitUntil(() => _.has(getVariables({type: 'message'}), 'stat_data'));` で所在メッセージフロア変数が正しく設定されるのを待ち、**メッセージフロア変数を使えるようにする**;
+- スクリプトの場合、`waitUntil` を適切に使って変数が正しく設定されるのを待ちます。
+
+## データ保存
+
+MVU は変数データを `_.get(あるフロア変数, 'stat_data')` に保存します。例: `_.get(Mvu.getMvuData({type: 'message', message_id: 5}), 'stat_data')`。
+
+```ts
+await waitGlobalInitialized('Mvu');
+
+// 5 階の MVU 変数を取得
+const variables = Mvu.getMvuData({ type: 'message', message_id: 5 });
+const stat_data = _.get(variables, 'stat_data');
+
+// 最後から 2 番目の階の MVU 変数を取得
+const variables = Mvu.getMvuData({ type: 'message', message_id: -2 });
+const stat_data = _.get(variables, 'stat_data');
+
+// フロントエンドUI内で、フロントエンドUIのあるフロアの MVU 変数を取得
+const variables = Mvu.getMvuData({ type: 'message', message_id: getCurrentMessageId() });
+const stat_data = _.get(variables, 'stat_data');
+```
+
+また、ユーザーが作成エリアに変数構造定義 `schema.ts` を提供しているかどうかを常に確認するべきです。その中で zod 4 を使って stat_data フィールドのタイプが定義されています。例:
+
+```ts
+export const Schema = z.object({
+  好感度: z.coerce.number().transform(value => _.clamp(value, 0, 100)),
+});
+```
+
+その場合、MVU 変数の取得は次のようにするべきです:
+
+```ts
+await waitGlobalInitialized('Mvu');
+const variables = Mvu.getMvuData({ type: 'message', message_id: getCurrentMessageId() });
+const stat_data = Schema.parse(_.get(variables, 'stat_data'));
+```
+
+作成エリアに `schema.ts` がない場合、ユーザーに変数構造定義を送ってもらい、先頭の `import` と末尾の `$(...)` を取り除くべきです:
+
+```ts
+// ⬇️取り除くべき
+import { registerMvuSchema } from 'https://testingcf.jsdelivr.net/gh/StageDog/tavern_resource/dist/util/mvu_zod.js';
+
+export const Schema = z.object({
+  好感度: z.coerce.number().transform(value => _.clamp(value, 0, 100)),
+});
+
+// ⬇️取り除くべき
+$(() => {
+  registerMvuSchema(Schema);
+});
+```
+
+## 自分で変数を解析する
+
+酒場がユーザー入力や AI 出力などで新しいメッセージフロアを生成するとき、MVU は自動的にメッセージ文字列内の MVU コマンドを解析し、それに応じてメッセージフロア変数を更新します。ただし `generate` などのインターフェースで自分で AI 出力を生成する場合は、新しいメッセージフロアが生成されないため、MVU コマンドは自動的に解析されません。
+
+このため、MVU は `parseMessage` インターフェースを提供しており、MVU コマンドを含むメッセージ文字列を自分で解析できます。これは古い変数の状態と 1 つのメッセージ文字列を読み取り、更新後の変数結果を取得します。
+
+```ts
+await waitGlobalInitialized('Mvu');
+
+// 古い変数を取得
+const old_data = Mvu.getMvuData({ type: 'message', message_id: getCurrentMessageId() });
+
+// AI 生成をリクエスト
+const message = await generate({ user_input: 'こんにちは' });
+
+// 生成結果を解析
+const data = await Mvu.parseMessage(message, old_data);
+```
+
+より細かい制御のために、解析は結果をメッセージフロアに書き戻しません。AI の応答 `message` と変数更新結果 `data` をどう使うかは自分で選べます。
+
+この AI リクエストが変数更新のためだけのものなら、`message` を捨てて `data` を現在のフロアに書き戻せます:
+
+```ts
+// 更新後の変数をフロアに書き戻す
+await Mvu.replaceMvuData(data, { type: 'message', message_id: getCurrentMessageId() });
+```
+
+あるいは、プレイヤーに同じフロアのUI内で直接 AI を遊ばせたい場合（詳細は{doc}`/青空莉/工具经验/实时编写前端界面或脚本/index` を参照）、この AI リクエストは AI にストーリーの応答と変数更新の両方をリクエストするものです。応答と変数を新しいフロアとして作成できます:
+
+```ts
+// 応答と変数結果を新しいフロアとして作成
+await createChatMessages([{ role: 'assistant', message, data }]);
+```
+
+## イベント
+
+MVU はいくつかのイベント (`Mvu.events.xxx`) も提供しており、変数の変化を監視し、そのときに変数を調整したりその他の機能を実行したりできます。
+
+### COMMAND_PARSED: 変数更新コマンドの解析完了
+
+「変数更新コマンドの解析完了」イベント (`Mvu.events.COMMAND_PARSED`) を監視することで、対応する変数更新コマンドを取得し、それを修正できます。
+
+例えば、gemini が中国語の間に挿入する `-` を修正します。`角色.络-络` を `角色.络络` に修正する場合:
+
+```js
+await waitGlobalInitialized('Mvu');
+eventOn(Mvu.events.COMMAND_PARSED, commands => {
+  commands.forEach(command => {
+    command.args[0] = command.args[0].replaceAll('-', '');
+  });
+});
+```
+
+また、繁体字を簡体字に修正する場合、`絡絡` を `络络` に修正する例:
+
+```js
+import { toSimplified } from 'chinese-simple2traditional';
+
+await waitGlobalInitialized('Mvu');
+eventOn(Mvu.events.COMMAND_PARSED, commands => {
+  commands.forEach(command => {
+    command.args[0] = toSimplified(command.args[0]);
+  });
+});
+```
+
+### VARIABLE_UPDATE_ENDED: 変数更新終了
+
+「変数更新終了」イベント (`Mvu.events.VARIABLE_UPDATE_ENDED`) を監視することで、更新前後の変数を取得し、更新結果に追加の処理を行うことができます。
+
+例えば、更新前後の変数値をポップアップ表示するには次のようにします:
+
+```js
+await waitGlobalInitialized('Mvu');
+eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, (new_variables, old_variables) => {
+  toastr.info(`更新前の白娅依存度は: ${_.get(old_variables, 'stat_data.白娅.依存度')}`);
+  toastr.info(`更新後の白娅依存度は: ${_.get(new_variables, 'stat_data.白娅.依存度')}`);
+});
+```
+
+または、更新後の変数値を次のように変更できます:
+
+```js
+await waitGlobalInitialized('Mvu');
+eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, variables => {
+  // いくらに更新されても、白娅依存度を強制的に 0 にする
+  _.set(variables, 'stat_data.白娅.依存度', 0);
+});
+```
+
+これにより、非常に多くの機能を作れます。
+
+そのうちのいくつかは `schema.ts` 内で zod 4 を使って直接実現できます:
+
+:::{tabs}
+
+:::{tab} 依存度を 0 から 100 の間に制限する
+
+```js
+await waitGlobalInitialized('Mvu');
+eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, variables => {
+  _.update(variables, 'stat_data.白娅.依存度', value => _.clamp(value, 0, 100));
+});
+```
+
+:::
+
+:::{tab} 数量が正の数でない場合はアイテムを直接削除する
+
+```js
+await waitGlobalInitialized('Mvu');
+eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, variables => {
+  _.update(variables, 'stat_data.主人公.物品栏', data => _.pickBy(data, ({数量}) => 数量 > 0));
+});
+```
+
+:::
+
+:::{tab} 称号に数量上限があり、依存度が高いほど多くなる
+
+```js
+await waitGlobalInitialized('Mvu');
+eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, variables => {
+  _.update(variables, 'stat_data.白娅.称号', data =>
+    _(data)
+      .entries()
+      .takeRight(Math.ceil(_.get(variables, 'stat_data.白娅.依存度') / 10))
+      .value(),
+  );
+});
+```
+
+:::
+
+:::{tab} 好感度が初めて 30 を超えたことを記録する
+
+```js
+await waitGlobalInitialized('Mvu');
+eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, variables => {
+  if (_.get(variables, 'stat_data.白娅.依存度') > 30) {
+    _.set(variables, 'stat_data.$flag.白娅依存度突破30', true);
+  }
+});
+```
+
+:::
+
+:::{tab} 青空莉が死んだ！
+
+```js
+await waitGlobalInitialized('Mvu');
+eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, variables => {
+  if (_.get(variables, 'stat_data.青空莉.死亡') === true) {
+    // 青空莉に関連するすべての変数を削除
+    _.unset(variables, 'stat_data.青空莉');
+  }
+});
+```
+
+:::
+
+::::
+
+しかし、`schema.ts` では以前の変数状態を取得できないため、`old_variables` を利用して以下を行うことはできません:
+
+:::{tabs}
+
+:::{tab} 依存度の変動幅を 3 以内に制限する
+
+```js
+await waitGlobalInitialized('Mvu');
+eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, (new_variables, old_variables) => {
+  const old_value = _.get(old_variables, 'stat_data.白娅.依存度');
+
+  // 新しい好感度は 旧好感度-3 と 旧好感度+3 の間でなければならない
+  _.update(new_variables, 'stat_data.白娅.依存度', value => _.clamp(value, old_value - 3, old_value + 3));
+});
+```
+
+:::
+
+:::{tab} 依存度の 30 突破を検出する
+
+```js
+await waitGlobalInitialized('Mvu');
+eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, (new_variables, old_variables) => {
+  const old_value = _.get(old_variables, 'stat_data.白娅.依存度');
+  const new_value = _.get(new_variables, 'stat_data.白娅.依存度');
+  if (old_value < 30 && new_value >= 30) {
+    toastr.success('白娅依存度突破 30 了!');
+  }
+});
+```
+
+:::
+
+:::{tab} AI に変数を更新させない
+
+```js
+await waitGlobalInitialized('Mvu');
+eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, (new_variables, old_variables) => {
+  // 新しい白娅依存度を強制的に古い値に設定し、AI による更新をキャンセルする
+  _.set(new_variables, 'stat_data.白娅.依存度', _.get(old_variables, 'stat_data.白娅.依存度'));
+});
+```
+
+:::
+
+::::

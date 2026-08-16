@@ -1,0 +1,11 @@
+{
+  /*
+  1. key は関係リスト内のパートナー名と完全に一致する必要があります
+  2. アバターURLは以下の条件を満たす必要があります：
+      - プロトコルは `https` でなければなりません
+      - ドメインは `files.catbox.moe`、`i.ibb.co`、`wsrv.nl` のみ許可されます
+      - ファイル拡張子は `.png`、`.jpg`、`.jpeg`、`.webp`、`.avif` のみ許可されます
+    ルールを満たさないURLは無視されます。
+  */
+  // "エイリン": "https://files.catbox.moe/official/images/404.png",
+}

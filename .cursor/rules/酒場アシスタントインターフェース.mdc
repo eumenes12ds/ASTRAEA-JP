@@ -1,0 +1,32 @@
+# 酒場アシスタントインターフェース
+
+`@types` フォルダには酒場アシスタントが提供するすべてのインターフェースが定義されており、[酒場アシスタント公式ドキュメント](https://n0vi028.github.io/JS-Slash-Runner-Doc/)にも同様の説明があります:
+
+このうち、`@types/function` 内のインターフェースは酒場のウェブページの `window.TavernHelper` にエクスポートされます。一方 `@types/iframe` は iframe 環境に依存し、酒場アシスタントのフロントエンドUIまたはスクリプト内でのみ使用できます。このプロジェクトは主に酒場アシスタントのフロントエンドUIやスクリプトを作成するものなので、`@types/function` と `@types/iframe` 内のインターフェースはどちらも直接呼び出せます。`@types/function` と `@types/iframe` の違いを気にする必要はありません。
+
+- `@types/function/audio.d.ts`: オーディオプレイヤー
+- `@types/function/builtin.d.ts`: `@types/iframe/exported.sillytavern.d.ts` への補足。酒場ネイティブにあるがエクスポートされていない一部のインターフェース
+- `@types/function/chat_message.d.ts`: 現在の酒場のプレイヤーと AI のチャットフロア記録を操作します。特定のフロアのメッセージ取得、フロアメッセージ内容の変更、フロアの新規作成、削除、移動など
+- `@types/function/displayed_message.d.ts`: 現在の酒場ウェブページのフロア表示を操作します。特定フロアの JQuery インスタンスの取得、テキストをフロア内で表示される html テキストにフォーマットするなど
+- `@types/iframe/event.d.ts`: 酒場イベントの監視・送信。メッセージ受信完了の監視、世界書の更新監視など
+- `@types/iframe/exported.ejstemplate.d.ts`: プロンプトテンプレートという酒場プラグインとの連携。主にプロンプトテンプレートの設定調整。明示的に依頼されない限り、考慮しなくてよい
+- `@types/iframe/exported.mvu.d.ts`: MVU 変数フレームワークとの連携
+- `@types/iframe/exported.sillytavern.d.ts`: 酒場ネイティブでエクスポートされているインターフェースだが、抽象度が非常に低い。したがって、`@types` に列挙されている他の酒場アシスタントインターフェースを優先して使うべきで、このファイルのものは使わない
+- `@types/function/extension.d.ts`: 酒場のサードパーティ拡張のインストール、アンインストール、更新などの操作
+- `@types/function/generate.d.ts`: 酒場の AI 生成応答をリクエストします。`generate` は酒場のプリセットをプロンプトとして付与した AI 生成リクエスト、`generateRaw` はプリセットを付与せず（ただし世界書エントリなどは送信される）直接 AI 生成をリクエストします
+- `@types/function/global.d.ts`: 異なるフロントエンドUI・スクリプト間のインターフェース共有をサポート
+- `@types/function/import_raw.d.ts`: キャラクターカード、チャット記録、世界書、プリセットなどの酒場ネイティブデータのインポート。インポートに使うデータ形式は、プレイヤーが酒場ページのボタンでエクスポートするデータ形式と同じでなければならない
+- `@types/function/inject.d.ts`: 酒場の AI リクエストに追加のプロンプトを注入
+- `@types/function/macro_like.d.ts`: 酒場アシスタントマクロの登録。登録後、酒場の AI プロンプトやフロア表示にこのマクロが現れた場合、マクロで定義された内容に置き換えられる
+- `@types/function/preset.d.ts`: 酒場プリセットの操作。別のプリセットへの切り替え、プリセット内の酒場 AI リクエストパラメータ（温度、ストリーミングなど）やプロンプトの調整など
+- `@types/function/raw_character.d.ts`: キャラクターカードの情報の取得
+- `@types/function/script.d.ts`: 現在の酒場アシスタントスクリプトの情報の取得・変更
+- `@types/iframe/script.d.ts`: 現在の酒場アシスタントスクリプトの情報の取得・変更
+- `@types/function/slash.d.ts`: 酒場の DSL コマンド（「/STScript」と呼ばれる）の実行。実行可能なコマンドは `slash_command.txt` に列挙されているが、これらのコマンドはコードと組み合わせて使いにくいため、`@types` に列挙されている他の酒場アシスタントインターフェースを「/STScript」コマンドより優先して使うべき
+- `@types/function/tavern_regex.d.ts`: 酒場正規表現の操作。酒場は AI リクエスト送信時またはフロア表示時に、酒場正規表現に従ってチャット記録内の内容を他の内容に置き換える。明示的な要求がない限り、このファイルの `formatAsTavernRegexedString` 関数を時々使う程度にとどめるべき
+- `@types/function/util.d.ts`: 現在の酒場チャットの最新フロア番号の取得、テキスト内の酒場マクロの置換など、いくつかのユーティリティ関数
+- `@types/iframe/util.d.ts`: フロントエンドUI内でフロントエンドUIのあるフロア番号を取得するなど、いくつかのユーティリティ関数
+- `@types/function/variables.d.ts`: 酒場変数の操作。変数値の取得・変更が可能
+- `@types/iframe/varriables.d.ts`: 酒場変数の操作
+- `@types/function/version.d.ts`: 酒場と酒場アシスタントのバージョン番号の取得
+- `@types/function/worldbook.d.ts`: 世界書の操作。世界書の削除・作成、世界書の有効化状態の調整、その中のエントリの調整など

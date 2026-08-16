@@ -1,0 +1,712 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "イベント": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {},
+      "additionalProperties": {}
+    },
+    "世界": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "時間": {
+          "default": "",
+          "type": "string"
+        },
+        "場所": {
+          "default": "",
+          "type": "string"
+        }
+      }
+    },
+    "タスク一覧": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "状態": {
+            "default": "",
+            "type": "string"
+          },
+          "重要度": {
+            "default": "中",
+            "type": "string",
+            "enum": [
+              "低",
+              "中",
+              "高"
+            ]
+          },
+          "進捗": {
+            "default": "",
+            "type": "string"
+          },
+          "詳細": {
+            "default": "",
+            "type": "string"
+          },
+          "目標": {
+            "default": "",
+            "type": "string"
+          },
+          "報酬": {
+            "default": "",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "主人公": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "レベル": {
+          "$ref": "#/$defs/__schema0"
+        },
+        "生命階層": {
+          "$ref": "#/$defs/__schema1"
+        },
+        "種族": {
+          "$ref": "#/$defs/__schema2"
+        },
+        "身分": {
+          "$ref": "#/$defs/__schema3"
+        },
+        "職業": {
+          "$ref": "#/$defs/__schema4"
+        },
+        "属性": {
+          "$ref": "#/$defs/__schema5"
+        },
+        "装備": {
+          "$ref": "#/$defs/__schema6"
+        },
+        "スキル": {
+          "$ref": "#/$defs/__schema12"
+        },
+        "登神長階": {
+          "$ref": "#/$defs/__schema13"
+        },
+        "累計経験値": {
+          "default": 0,
+          "type": "number"
+        },
+        "レベルアップ必要経験": {
+          "anyOf": [
+            {
+              "default": 120,
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "const": "MAX"
+            }
+          ]
+        },
+        "冒険者ランク": {
+          "default": "未評価",
+          "type": "string"
+        },
+        "生命値": {
+          "default": 0,
+          "type": "number"
+        },
+        "生命値上限": {
+          "default": 0,
+          "type": "number"
+        },
+        "マナ値": {
+          "default": 0,
+          "type": "number"
+        },
+        "マナ値上限": {
+          "default": 0,
+          "type": "number"
+        },
+        "体力値": {
+          "default": 0,
+          "type": "number"
+        },
+        "体力値上限": {
+          "default": 0,
+          "type": "number"
+        },
+        "属性ポイント": {
+          "default": 0,
+          "type": "number"
+        },
+        "インベントリ": {
+          "default": {},
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/__schema14"
+          }
+        },
+        "資産": {
+          "$ref": "#/$defs/__schema15"
+        },
+        "金銭": {
+          "default": 0,
+          "type": "number"
+        },
+        "状態効果": {
+          "default": {},
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/__schema16"
+          }
+        }
+      }
+    },
+    "運命ポイント": {
+      "default": 0,
+      "type": "number"
+    },
+    "関係一覧": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "レベル": {
+            "$ref": "#/$defs/__schema0"
+          },
+          "生命階層": {
+            "$ref": "#/$defs/__schema1"
+          },
+          "種族": {
+            "$ref": "#/$defs/__schema2"
+          },
+          "身分": {
+            "$ref": "#/$defs/__schema3"
+          },
+          "職業": {
+            "$ref": "#/$defs/__schema4"
+          },
+          "属性": {
+            "$ref": "#/$defs/__schema5"
+          },
+          "装備": {
+            "$ref": "#/$defs/__schema6"
+          },
+          "スキル": {
+            "$ref": "#/$defs/__schema12"
+          },
+          "登神長階": {
+            "$ref": "#/$defs/__schema13"
+          },
+          "在席": {
+            "default": false,
+            "type": "boolean"
+          },
+          "タグ": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "性格": {
+            "default": "",
+            "type": "string"
+          },
+          "好意": {
+            "default": "",
+            "type": "string"
+          },
+          "外見": {
+            "default": "",
+            "type": "string"
+          },
+          "服装": {
+            "default": "",
+            "type": "string"
+          },
+          "生命値": {
+            "default": 0,
+            "type": "number"
+          },
+          "生命値上限": {
+            "default": 0,
+            "type": "number"
+          },
+          "マナ値": {
+            "default": 0,
+            "type": "number"
+          },
+          "マナ値上限": {
+            "default": 0,
+            "type": "number"
+          },
+          "体力値": {
+            "default": 0,
+            "type": "number"
+          },
+          "体力値上限": {
+            "default": 0,
+            "type": "number"
+          },
+          "命定契約": {
+            "default": false,
+            "type": "boolean"
+          },
+          "好感度": {
+            "default": 0,
+            "type": "number"
+          },
+          "状態効果": {
+            "default": {},
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "$ref": "#/$defs/__schema16"
+            }
+          },
+          "インベントリ": {
+            "default": {},
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "$ref": "#/$defs/__schema14"
+            }
+          },
+          "資産": {
+            "$ref": "#/$defs/__schema15"
+          },
+          "本音": {
+            "default": "",
+            "type": "string"
+          },
+          "背景ストーリー": {
+            "default": "",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ニュース": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "アスタリア速報": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "勢力の要聞": {
+              "default": "",
+              "type": "string"
+            },
+            "尊位の軌跡": {
+              "default": "",
+              "type": "string"
+            },
+            "軍事行動": {
+              "default": "",
+              "type": "string"
+            },
+            "経済の動脈": {
+              "default": "",
+              "type": "string"
+            },
+            "災害警報": {
+              "default": "",
+              "type": "string"
+            }
+          }
+        },
+        "酒場の掲示板": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "高額懸賞": {
+              "default": "",
+              "type": "string"
+            },
+            "冒険の発見": {
+              "default": "",
+              "type": "string"
+            },
+            "モンスターの異変": {
+              "default": "",
+              "type": "string"
+            },
+            "指名手配犯": {
+              "default": "",
+              "type": "string"
+            },
+            "宝物の噂": {
+              "default": "",
+              "type": "string"
+            }
+          }
+        },
+        "午後のお茶会": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "社交の逸話": {
+              "default": "",
+              "type": "string"
+            },
+            "千里の眺望": {
+              "default": "",
+              "type": "string"
+            },
+            "運命のさざ波": {
+              "default": "",
+              "type": "string"
+            },
+            "邂逅の予兆": {
+              "default": "",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "__schema0": {
+      "default": 1,
+      "type": "number"
+    },
+    "__schema1": {
+      "default": "",
+      "type": "string"
+    },
+    "__schema2": {
+      "default": "",
+      "type": "string"
+    },
+    "__schema3": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "__schema4": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "__schema5": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "筋力": {
+          "default": 0,
+          "type": "number"
+        },
+        "敏捷": {
+          "default": 0,
+          "type": "number"
+        },
+        "耐久": {
+          "default": 0,
+          "type": "number"
+        },
+        "知力": {
+          "default": 0,
+          "type": "number"
+        },
+        "精神": {
+          "default": 0,
+          "type": "number"
+        }
+      }
+    },
+    "__schema6": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "品質": {
+            "$ref": "#/$defs/__schema7"
+          },
+          "タイプ": {
+            "$ref": "#/$defs/__schema8"
+          },
+          "タグ": {
+            "$ref": "#/$defs/__schema9"
+          },
+          "効果": {
+            "$ref": "#/$defs/__schema10"
+          },
+          "説明": {
+            "$ref": "#/$defs/__schema11"
+          },
+          "位置": {
+            "default": "",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "__schema7": {
+      "default": "",
+      "type": "string"
+    },
+    "__schema8": {
+      "default": "",
+      "type": "string"
+    },
+    "__schema9": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "__schema10": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "__schema11": {
+      "default": "",
+      "type": "string"
+    },
+    "__schema12": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "品質": {
+            "$ref": "#/$defs/__schema7"
+          },
+          "タイプ": {
+            "$ref": "#/$defs/__schema8"
+          },
+          "タグ": {
+            "$ref": "#/$defs/__schema9"
+          },
+          "効果": {
+            "$ref": "#/$defs/__schema10"
+          },
+          "説明": {
+            "$ref": "#/$defs/__schema11"
+          },
+          "コスト": {
+            "default": "",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "__schema13": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "有効化": {
+          "default": false,
+          "type": "boolean"
+        },
+        "要素": {
+          "default": {},
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "権能": {
+          "default": {},
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "法則": {
+          "default": {},
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "神位": {
+          "default": "",
+          "type": "string"
+        },
+        "神国": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "名称": {
+              "default": "",
+              "type": "string"
+            },
+            "説明": {
+              "default": "",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "__schema14": {
+      "type": "object",
+      "properties": {
+        "品質": {
+          "$ref": "#/$defs/__schema7"
+        },
+        "タイプ": {
+          "$ref": "#/$defs/__schema8"
+        },
+        "タグ": {
+          "$ref": "#/$defs/__schema9"
+        },
+        "効果": {
+          "$ref": "#/$defs/__schema10"
+        },
+        "説明": {
+          "$ref": "#/$defs/__schema11"
+        },
+        "数量": {
+          "default": 1,
+          "type": "number"
+        }
+      }
+    },
+    "__schema15": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "品質": {
+            "default": "",
+            "type": "string"
+          },
+          "タイプ": {
+            "default": "",
+            "type": "string"
+          },
+          "決済": {
+            "default": "",
+            "type": "string"
+          },
+          "タグ": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "効果": {
+            "default": {},
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "説明": {
+            "default": "",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "__schema16": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "タイプ": {
+          "default": "バフ",
+          "type": "string",
+          "enum": [
+            "バフ",
+            "デバフ",
+            "特殊"
+          ]
+        },
+        "効果": {
+          "default": "",
+          "type": "string"
+        },
+        "スタック数": {
+          "default": 1,
+          "type": "number"
+        },
+        "残り時間": {
+          "default": "",
+          "type": "string"
+        },
+        "出典": {
+          "default": "",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

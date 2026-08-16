@@ -1,0 +1,1662 @@
+@use '../../shared/styles/variables' as *;
+@use '../../shared/styles/mixins' as *;
+
+$destiny-partner-workspace-height: clamp(420px, 56vh, 780px);
+$destiny-mobile-detail-height: clamp(600px, calc(56vh + 208px), 920px);
+
+.destinyTab {
+  @include page-container;
+  position: relative;
+  flex: 1;
+  min-height: 100%;
+}
+
+.destinyTabDetailModeMobile {
+  @media (max-width: 900px) {
+    flex: 1;
+    min-height: 100%;
+    height: 100%;
+
+    > .destinyTabPoints,
+    > .destinyTabPartners {
+      display: none;
+    }
+  }
+}
+
+.partnerTitle {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+
+  > .deletePartnerBtn {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.partnerTitleMain {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: $spacing-md;
+  flex-wrap: nowrap;
+  padding-right: 36px;
+}
+
+.partnerAvatar {
+  flex: 0 0 auto;
+  align-self: center;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.partnerIdentityHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $spacing-sm;
+  min-width: 0;
+}
+
+.partnerIdentityTitleRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.partnerAvatarInlineButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  min-height: 24px;
+  padding: 0 8px;
+  border: 1px dashed color-mix(in srgb, var(--theme-card-border) 78%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-card-bg) 72%, transparent);
+  color: var(--theme-text-secondary);
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    border-color $transition-fast,
+    color $transition-fast;
+
+  &:hover {
+    background: color-mix(in srgb, var(--theme-card-bg) 84%, transparent);
+    border-color: color-mix(in srgb, var(--theme-card-border) 92%, transparent);
+    color: var(--theme-text-primary);
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: color-mix(in srgb, var(--theme-card-border) 100%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--theme-tab-indicator) 18%, transparent);
+  }
+
+  i {
+    font-size: 10px;
+  }
+}
+
+.partnerTitleContent {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.partnerMeta {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.affectionBadge {
+  @include badge-dark;
+  font-size: 11px;
+}
+
+@media (max-width: 540px) {
+  .partnerTitleMain {
+    width: 100%;
+    align-items: flex-start;
+    gap: $spacing-sm;
+    padding-right: 32px;
+  }
+
+  .partnerMeta {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .partnerCategoryBtn {
+    min-height: 34px;
+    padding: 7px 12px;
+    font-size: 11px;
+  }
+}
+
+.destinyTabLoading,
+.destinyTabError,
+.destinyTabEmpty {
+  @include state-container;
+}
+
+// 運命ポイントカード
+.destinyTabPoints {
+}
+
+.destinyTabPartners {
+  @include list-container($spacing-md);
+  min-height: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.partnerSectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--theme-text-primary);
+}
+
+.partnerSectionContent {
+  @include list-container($spacing-md);
+  padding-top: 1px;
+}
+
+.partnerCategoryBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  padding-top: 1px;
+}
+
+.partnerCategoryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 8px 12px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-card-bg) 68%, transparent);
+  color: var(--theme-text-secondary);
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    border-color $transition-fast,
+    color $transition-fast,
+    transform $transition-fast;
+
+  &:hover {
+    background: color-mix(in srgb, var(--theme-card-bg) 82%, transparent);
+    border-color: color-mix(in srgb, var(--theme-card-border) 88%, transparent);
+    color: var(--theme-text-primary);
+    transform: translateY(-1px);
+  }
+}
+
+.partnerCategoryBtnActive {
+  background: color-mix(in srgb, var(--theme-card-bg) 86%, var(--theme-text-primary) 4%);
+  border-color: color-mix(in srgb, var(--theme-card-border) 92%, transparent);
+  color: var(--theme-text-primary);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--theme-text-primary) 10%, transparent);
+}
+
+.partnerCategoryCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-window-bg) 34%, transparent);
+  color: var(--theme-text-muted);
+  font-size: 10px;
+}
+
+// パートナー検索とタグフィルタのツールバー
+.partnerToolbar {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  padding-top: 1px;
+}
+
+.partnerSearchBar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-card-bg) 68%, transparent);
+  color: var(--theme-text-muted);
+  font-size: 12px;
+
+  i {
+    flex: 0 0 auto;
+    font-size: 12px;
+  }
+}
+
+.partnerSearchInput {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--theme-text-primary);
+  font-size: 12px;
+
+  &::placeholder {
+    color: var(--theme-text-muted);
+  }
+}
+
+.partnerSearchClear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--theme-text-muted);
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    color $transition-fast;
+
+  &:hover {
+    background: color-mix(in srgb, var(--theme-card-border) 60%, transparent);
+    color: var(--theme-text-primary);
+  }
+}
+
+.partnerLabelBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.partnerLabelBtn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 70%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-card-bg) 62%, transparent);
+  color: var(--theme-text-secondary);
+  font-size: 11px;
+  line-height: 1.2;
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    border-color $transition-fast,
+    color $transition-fast;
+
+  &:hover {
+    background: color-mix(in srgb, var(--theme-card-bg) 80%, transparent);
+    border-color: color-mix(in srgb, var(--theme-card-border) 88%, transparent);
+    color: var(--theme-text-primary);
+  }
+}
+
+.partnerLabelBtnActive {
+  background: color-mix(in srgb, var(--theme-primary-bg) 22%, var(--theme-card-bg) 78%);
+  border-color: color-mix(in srgb, var(--theme-primary-bg) 50%, var(--theme-card-border) 50%);
+  color: var(--theme-text-primary);
+  font-weight: 600;
+}
+
+// パートナーカードのヘッダー操作領域（在席切り替え + 削除）
+.partnerHeaderActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  margin-left: auto;
+
+  > .deletePartnerBtn {
+    position: static;
+    top: auto;
+    right: auto;
+    margin-left: 0;
+  }
+}
+
+.partnerPresenceToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  min-width: 26px;
+  height: 26px;
+  min-height: 26px;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: $border-radius-sm;
+  background: color-mix(in srgb, var(--theme-card-bg) 78%, transparent);
+  color: var(--theme-text-muted);
+  font-size: 11px;
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    border-color $transition-fast,
+    color $transition-fast;
+
+  &:hover {
+    background: color-mix(in srgb, var(--theme-card-bg) 86%, transparent);
+    border-color: color-mix(in srgb, var(--theme-card-border) 90%, transparent);
+    color: var(--theme-text-primary);
+  }
+}
+
+.partnerPresenceToggleOn {
+  background: color-mix(in srgb, var(--theme-tag-present) 26%, var(--theme-card-bg) 74%);
+  border-color: color-mix(in srgb, var(--theme-tag-present) 46%, transparent);
+  color: var(--theme-tag-present-text);
+}
+
+// パートナーカスタムタグ chips
+.partnerLabelChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 0;
+}
+
+.partnerLabelChip {
+  min-width: 0;
+  overflow: hidden;
+  padding: 2px 7px;
+  border: 1px solid color-mix(in srgb, var(--theme-tab-indicator) 36%, var(--theme-card-border) 64%);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-tab-indicator) 12%, var(--theme-card-bg) 88%);
+  color: var(--theme-text-secondary);
+  font-size: 10px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.destinyTabAscension {
+  // 登神長階カード
+}
+
+// 運命ポイント
+.destinyPoints {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+}
+
+.destinyPointsIcon {
+  color: var(--theme-tab-indicator);
+  font-size: 18px;
+}
+
+.destinyPointsLabel {
+  font-size: 12px;
+  color: var(--theme-text-secondary);
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.destinyPointsValue {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--theme-text-primary);
+}
+
+// 命定の人リスト
+.partnerMasterDetail {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  gap: $spacing-md;
+  align-items: stretch;
+  height: $destiny-partner-workspace-height;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.partnerList {
+  @include list-container;
+}
+
+.partnerSummaryList,
+.partnerDetailPanel {
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+.partnerSummaryList {
+  @include list-container($spacing-sm);
+  padding-top: 1px;
+}
+
+.partnerSummaryListHiddenMobile {
+  @media (max-width: 900px) {
+    display: none;
+  }
+}
+
+.partnerSummaryCard {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: $spacing-sm;
+  padding: $spacing-sm;
+  border-radius: $border-radius-sm;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  background: color-mix(in srgb, var(--theme-card-bg) 86%, transparent);
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    border-color $transition-fast,
+    box-shadow $transition-fast,
+    transform $transition-fast;
+
+  &:hover {
+    background: color-mix(in srgb, var(--theme-card-bg) 82%, transparent);
+    border-color: color-mix(in srgb, var(--theme-card-border) 88%, transparent);
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--theme-window-border) 12%, transparent);
+    transform: translateY(-1px);
+  }
+}
+
+.partnerSummaryCardActive {
+  background: color-mix(in srgb, var(--theme-card-bg) 80%, transparent);
+  border-color: color-mix(in srgb, var(--theme-card-border) 92%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--theme-text-primary) 8%, transparent),
+    0 10px 24px color-mix(in srgb, var(--theme-window-bg) 16%, transparent);
+}
+
+.partnerSummaryTopBody {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.partnerSummaryRest {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: $spacing-sm;
+  min-width: 0;
+  grid-column: 1 / -1;
+  grid-row: 2;
+}
+
+.partnerSummaryHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $spacing-sm;
+  min-width: 0;
+
+  > .deletePartnerBtn {
+    position: static;
+    top: auto;
+    right: auto;
+    margin-left: auto;
+    z-index: auto;
+    flex: 0 0 auto;
+  }
+}
+
+.partnerSummaryText {
+  font-size: 12px;
+  color: var(--theme-text-secondary);
+  line-height: 1.6;
+  white-space: pre-line;
+  word-break: break-word;
+}
+
+.partnerSummaryStatus {
+  min-width: 0;
+}
+
+.partnerSummaryStatusRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.partnerSummaryStatusMore {
+  flex-shrink: 0;
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 70%, transparent);
+  background: color-mix(in srgb, var(--theme-card-bg) 78%, transparent);
+  color: var(--theme-text-muted);
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.partnerDetailPanel {
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.partnerDetailHeader {
+  @include list-container(8px);
+  margin-bottom: $spacing-md;
+  padding-bottom: $spacing-sm;
+  border-bottom: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+}
+
+.partnerDetailPageMobile {
+  display: none;
+}
+
+.partnerDetailPageTopbar {
+  display: none;
+}
+
+.partnerDetailPageBody {
+  min-height: 0;
+  flex: 1 1 auto;
+  display: block;
+}
+
+.partnerBackBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: 6px 10px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 78%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-card-bg) 72%, transparent);
+  color: var(--theme-text-primary);
+  font-size: 12px;
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    border-color $transition-fast,
+    transform $transition-fast;
+
+  &:hover {
+    background: color-mix(in srgb, var(--theme-card-bg) 86%, transparent);
+    border-color: color-mix(in srgb, var(--theme-card-border) 94%, transparent);
+    transform: translateY(-1px);
+  }
+}
+
+.partnerName {
+  flex: 1 1 auto;
+  font-weight: 500;
+  color: var(--theme-text-primary);
+  min-width: 0;
+  word-break: break-word;
+}
+
+.partnerTags {
+  display: flex;
+  gap: $spacing-xs;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 2px 6px;
+  font-size: 10px;
+  border-radius: 3px;
+}
+
+.tagPresent {
+  background: var(--theme-tag-present);
+  color: var(--theme-tag-present-text);
+}
+
+.tagContract {
+  background: var(--theme-tag-contract);
+  color: var(--theme-tag-contract-text);
+}
+
+// 命定の人詳細
+.partnerDetails {
+  @include list-container($spacing-md);
+  font-size: 12px;
+}
+
+.partnerDetailNav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+  gap: 6px;
+  width: 100%;
+  padding: 4px;
+  border-radius: $border-radius-md;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  background: color-mix(in srgb, var(--theme-card-bg) 58%, transparent);
+}
+
+.partnerDetailTab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: $border-radius-sm;
+  background: transparent;
+  color: var(--theme-text-muted);
+  font-size: 12px;
+  line-height: 1.2;
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    border-color $transition-fast,
+    color $transition-fast;
+
+  &:hover {
+    background: color-mix(in srgb, var(--theme-card-bg) 72%, transparent);
+    color: var(--theme-text-primary);
+  }
+}
+
+.partnerDetailTabActive {
+  border-color: color-mix(in srgb, var(--theme-card-border) 82%, transparent);
+  background: color-mix(in srgb, var(--theme-card-bg) 88%, var(--theme-text-primary) 4%);
+  color: var(--theme-text-primary);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--theme-text-primary) 10%, transparent);
+}
+
+.partnerOverviewHero {
+  @include list-container($spacing-md);
+}
+
+.partnerOverviewPrimary {
+  @include list-container($spacing-sm);
+}
+
+.partnerOverviewIdentityRow {
+  display: flex;
+  align-items: stretch;
+  gap: $spacing-md;
+}
+
+.partnerOverviewAvatar {
+  flex: 0 0 auto;
+}
+
+.partnerOverviewIdentityMeta {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: $spacing-sm;
+  min-width: 0;
+}
+
+.partnerOverviewStats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-sm;
+}
+
+@media (max-width: 760px) {
+  .partnerOverviewIdentityRow {
+    align-items: flex-start;
+  }
+}
+
+.partnerInfoPanel {
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-sm;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  background: color-mix(in srgb, var(--theme-card-bg) 86%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--theme-text-primary) 6%, transparent);
+}
+
+@media (max-width: 900px) {
+  .partnerCategoryBar {
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .partnerCategoryBtn {
+    flex: 0 0 auto;
+  }
+
+  .partnerSectionTitle {
+    display: block;
+    font-size: 12px;
+  }
+
+  .partnerMasterDetail {
+    grid-template-columns: 1fr;
+    height: $destiny-partner-workspace-height;
+  }
+
+  .partnerDetailPanel {
+    display: none;
+  }
+
+  .partnerDetailPageMobile {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    width: 100%;
+    min-height: 0;
+    height: $destiny-mobile-detail-height;
+    padding: $spacing-md 0 0;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    z-index: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    align-items: stretch;
+  }
+
+  .partnerDetailPageTopbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: static;
+    top: auto;
+    z-index: 1;
+    padding-bottom: $spacing-xs;
+    background: color-mix(in srgb, var(--theme-content-bg) 72%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .partnerDetailNav {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .partnerDetailTab {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 72px;
+    padding-inline: 14px;
+    white-space: nowrap;
+  }
+
+  .partnerOverviewIdentityRow {
+    flex-direction: column;
+  }
+
+  .partnerInfo {
+    grid-template-columns: 1fr;
+  }
+
+  .attributeGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  // モバイル: アバターは左、右側は完全な情報。キャラクター要約は1行
+  .partnerAvatar {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: start;
+  }
+
+  .partnerSummaryTopBody {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .partnerSummaryRest {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 0;
+  }
+
+  .partnerSummaryText {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 640px) {
+  .attributeGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.partnerAffection {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-sm;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  background: color-mix(in srgb, var(--theme-card-bg) 84%, transparent);
+}
+
+.label {
+  flex-shrink: 0;
+  color: var(--theme-text-secondary);
+}
+
+.affectionBar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.affectionBarTrack {
+  flex: 1;
+  height: 8px;
+  @include bg-overlay-dark;
+  border-radius: 4px;
+  overflow: hidden;
+  border: none;
+}
+
+.affectionBarFill {
+  height: 100%;
+  background: var(--theme-affection);
+  border-radius: 4px;
+  transition: width $transition-normal;
+}
+
+.affectionBarValue {
+  flex-shrink: 0;
+  width: 30px;
+  text-align: right;
+  font-weight: 600;
+  color: var(--theme-affection-text);
+}
+
+.isNegative {
+  &.affectionBarFill {
+    background: var(--theme-error);
+  }
+
+  &.affectionBarValue {
+    color: var(--theme-error-text);
+  }
+}
+
+// 編集モードの状態スイッチ領域
+.partnerStatusToggles {
+  display: flex;
+  gap: $spacing-md;
+  flex-wrap: wrap;
+  @include item-bar;
+  @include bg-overlay-medium-light;
+}
+
+.toggleRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.toggleLabel {
+  font-size: 11px;
+  color: var(--theme-text-secondary);
+}
+
+.partnerInfo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $spacing-xs $spacing-md;
+}
+
+@media (max-width: 760px) {
+  .partnerInfo {
+    grid-template-columns: 1fr;
+  }
+}
+
+.infoRow {
+  @include label-value-grid;
+}
+
+@media (max-width: 540px) {
+  .partnerInfo {
+    grid-template-columns: 1fr;
+  }
+}
+
+.infoLabel {
+  color: var(--theme-text-secondary);
+  min-width: 0;
+  word-break: break-word;
+}
+
+.infoValue {
+  color: var(--theme-text-primary);
+  min-width: 0;
+  word-break: break-word;
+  white-space: pre-line;
+}
+
+// 外見と服装
+.partnerAppearance {
+  padding: $spacing-sm 0;
+  border-top: 1px dashed var(--theme-card-border);
+}
+
+.appearanceRow {
+  @include label-value-grid;
+  padding: 2px 0;
+}
+
+.appearanceLabel {
+  color: var(--theme-text-secondary);
+  min-width: 0;
+  word-break: break-word;
+}
+
+.appearanceValue {
+  color: var(--theme-text-primary);
+  line-height: 1.4;
+  min-width: 0;
+  word-break: break-word;
+  white-space: pre-line;
+}
+
+@media (max-width: 540px) {
+  .appearanceRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.partnerTraits {
+  padding: $spacing-sm 0;
+  border-top: 1px dashed var(--theme-card-border);
+}
+
+.traitRow {
+  @include label-value-grid;
+  padding: 2px 0;
+}
+
+.traitLabel {
+  color: var(--theme-text-secondary);
+  min-width: 0;
+  word-break: break-word;
+}
+
+.traitValue {
+  color: var(--theme-text-primary);
+  min-width: 0;
+  word-break: break-word;
+  white-space: pre-line;
+}
+
+@media (max-width: 540px) {
+  .traitRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.partnerThoughtsPreview {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 68%, transparent);
+  border-radius: $border-radius-sm;
+  background: color-mix(in srgb, var(--theme-card-bg) 72%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 10%, transparent);
+}
+
+.partnerThoughtsText {
+  flex: 1 1 auto;
+  color: var(--theme-text-primary);
+  line-height: 1.7;
+  font-size: 13px;
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.partnerThoughtsButton {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 26px;
+  padding: 0 10px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-card-bg) 86%, transparent);
+  color: var(--theme-text-secondary);
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    border-color $transition-fast,
+    color $transition-fast,
+    transform $transition-fast;
+
+  &:hover {
+    background: color-mix(in srgb, var(--theme-card-bg) 94%, transparent);
+    border-color: color-mix(in srgb, var(--theme-card-border) 88%, transparent);
+    color: var(--theme-text-primary);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: color-mix(in srgb, var(--theme-card-border) 100%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--theme-tab-indicator) 18%, transparent);
+  }
+}
+
+@media (max-width: 540px) {
+  .partnerThoughtsPreview {
+    padding: 10px 12px;
+  }
+
+  .partnerThoughtsText {
+    font-size: 12px;
+    line-height: 1.65;
+    line-clamp: 4;
+    -webkit-line-clamp: 4;
+  }
+}
+
+// 汎用ブロックタグ
+.sectionLabel {
+  color: var(--theme-text-secondary);
+  margin-bottom: $spacing-xs;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+// 属性
+.partnerAttributes {
+  padding: $spacing-sm 0;
+  border-top: 1px dashed var(--theme-card-border);
+}
+
+.attributeGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: $spacing-sm;
+}
+
+// 編集モードでは属性グリッドを2列に変更し、エディタ幅に合わせる
+.attributeGridEdit {
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-sm;
+}
+
+// 狭い画面では編集モードの属性グリッドを1列にする
+@media (max-width: 420px) {
+  .attributeGridEdit {
+    grid-template-columns: 1fr;
+  }
+}
+
+.attributeItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px $spacing-xs;
+  @include bg-overlay-medium-dark;
+  border-radius: 3px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+// 編集モードでの属性項目のレイアウト調整
+.attributeItemEdit {
+  flex-direction: row;
+  gap: $spacing-xs;
+  padding: $spacing-xs;
+
+  .attributeKey {
+    flex-shrink: 0;
+    min-width: 28px;
+  }
+}
+
+.attributeKey {
+  color: var(--theme-text-secondary);
+}
+
+.attributeValue {
+  font-weight: 500;
+  color: var(--theme-text-primary);
+}
+
+.partnerAssetHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-xs;
+}
+
+.partnerAssetSummary {
+  color: var(--theme-text-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.partnerAssetFilterBar {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  margin-bottom: $spacing-sm;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.partnerAssetFilterBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 68%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-card-bg) 64%, transparent);
+  color: var(--theme-text-secondary);
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    border-color $transition-fast,
+    color $transition-fast;
+
+  &:hover {
+    background: color-mix(in srgb, var(--theme-card-bg) 80%, transparent);
+    border-color: color-mix(in srgb, var(--theme-card-border) 84%, transparent);
+    color: var(--theme-text-primary);
+  }
+}
+
+.partnerAssetFilterBtnActive {
+  background: color-mix(in srgb, var(--theme-card-bg) 84%, var(--theme-text-primary) 4%);
+  border-color: color-mix(in srgb, var(--theme-card-border) 88%, transparent);
+  color: var(--theme-text-primary);
+}
+
+.partnerAssetFilterCount {
+  color: var(--theme-text-muted);
+  font-size: 10px;
+}
+
+// 装備
+.partnerEquipment {
+  padding: $spacing-sm 0;
+  border-top: 1px dashed var(--theme-card-border);
+}
+
+.equipmentList {
+  @include list-container;
+}
+
+.equipmentSlot {
+  font-size: 11px;
+  color: var(--theme-text-muted);
+}
+
+// スキル
+.partnerSkills {
+  padding: $spacing-sm 0;
+  border-top: 1px dashed var(--theme-card-border);
+}
+
+.skillList {
+  @include list-container;
+}
+
+.skillCost {
+  font-size: 11px;
+  color: var(--theme-text-muted);
+}
+
+// アルバム
+.partnerGallery {
+  padding: $spacing-sm 0;
+  border-top: 1px dashed var(--theme-card-border);
+}
+
+.partnerGalleryEmptyPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm 0;
+  border-top: 1px dashed var(--theme-card-border);
+}
+
+.partnerGalleryPredefinedPrompt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 68%, transparent);
+  border-radius: $border-radius-sm;
+  background: color-mix(in srgb, var(--theme-card-bg) 74%, transparent);
+}
+
+.partnerGalleryPredefinedText {
+  color: var(--theme-text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.partnerGalleryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-sm;
+}
+
+.partnerGallerySummary {
+  flex: 0 0 auto;
+  color: var(--theme-text-muted);
+  font-size: 11px;
+}
+
+.partnerGalleryActionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-card-bg) 88%, transparent);
+  color: var(--theme-text-primary);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    border-color $transition-fast,
+    transform $transition-fast;
+
+  &:hover,
+  &:focus-visible {
+    background: color-mix(in srgb, var(--theme-card-bg) 84%, var(--theme-text-primary) 4%);
+    border-color: color-mix(in srgb, var(--theme-card-border) 90%, transparent);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.partnerGalleryFileInput {
+  display: none;
+}
+
+.partnerGalleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: $spacing-sm;
+}
+
+.partnerGalleryItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 72%, transparent);
+  border-radius: $border-radius-sm;
+  background: color-mix(in srgb, var(--theme-card-bg) 72%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--theme-text-primary) 6%, transparent);
+}
+
+.partnerGalleryImage {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.partnerGalleryButton {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.partnerGalleryButton:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--theme-tab-indicator) 65%, transparent);
+  outline-offset: -2px;
+}
+
+.partnerGalleryDeleteButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid color-mix(in srgb, var(--theme-error) 50%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-card-bg) 88%, transparent);
+  color: var(--theme-error-text);
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity $transition-fast,
+    transform $transition-fast;
+}
+
+.partnerGalleryItem:hover .partnerGalleryDeleteButton,
+.partnerGalleryDeleteButton:focus-visible {
+  opacity: 1;
+}
+
+.partnerGalleryDeleteButton:focus-visible {
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.partnerGalleryDeleteButton i {
+  display: block;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.partnerGalleryCaption {
+  padding: 8px 10px;
+  border-top: 1px solid color-mix(in srgb, var(--theme-card-border) 56%, transparent);
+  color: var(--theme-text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.partnerGalleryTitleButton {
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  text-align: left;
+  word-break: break-word;
+  cursor: text;
+}
+
+.partnerGalleryTitleButton:focus-visible {
+  outline: 1px solid color-mix(in srgb, var(--theme-tab-indicator) 65%, transparent);
+  outline-offset: 2px;
+}
+
+.partnerGalleryTitleInput {
+  width: 100%;
+  min-height: 28px;
+  padding: 4px 6px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 76%, transparent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--theme-window-bg) 22%, transparent);
+  color: var(--theme-text-primary);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.partnerGalleryTitleInput:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--theme-tab-indicator) 72%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--theme-tab-indicator) 14%, transparent);
+}
+
+.partnerGalleryPreviewOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-lg;
+  background: color-mix(in srgb, var(--theme-window-bg) 82%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.partnerGalleryPreviewPanel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  max-width: min(92vw, 960px);
+  max-height: 88vh;
+  padding: $spacing-md;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 78%, transparent);
+  border-radius: $border-radius-md;
+  background: color-mix(in srgb, var(--theme-card-bg) 94%, transparent);
+  box-shadow: 0 20px 60px color-mix(in srgb, var(--theme-window-bg) 45%, transparent);
+}
+
+.partnerGalleryPreviewImage {
+  display: block;
+  max-width: 100%;
+  max-height: calc(88vh - 96px);
+  object-fit: contain;
+  border-radius: $border-radius-sm;
+}
+
+.partnerGalleryPreviewTitle {
+  color: var(--theme-text-primary);
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+  word-break: break-word;
+}
+
+.partnerGalleryPreviewClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid color-mix(in srgb, var(--theme-card-border) 78%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-card-bg) 86%, transparent);
+  color: var(--theme-text-primary);
+  cursor: pointer;
+}
+
+@media (max-width: 540px) {
+  .partnerGalleryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .partnerGalleryDeleteButton {
+    top: 6px;
+    right: 6px;
+    opacity: 1;
+  }
+
+  .partnerGalleryPreviewOverlay {
+    padding: $spacing-sm;
+  }
+
+  .partnerGalleryPreviewPanel {
+    max-width: 96vw;
+    max-height: 90vh;
+    padding: $spacing-sm;
+  }
+}
+
+@media (max-width: 360px) {
+  .partnerGalleryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+// 本音
+.partnerThoughts {
+  padding-top: $spacing-sm;
+  border-top: 1px dashed var(--theme-card-border);
+}
+
+.thoughtsRow {
+  @include label-value-grid;
+}
+
+.thoughtsLabel {
+  color: var(--theme-text-secondary);
+  min-width: 0;
+  word-break: break-word;
+}
+
+.thoughtsContent {
+  font-style: italic;
+  color: var(--theme-text-primary);
+  line-height: 1.5;
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+// 背景ストーリー
+.partnerBackground {
+  padding-top: $spacing-sm;
+  border-top: 1px dashed var(--theme-card-border);
+}
+
+.backgroundRow {
+  @include label-value-grid;
+}
+
+.backgroundLabel {
+  color: var(--theme-text-secondary);
+  min-width: 0;
+  word-break: break-word;
+}
+
+.backgroundContent {
+  color: var(--theme-text-primary);
+  line-height: 1.6;
+  text-align: justify;
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+@media (max-width: 540px) {
+  .partnerSummaryHeader {
+    gap: 6px;
+  }
+
+  .thoughtsRow,
+  .backgroundRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+// 命定の人詳細内の登神長階
+.partnerAscension {
+  margin-top: $spacing-sm;
+  padding-top: $spacing-sm;
+  border-top: 1px dashed var(--theme-card-border);
+}
+
+.ascensionLabel {
+  color: var(--theme-text-secondary);
+  margin-bottom: $spacing-sm;
+  font-size: 12px;
+}
+
+// 空ヒント
+.emptyHint {
+  @include empty-hint($spacing-lg);
+}
+
+// 命定の人削除ボタン（編集モードでハイライト表示）
+.deletePartnerBtn {
+  @include delete-button-danger;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-left: 0;
+  z-index: 1;
+
+  i {
+    font-size: 12px;
+  }
+}

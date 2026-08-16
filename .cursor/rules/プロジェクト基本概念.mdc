@@ -1,0 +1,234 @@
+---
+alwaysApply: true
+---
+# プロジェクト基本概念
+
+このプロジェクトは主に、酒場アシスタント ([Tavern Helper](https://n0vi028.github.io/JS-Slash-Runner-Doc/guide/关于酒馆助手/介绍.html)) がサポートするフロントエンドUIまたはスクリプトを作成するためのものです。それらは酒場 (SillyTavern) 内でフォアグラウンドまたはバックグラウンドの形で動作し、コード内で酒場アシスタントが提供するインターフェースを直接使用できます。それにより:
+
+- キャラクターカードに優れたUI表示を提供します。例: メッセージフロア内で単なるコードブロックのプレーンテキストだったステータスバーを、動的な効果やインタラクションのある html ステータスバーに美化する
+- 非プレーンテキストのプレイ体験を実現します。例: 実際の時間や酒場イベントを監視してメタゲームを実現する、マルチメディアファイルを再生する、自作のプレイUIを作って酒場と連携する
+- 酒場の使用体験を最適化します。例: jQuery でプリセットプロンプトのエントリにコピーボタンを追加する、メッセージ受信イベントを監視してこのフロアのメッセージを再生成する必要があるか判断する
+- 外部アプリケーションと接続します。例: socket.io-client で外部サーバーに接続し、外部アプリケーションと酒場の通信を実現する
+- 追加機能を実装します。例: 20 フロアごとにバックグラウンドで LLM を 1 回呼び出し、それまでのストーリーの要約を生成する
+- ...
+
+## プロジェクト構造
+
+### コアメカニズム: フロントエンドUIまたはスクリプト
+
+各フロントエンドUIまたはスクリプトは、`src` フォルダまたは `示例` フォルダ内の独立したフォルダとして存在します。フロントエンドUIなのかスクリプトなのかは、フォルダ内の内容によって直接決まります:
+
+- フォルダに `index.ts` ファイルと `index.html` ファイルの両方がある場合、それはフロントエンドUIプロジェクトです。例: `示例/界面示例` はフロントエンドUIプロジェクトです。
+- フォルダに `index.ts` ファイルのみがある場合、それはスクリプトプロジェクトです。例: `示例/脚本示例`、`示例/流式楼层界面示例` はスクリプトプロジェクトです。
+
+フロントエンドUIとスクリプトプロジェクトの初期テンプレートは、`初始模板/*/新建为src文件夹中的文件夹` で見つけられます。
+
+### ストリーミングフロアUI
+
+酒場フレームワークの制約により、フロントエンドUIはそれが基づくテキストフォーマットの出力が完了して初めてレンダリングできます。つまり、フロントエンドUIのレンダリングはストリーミングテキスト（AI がテキストを徐々に出力してユーザーが読む方式）をサポートしません。
+
+フロントエンドUIでストリーミングをサポートするために、この作成テンプレートの[応用テクニック](https://stagedog.github.io/青空莉/工具经验/实时编写前端界面或脚本/进阶技巧/)では 2 つの方法が提案されています。簡単に言うと:（詳細は応用テクニックの記事を参照してください）
+
+- 酒場の入力ボックスを使わず、プレイヤーに常にレンダリング済みのフロントエンドUI内で遊んでもらい、フロントエンドUI内で酒場アシスタントが提供する `generate` または `generateRaw` で AI に新しい応答を生成させる。
+- 引き続き酒場の入力ボックスを使うが、スクリプトが jquery で酒場ウェブページを操作できる特性を利用して、酒場が元々ストリーミングのフロントエンドUIレンダリングをサポートしていないフロア表示を置き換える。
+
+ストリーミングフロアUIは 2 番目の方法を使用したものです。`util/streaming.ts` で、プロジェクトは `mountStreamingMessage` 関数を提供してストリーミングフロアUIをマウントします。また、`示例/流式楼层界面示例` にストリーミングフロアUIのサンプルがあります。
+
+**ストリーミングフロアUIは `mountStreamingMessage` を呼び出すスクリプトにすぎないため、すべてのスクリプトの作成ルールが引き続き適用されます。**
+
+### MVU キャラクターカード
+
+MVU ベースのキャラクターカードの作成を依頼された場合、このプロジェクトが `示例/角色卡示例` で提供する追加サポートを参照するべきです:
+
+- `示例/角色卡示例/脚本/*/` にはキャラクターカードのすべてのスクリプトがあります
+- `示例/角色卡示例/界面/*/` にはキャラクターカードのすべてのフロントエンドUIがあります
+- `示例/角色卡示例/schema.ts` には zod 4 ライブラリで書かれたキャラクターカードの MVU 変数構造定義があります
+  - スクリプト・フロントエンドUIへのインポート用に提供される
+  - `pnpm build` または `pnpm watch` 時に、対応する json schema ファイル `示例/角色卡示例/schema.json` が生成される。変数初期値ファイル initvar.yaml の作成に便利 `# yaml-language-server: $schema=schemaファイルパス`
+- `util/mvu.ts` には `defineMvuDataStore` 関数が提供されており、pinia ベースでこのプロジェクト推奨のフロントエンドUIによる MVU 変数の取得・変更方法を実装し、酒場の実際の変数との双方向同期をサポートします。`示例/角色卡示例/界面/store.ts` の `useDataStore` はそれを使ってUIのあるフロアの変数を取得・変更します。
+
+同じく、`初始模板/角色卡/新建为src文件夹中的文件夹` に MVU zod キャラクターカードの初期テンプレートがあります。
+
+## プロジェクト参考ファイル
+
+### 利用可能なサードパーティライブラリ
+
+プロジェクトは pnpm をパッケージマネージャーとして使用し、`package.json` の `dependencies` 部分に利用可能なサードパーティライブラリ（dedent、gsap、jquery、jquery-ui、lodash、pinia、pixi.js、toastr、yaml、vue、vue-router、@vueuse/core、react、@pixi/react、async-wait-until、zod）が定義されています。自分で `pnpm add` でライブラリを追加することもできます（@vueuse/integrations など）。
+
+フロントエンドUIやスクリプトはブラウザ内で使用されるため、nodejs ライブラリは使用できません。
+
+### 酒場と連携する方法
+
+フロントエンドUIやスクリプトは主に酒場アシスタントが提供するインターフェースで酒場と連携します。これらのインターフェースは `@types` フォルダに定義されており、`@types/function/worldbook.d.ts` に世界書の操作方法、`@types/function/variables.d.ts` に酒場変数の操作方法が説明されています。
+
+また、`@types` フォルダは酒場自体、他のプラグイン、MVU 変数フレームワークが提供するインターフェース変数・関数のタイプ定義も行っており、`@types/iframe/exported.mvu.d.ts` に MVU 変数フレームワークが提供するインターフェース `Mvu` が説明されています。
+
+コードインターフェース以外に、酒場は独自の STScript コマンドも作っています。これらのコマンドを Typescript コードに変換するには、`@types/function/slash.d.ts` 内で定義された `triggerSlash` 関数を使って呼び出す必要があります。具体的なコマンド一覧は `slash_command.txt` ファイルにあります。
+
+上記のインターフェースはコード内で直接使用でき、インポートや再定義、使用可否の確認は不要です。
+
+### ユーティリティ関数
+
+`util` にいくつかのユーティリティ関数が定義されています:
+
+- `util/script.ts`: スクリプトが使う可能性のある関数
+- `util/common.ts`: フロントエンドUIまたはスクリプトが使う可能性のある関数
+- `util/mvu.ts`: MVU キャラクターカードが使う可能性のある関数
+
+## 特別なインポート方法
+
+### ファイル内容のインポート
+
+プロジェクトは `import string from './文件?raw'` でファイル内容を文字列としてインポートすることをサポートしています。
+
+インポートするファイルが typescript、scss の場合、インポートされるのは webpack でビルドされた純粋な javascript、css であり、元の内容ではありません。そのため jquery で直接使用できます。
+
+```typescript
+// ファイル内容を直接インポート
+import html_content from './html.html?raw';
+import json_content from './json.json?raw';
+
+// webpack でビルドしてからインポート
+import javascript_content from './script.ts?raw';
+import css_content from './style.scss?raw';
+```
+
+### html のインポート
+
+`?raw` で HTML ファイルの内容を直接インポートする以外に、プロジェクトは `import html from './文件.html'` で html-loader を通じて html ファイル内容を最小化してから文字列としてインポートすることもサポートしています。
+
+### markdown のインポート
+
+プロジェクトは `import markdown from './文件.md'` で remark-loader を通じて markdown ファイル内容を html に解析してから文字列としてインポートすることもサポートしています。
+
+### vue のインポート
+
+プロジェクトは `import Component from './文件.vue'` で vue コンポーネントを直接インポートすることをサポートしています。UIを設計する場合は vue コンポーネント（pinia と vue-router を含む）を優先して使用するべきです。
+
+### フロントエンドUIへのスタイルのインポート
+
+フロントエンドUIは typescript で `import './index.scss'` してグローバル scss ファイルをインポートし、自動的に最終ビルド成果物の `dist/**/index.html` の `<head>` 部分にビルドすることをサポートしています。
+
+## ベストプラクティス
+
+フロントエンドUIとスクリプトに共通:
+
+### typescript ではなく javascript を使う
+
+typescript の方が正しく書けます。javascript ではなく typescript を使うべきです。
+
+### プロジェクト参考ファイルの機能をできるだけ使う
+
+プロジェクト参考ファイルの機能は多くの場合より簡単で正しいため、できるだけ使うべきです。例:
+
+- サードパーティライブラリをできるだけ使う。例:
+  - javascript 組み込みの DOM 操作ではなく jquery を使う
+  - ドラッグ効果は jqueryui で実装する（vue では vueuse などのサードパーティライブラリを使う）
+  - データの検証・修正は if else ではなく zod を使い、`z.prettifyError()` でエラーメッセージをフォーマットする
+  - タイプライターなどすべてのアニメーション効果は gsap で作る
+  - ...
+- 酒場アシスタントが提供するインターフェースをできるだけ使う。例:
+  - `(this.frameElement as Element).id` ではなく `getIframeName()` を使う
+  - ...
+
+### 酒場アシスタントが提供するインターフェースを優先する
+
+**酒場アシスタントが提供するインターフェースは抽象度が高いため、`@types` フォルダ内の他のファイルで定義された酒場アシスタントインターフェースを優先して使うべきです**。`@types/iframe/exported.sillytavern.d.ts` で定義された酒場組み込みインターフェースや STScript コマンドは使わないでください。
+
+- メッセージフロアの取得・変更には `@types/function/chat_message.d.ts` で定義された `getChatMessages()`、`setChatMessages()` などを使う
+- 世界書エントリの取得・変更には `@types/function/worldbook.d.ts` で定義された `getWorldbook()`、`replaceWorldbook()` などを使う
+- 酒場変数の取得・変更には `@types/function/variables.d.ts` で定義された `getVariables()`、`replaceVariables()` などを使う
+- ……
+
+### UIの作成に vue を優先する
+
+vue は jquery や DOM 操作より簡単なため、できるだけ vue（pinia、vue-router、または自分で追加した他のサードパーティライブラリを使用可能）でフロントエンドUIを作成するべきです。ただし、vue-router の `createRouter()` は `$(() => {})` 内に書けず、グローバルで実行する必要があることに注意してください。
+
+vue のリアクティブデータの変化を監視して酒場データ（酒場変数、世界書など）に保存する必要がある場合、まず `klona()` で proxy 層を取り除くべきです。スクリプト内で vue を作成しユーザー設定を提供する例:
+
+```typescript
+const Settings = z.object({/*...*/}); // zod で設定のタイプとデフォルト値を定義
+const settings = ref(Settings.parse(getVariables({ type: 'script', script_id: getScriptId() })));
+watchEffect(() => replaceVariables(klona(settings.value), { type: 'script', script_id: getScriptId() }));
+```
+
+フロントエンドUIとスクリプトはどちらも iframe のため、vue-router を使うときは `history: createMemoryHistory()` でルーティングを作成するべきです。そうしないと正常にルーティングできません。
+
+### データ状態の管理に pinia、zod を優先する
+
+酒場から設定・データを読み取る必要がある場合、pinia でリアクティブな読み書きを実装するべきです:
+
+```typescript
+const Settings = z.object({ button_selected: z.boolean().default(false) }).prefault({});
+export const useSettingsStore = defineStore('settings', () => {
+  const settings = ref(Settings.parse(getVariables({ type: 'script', script_id: getScriptId() })));
+  watchEffect(() => {
+    replaceVariables(klona(settings.value), { type: 'script', script_id: getScriptId() });
+  });
+  return { settings };
+});
+```
+
+### スタイル設計に tailwindcss と `<style scoped>` を優先する
+
+プロジェクトでは css ファイルをインポートせずに tailwindcss を直接使用できます。
+
+スタイルを設計するときは、まず vue コンポーネントの `<template>` 内で tailwindcss を直接使うべきです。それができない場合は `<style scoped>` タグを使います。
+
+### @pixi/react でのUI作成を試す
+
+マルチメディアリソースが多い場合、フロントエンドUIはより完全なゲームに近づくため、.tsx で @pixi/react を使ってUIを作成し、pixi.js でリソースの事前読み込みなどのロジックを実装するべきです。
+
+### フロントエンドUI・スクリプトの読み込み・アンロード時に正しく機能を実行する
+
+コードは常に読み込み時に実行するべきで、グローバルスコープで直接実行すべきではありません。
+
+プロジェクトの最終ビルド成果物 `dist/**/index.html` または `dist/**/index.js` は、まずインターネットにアップロードされ、その後 `$('body').load(ネットワークリンク)` または `import 'ネットワークリンク'` の形で酒場に読み込まれる可能性があります。この読み込みプロセスでは `document.addEventListener("DOMContentLoaded", fn)` はトリガーされないため、読み込み時の実行タイミングとして `DOMContentLoaded` を使うことは禁止です。
+
+読み込み時に機能を実行するには jquery を使うべきです:
+
+```typescript
+$(() => {
+  toastr.success('読み込み成功');
+});
+```
+
+同様に、アンロード時に機能を実行するには jquery と `'pagehide'` イベント（`'unload'` ではなく）を使います:
+
+```typescript
+$(window).on('pagehide', () => {
+  toastr.success('アンロード成功');
+});
+```
+
+### console、throw、errorCatched でログとエラーを適切に記録する
+
+コードの重要な箇所では `console.info` で簡潔にログを記録し、ログと最新のコードロジックの一貫性をできるだけ保つべきです。
+
+回復可能なエラーは `console.warn`、`console.error` でログを記録します。
+
+フロントエンドUI・スクリプトを継続不能にするエラーは `throw Error` を使い、errorCatched でトップレベル関数を変換して記録します。例:
+
+```typescript
+function init() { /*... */ }
+
+$(() => {
+  errorCatched(init)();
+})
+```
+
+### フロントエンドUI・スクリプトのリロード
+
+フロントエンドUI・スクリプトを完全にリロードする必要がある場合、`window.location.reload()` を使うべきです。チャットファイルが変更されたときにフロントエンドUI・スクリプトを再読み込みする場合は、`util/script.ts` で定義済みのユーティリティ関数を使えます:
+
+```ts
+export function reloadOnChatChange(): EventOnReturn {
+  let chat_id = SillyTavern.getCurrentChatId();
+  return eventOn(tavern_events.CHAT_CHANGED, new_chat_id => {
+    if (chat_id !== new_chat_id) {
+      chat_id = new_chat_id;
+      window.location.reload();
+    }
+  });
+}
+```

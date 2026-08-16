@@ -1,0 +1,63 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "ソース監視・コンパイル開始",
+      "type": "shell",
+      "command": "pnpm",
+      "args": [
+        "watch"
+      ],
+      "problemMatcher": [
+        {
+          "pattern": [
+            {
+              "regexp": ".*",
+              "file": 1,
+              "location": 2,
+              "message": 3
+            }
+          ],
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": ".*",
+            "endsPattern": "webpack (?:\\d+\\.){2}\\d+ compiled"
+          }
+        }
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true,
+        "revealProblems": "never"
+      },
+      "isBackground": true
+    },
+    {
+      "label": "タスク開始",
+      "dependsOn": [
+        "ソース監視・コンパイル開始",
+      ]
+    },
+    {
+      "label": "タスク終了",
+      "command": "echo ${input:terminate}",
+      "type": "shell"
+    },
+  ],
+  "inputs": [
+    {
+      "id": "terminate",
+      "type": "command",
+      "command": "workbench.action.tasks.terminate",
+      "args": "terminateAll"
+    }
+  ]
+}

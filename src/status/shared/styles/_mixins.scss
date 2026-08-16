@@ -1,0 +1,437 @@
+// 共有 Mixins - 繰り返しのスタイルパターンを抽象化
+@use 'variables' as *;
+
+// 1. レイアウト Mixins
+
+/// ページコンテナレイアウト - 縦方向 flex レイアウトと間隔
+/// 使用: statusTab, destinyTab, itemsTab, questsTab, newsTab, settingsTab
+@mixin page-container($gap: $spacing-md) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+/// リストコンテナレイアウト
+/// 使用: partnerList, questList, itemList, newsItems, equipmentList, skillList
+@mixin list-container($gap: $spacing-sm) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+/// 中央寄せ flex コンテナ
+/// 使用: loading, error, empty 状態
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/// 2列グリッドレイアウト - ラベル値ペア
+/// 使用: basicInfoRow, infoRow, appearanceRow, traitRow, effectRow, detailRow
+@mixin label-value-grid($label-width: minmax(96px, 0.33fr)) {
+  display: grid;
+  grid-template-columns: $label-width minmax(0, 1fr);
+  gap: $spacing-xs;
+  align-items: start;
+}
+
+/// レスポンシブ2列グリッド（狭い画面では1列になる）
+@mixin responsive-label-value-grid($label-width: minmax(96px, 0.33fr), $breakpoint: 540px) {
+  @include label-value-grid($label-width);
+
+  @media (max-width: $breakpoint) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// 2. 状態スタイル Mixins
+
+/// ローディング/エラー/空状態コンテナ
+/// 使用: statusTabLoading, destinyTabLoading, itemsTabLoading 等
+@mixin state-container($min-height: 150px) {
+  @include flex-center;
+  min-height: $min-height;
+  color: var(--theme-text-muted);
+}
+
+/// 空ヒントスタイル
+/// 使用: emptyHint, emptyEffects 等
+@mixin empty-hint($padding: $spacing-md) {
+  text-align: center;
+  padding: $padding;
+  color: var(--theme-text-muted);
+  font-size: 12px;
+}
+
+// 3. 背景透過 Mixins
+
+/// 半透明背景 - 5 段階の透明度
+/// 使用: 各種背景効果
+@mixin bg-overlay-light {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+@mixin bg-overlay-medium-light {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+@mixin bg-overlay-medium {
+  background: rgba(0, 0, 0, 0.18);
+}
+
+@mixin bg-overlay-medium-dark {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+@mixin bg-overlay-dark {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+// 4. コンポーネントスタイル Mixins
+
+/// タグ/バッジのベーススタイル
+/// 使用: tag, affectionBadge, effectType 等
+@mixin badge-base($padding: 2px 6px, $font-size: 10px) {
+  display: inline-flex;
+  align-items: center;
+  padding: $padding;
+  font-size: $font-size;
+  border-radius: 4px;
+}
+
+/// 暗色背景タグ
+@mixin badge-dark {
+  @include badge-base;
+  @include bg-overlay-dark;
+  color: var(--theme-text-primary);
+}
+
+/// 枠線付きタグ
+@mixin badge-bordered {
+  @include badge-base;
+  @include bg-overlay-dark;
+  color: var(--theme-text-primary);
+  border: 1px solid var(--theme-card-border);
+}
+
+/// 削除ボタンのベーススタイル
+/// 使用: deleteButton, deletePartnerBtn, effectDeleteBtn
+@mixin delete-button-base($size: 24px) {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $size;
+  height: $size;
+  padding: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: $border-radius-sm;
+  color: var(--theme-text-muted);
+  cursor: pointer;
+  transition: all $transition-fast;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+    color: var(--theme-error-text);
+    background: rgba(196, 73, 61, 0.12);
+    border-color: rgba(196, 73, 61, 0.25);
+  }
+
+  i {
+    font-size: 11px;
+  }
+}
+
+/// 危険削除ボタン（背景付き）
+/// 使用: QuestsTab, ItemDetail の削除ボタン
+@mixin delete-button-danger($size: 24px) {
+  flex-shrink: 0;
+  width: $size;
+  height: $size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(196, 73, 61, 0.15);
+  border: 1px solid rgba(196, 73, 61, 0.3);
+  border-radius: 4px;
+  color: var(--theme-error-text);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 11px;
+
+  &:hover {
+    background: rgba(196, 73, 61, 0.25);
+    border-color: rgba(196, 73, 61, 0.5);
+  }
+}
+
+/// 背景付きの項目バー
+/// 使用: effectItem, newsItem, attributesItem, filterBar
+@mixin item-bar($padding: $spacing-xs $spacing-sm) {
+  padding: $padding;
+  @include bg-overlay-medium;
+  border-radius: $border-radius-sm;
+}
+
+/// カード項目のベーススタイル
+@mixin card-item {
+  @include item-bar;
+  border: 1px solid var(--theme-card-border);
+}
+
+// 5. フォーム/入力 Mixins
+
+/// 入力ボックスのベーススタイル
+/// 使用: 各種 input, select, textarea
+@mixin input-base {
+  background: var(--theme-window-bg);
+  border: 1px solid var(--theme-card-border);
+  border-radius: $border-radius-sm;
+  color: var(--theme-text-primary);
+  font-size: 12px;
+  transition:
+    border-color $transition-fast,
+    box-shadow $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: var(--theme-primary-bg);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--theme-primary-bg) 24%, transparent);
+  }
+
+  &::placeholder {
+    color: var(--theme-text-muted);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/// 数字入力ボックスの矢印を非表示
+@mixin hide-number-arrows {
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  -moz-appearance: textfield;
+}
+
+// 6. ボタン Mixins
+
+/// ボタンのベーススタイル
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-sm $spacing-md;
+  font-size: 12px;
+  border: none;
+  border-radius: $border-radius-sm;
+  cursor: pointer;
+  transition: all $transition-fast;
+  letter-spacing: 0.4px;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/// メインボタン
+@mixin button-primary {
+  @include button-base;
+  background: var(--theme-primary-bg);
+  color: var(--theme-primary-text);
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+}
+
+/// セカンダリボタン
+@mixin button-secondary {
+  @include button-base;
+  background: var(--theme-card-bg);
+  border: 1px solid var(--theme-card-border);
+  color: var(--theme-text-secondary);
+
+  &:hover:not(:disabled) {
+    background: var(--theme-tab-hover-bg);
+    color: var(--theme-text-primary);
+  }
+}
+
+/// 危険ボタン
+@mixin button-danger {
+  @include button-base;
+  background: var(--theme-error);
+  color: var(--theme-error-solid-text, white);
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.1);
+  }
+}
+
+/// 小型操作ボタン
+@mixin button-icon($size: 24px) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $size;
+  height: $size;
+  padding: 0;
+  border: none;
+  border-radius: $border-radius-sm;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  i {
+    font-size: 10px;
+  }
+}
+
+// 7. テキストスタイル Mixins
+
+/// ラベル文字スタイル
+@mixin label-text {
+  font-size: 12px;
+  color: var(--theme-text-secondary);
+}
+
+/// 値文字スタイル
+@mixin value-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--theme-text-primary);
+}
+
+/// 大文字・文字間隔テキスト
+@mixin uppercase-text($spacing: 0.4px) {
+  text-transform: uppercase;
+  letter-spacing: $spacing;
+}
+
+/// 文字打ち切り
+@mixin text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/// 自動改行
+@mixin text-wrap {
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+// 8. 品質色 Mixins
+
+/// 品質色クラスを生成
+/// 使用: Card, Collapse, ItemDetail, ItemsTab
+@mixin quality-colors($prefix: 'quality') {
+  .#{$prefix}Common {
+    color: var(--theme-quality-common);
+  }
+
+  .#{$prefix}Unique {
+    color: var(--theme-quality-unique);
+  }
+
+  .#{$prefix}Mythic {
+    color: var(--theme-quality-mythic);
+  }
+
+  .#{$prefix}Legendary {
+    color: var(--theme-quality-legendary);
+  }
+
+  .#{$prefix}Epic {
+    color: var(--theme-quality-epic);
+  }
+
+  .#{$prefix}Rare {
+    color: var(--theme-quality-rare);
+  }
+
+  .#{$prefix}Uncommon {
+    color: var(--theme-quality-uncommon);
+  }
+}
+
+/// 品質枠線クラスを生成
+@mixin quality-borders($prefix: 'quality') {
+  .#{$prefix}Unique {
+    border-color: var(--theme-quality-unique);
+  }
+
+  .#{$prefix}Mythic {
+    border-color: var(--theme-quality-mythic);
+  }
+
+  .#{$prefix}Legendary {
+    border-color: var(--theme-quality-legendary);
+  }
+
+  .#{$prefix}Epic {
+    border-color: var(--theme-quality-epic);
+  }
+
+  .#{$prefix}Rare {
+    border-color: var(--theme-quality-rare);
+  }
+
+  .#{$prefix}Uncommon {
+    border-color: var(--theme-quality-uncommon);
+  }
+}
+
+// 9. スクロールバー Mixins
+
+/// カスタムスクロールバー
+@mixin custom-scrollbar($thumb-color: var(--theme-window-border), $width: 6px) {
+  scrollbar-width: thin;
+  scrollbar-color: $thumb-color transparent;
+
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: 3px;
+  }
+}
+
+// 10. 区切り線 Mixins
+
+/// 破線の上枠線
+@mixin dashed-border-top {
+  border-top: 1px dashed var(--theme-card-border);
+}
+
+/// 実線の上枠線
+@mixin solid-border-top {
+  border-top: 1px solid var(--theme-card-border);
+}
+
+// 11. 無効状態 Mixins
+
+/// 無効状態スタイル
+@mixin disabled-state($opacity: 0.6) {
+  opacity: $opacity;
+  pointer-events: none;
+  cursor: not-allowed;
+}
