@@ -46,7 +46,11 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { OUTPUT_OPTIONS, saveOutputSelection, resolveCardUpdateMode } from '../services/outputMethod';
+import {
+  OUTPUT_OPTIONS,
+  saveOutputSelection,
+  resolveCardUpdateMode,
+} from '../services/outputMethod';
 import { scenarios, switchSwipe } from '../services/StartPage';
 
 const emit = defineEmits(['prev']);
