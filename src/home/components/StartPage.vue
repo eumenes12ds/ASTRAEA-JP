@@ -45,13 +45,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { OUTPUT_OPTIONS, saveOutputSelection } from '../services/outputMethod';
+import { computed, onMounted, ref } from 'vue';
+import { OUTPUT_OPTIONS, saveOutputSelection, resolveCardUpdateMode } from '../services/outputMethod';
 import { scenarios, switchSwipe } from '../services/StartPage';
 
 const emit = defineEmits(['prev']);
 
 const selectedIndex = ref<number | null>(null);
+// 既定でメインAPI を選択（管理側がカードを追加モデル解析に設定している場合は起動時に切替）
 const selectedOutput = ref('');
 const isLoading = ref(false);
 
@@ -61,6 +62,16 @@ const outputOptions = OUTPUT_OPTIONS;
 // 次のステップに進めるか判定（シナリオと出力方式の両方を選択する必要がある）
 const canProceed = computed(() => {
   return selectedIndex.value !== null && selectedOutput.value !== '';
+});
+
+// マウント時に管理側のカード設定に基づいて既定の出力方式を決定
+onMounted(async () => {
+  try {
+    const mode = await resolveCardUpdateMode();
+    selectedOutput.value = mode === 'extra' ? '追加API' : 'メインAPI';
+  } catch {
+    selectedOutput.value = 'メインAPI';
+  }
 });
 
 function handleScenarioSelect(index: number) {

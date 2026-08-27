@@ -75,7 +75,7 @@ import {
   type CoreOption,
 } from '../services/CorePage';
 import { renderMarkdown } from '../services/markdownRender';
-import { saveOutputSelection } from '../services/outputMethod';
+import { saveOutputSelection, resolveCardUpdateMode } from '../services/outputMethod';
 import { switchSwipe } from '../services/StartPage';
 
 const isLoading = ref(false);
@@ -151,21 +151,9 @@ async function handleNext() {
 }
 
 async function runStartSequence() {
-  // 1. API を判定（追加API または メインAPI）
-  let api = 'メインAPI';
-  try {
-    const ext = (window.top as any)?.SillyTavern?.getContext?.().extensionSettings;
-    const extra = ext?.mvu_settings?.['追加モデル解析設定'];
-    if (extra) {
-      if (extra['モデル出典'] && extra['モデル出典'] !== 'カスタム') {
-        api = '追加API';
-      } else if (extra['apiアドレス'] && extra['APIキー'] && extra['モデル名']) {
-        api = '追加API';
-      }
-    }
-  } catch {
-    /* ignore */
-  }
+  // 1. 管理側の当該カード設定に基づいて API を判定：メインAPIに従う→メインAPI／追加モデル解析→追加API
+  const mode = await resolveCardUpdateMode();
+  const api = mode === 'extra' ? '追加API' : 'メインAPI';
 
   // 2. 変数出力方式を書き込み
   await saveOutputSelection(api);
