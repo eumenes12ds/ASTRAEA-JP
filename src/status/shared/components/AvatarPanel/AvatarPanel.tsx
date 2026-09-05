@@ -18,7 +18,7 @@ export interface AvatarPanelProps {
   className?: string;
 }
 
-const DefaultAvatarSrc = `https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@${__APP_VERSION__}/public/images/avatar.png`;
+const DefaultAvatarSrc = `https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v${__APP_VERSION__}/public/images/avatar.png`;
 
 const SizeClassMap: Record<AvatarPanelSize, string> = {
   sm: styles.sizeSm,

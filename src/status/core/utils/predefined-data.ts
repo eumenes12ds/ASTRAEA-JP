@@ -1,6 +1,6 @@
 import JSON5 from 'json5';
 
-const DATA_BASE_PATH = `https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@${__APP_VERSION__}/public/assets/data`;
+const DATA_BASE_PATH = `https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v${__APP_VERSION__}/public/assets/data`;
 
 export const loadPredefinedData = async <T>(file_name: string, log_label: string) => {
   try {

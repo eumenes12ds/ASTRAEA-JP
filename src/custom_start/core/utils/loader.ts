@@ -5,7 +5,7 @@ import type { Asset, Background, BaseInfoData, Equipment, Item, Partner, Skill }
  * データの基本パス - CDN デプロイ環境
  * @latest の代わりにバージョン番号を使用してキャッシュの更新を確実にする
  */
-const DATA_BASE_PATH = `https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@${__APP_VERSION__}/public/assets/data`;
+const DATA_BASE_PATH = `https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v${__APP_VERSION__}/public/assets/data`;
 
 /**
  * 汎用データ読み込み関数

@@ -89,7 +89,12 @@ interface Track {
   url: string;
 }
 
-const tracks: Track[] = [{ name: '第三楽章', url: 'https://files.catbox.moe/b0o5l9.mp3' }];
+const tracks: Track[] = [
+  {
+    name: '第三楽章',
+    url: 'https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.3/static/media/third-movement.mp3',
+  },
+];
 
 const currentIndex = ref(0);
 const isPlaying = ref(false);

@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TRPG戦闘パネル美化</title>
-  <script src="https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@main/static/vendor/jquery-3.7.1.min.js"></script>
-  <script src="https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@main/static/vendor/lodash-4.17.21.min.js"></script>
-  <link rel="stylesheet" href="https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@main/static/vendor/fontawesome/css/all.min.css">
+  <script src="https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.3/static/vendor/jquery-3.7.1.min.js"></script>
+  <script src="https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.3/static/vendor/lodash-4.17.21.min.js"></script>
+  <link rel="stylesheet" href="https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.3/static/vendor/fontawesome/css/all.min.css">
   
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -191,8 +191,10 @@
       'ダメージ基準計算': { icon: 'fa-solid fa-calculator',     color: '#ed8936' },
       '決済リスト':   { icon: 'fa-solid fa-list-check',       color: '#68d391' },
       '決済リスト':   { icon: 'fa-solid fa-list-check',       color: '#68d391' },
+      '決済明細':   { icon: 'fa-solid fa-list-check',       color: '#68d391' },
       '戦術動作':   { icon: 'fa-solid fa-chess-knight',     color: '#9f7aea' },
       '戦術動作':   { icon: 'fa-solid fa-chess-knight',     color: '#9f7aea' },
+      '戦術動作 - 逃走': { icon: 'fa-solid fa-person-running', color: '#975a16' },
       '戦意判定':   { icon: 'fa-solid fa-heart-crack',      color: '#f56565' },
       '戦意判定':   { icon: 'fa-solid fa-heart-crack',      color: '#f56565' },
       '戦闘決済':   { icon: 'fa-solid fa-flag-checkered',   color: '#48bb78' },
@@ -237,7 +239,7 @@
       let html = _.escape(row);
 
       const labels = {
-        round:        '(?:ラウンド)',
+        round:        '(?:ラウンド|ターン)',
         environment:  '(?:環境)',
         sequence:     '(?:順序)',
         type:         '(?:タイプ)',
@@ -253,7 +255,7 @@
         consume:      '(?:コスト)',
         execute:      '(?:実行)',
         cert:         '(?:認証)',
-        coreStat:     '(?:コア属性)',
+        coreStat:     '(?:コア属性|核心属性)',
         quality:      '(?:品質)',
         status:       '(?:状態)',
         statusApply:  '(?:状態付与)',
@@ -264,28 +266,28 @@
         battleResult: '(?:戦果)',
         effect:       '(?:効果)',
         statusEffect: '(?:状態効果)',
-        resourcePreview: '(?:資源プレビュー)',
+        resourcePreview: '(?:資源プレビュー|資源事前検査)',
         resourceCost: '(?:資源コスト)',
         settlement: '(?:決済状態)',
         expDetail: '(?:経験明細)',
-        expBasis: '(?:経験根拠)',
+        expBasis: '(?:経験根拠|経験値の根拠)',
         expTotal: '(?:EXP合計)',
-        expActual: '(?:上限後実得EXP)',
+        expActual: '(?:上限後実得EXP|上限後の実際獲得EXP)',
         reward: '(?:報酬)',
         materials:    '(?:投入物)',
         input:        '(?:投入)',
         loss:         '(?:損失)',
         outputList:   '(?:産出リスト)',
-        eta:          '(?:予定時間)',
-        timeCost:     '(?:時間コスト|時間コスト)',
-        batchCheck:   '(?:一括チェック)',
-        qualityCheck: '(?:品質要求チェック\\(半製品\\/完成品のみ\\))',
-        licenseCheck: '(?:管制投入物チェック\\(半製品\\/完成品のみ\\))'
+        eta:          '(?:予定時間|見積もり時間)',
+        timeCost:     '(?:時間コスト)',
+        batchCheck:   '(?:一括チェック|一括検査)',
+        qualityCheck: '(?:品質要求チェック\\(半製品\\/完成品のみ\\)|品質要求検査\\(半成品\\/完成品のみ\\))',
+        licenseCheck: '(?:管制投入物チェック\\(半製品\\/完成品のみ\\)|規制投入物検査\\(半成品\\/完成品のみ\\))'
       };
 
       const wrapLabeledValue = (label, regex, className, icon, color = null, extraClass = '') => {
         html = html.replace(regex, (m, value) => {
-          const displayLabel = _.escape(label.replace(/\(\?:|\)/g, '').split('|')[0]);
+          const displayLabel = _.escape(label);
           const style = color ? ` style="background:${color.background};color:${color.color};"` : '';
           const classes = [className, extraClass].filter(Boolean).join(' ');
           return `${displayLabel} <span class="${classes}"${style}><i class="${icon}"></i> ${value.trim()}</span>`;
@@ -342,7 +344,7 @@
       html = html.replace(/(^|\|\s*)(コスト|コスト數值):\s*([^|]*(?:\|\s*(?:<span class="tag tag-(?:hp|mp|sp)"[^>]*>.*?<\/span>|(?:HP|MP|SP)\s*\[[^\]]+\]))*)/g,
         (m, prefix, _label, value) => `${prefix}<span class="field-label">コスト:</span> ${value.trim()}`);
       html = html.replace(new RegExp(`${labels.resourcePreview}:\\s*([^|]*(?:\\|\\s*(?:<span class="tag tag-(?:hp|mp|sp)"[^>]*>.*?<\\/span>|(?:HP|MP|SP)\\s*\\[[^\\]]+\\]))*)`, 'g'),
-        (m, value) => `<span class="field-label">資源プレビュー:</span> ${value.trim()}`);
+        (m, value) => `<span class="field-label">資源事前検査:</span> ${value.trim()}`);
       html = html.replace(new RegExp(`${labels.resourceCost}:\\s*([^|]*(?:\\s+(?:<span class="tag tag-(?:hp|mp|sp)"[^>]*>.*?<\\/span>|(?:HP|MP|SP)\\s*\\[[^\\]]+\\]))*)`, 'g'),
         (m, value) => `<span class="field-label">資源コスト:</span> ${value.trim()}`);
 
@@ -353,9 +355,11 @@
           '鍛造':   { icon: 'fa-solid fa-hammer',         background: '#c53030', color: '#fff' },
           '錬金':   { icon: 'fa-solid fa-flask',          background: '#805ad5', color: '#fff' },
           '料理':   { icon: 'fa-solid fa-utensils',       background: '#dd6b20', color: '#fff' },
+          '調理':   { icon: 'fa-solid fa-utensils',       background: '#dd6b20', color: '#fff' },
           '裁縫':   { icon: 'fa-solid fa-scissors',       background: '#319795', color: '#fff' },
           '基礎加工': { icon: 'fa-solid fa-gears',        background: '#4a5568', color: '#fff' },
           '半製品': { icon: 'fa-solid fa-cubes',          background: '#2b6cb0', color: '#fff' },
+          '半成品': { icon: 'fa-solid fa-cubes',          background: '#2b6cb0', color: '#fff' },
           '完成品':   { icon: 'fa-solid fa-box-open',       background: '#2f855a', color: '#fff' },
           '逃走':   { icon: 'fa-solid fa-person-running', background: '#975a16', color: '#fff' }
         };
@@ -403,9 +407,9 @@
         if (/製作失敗|製作成功|充足|不足/.test(states)) return match;
         const stateList = states.split(/[，,]/).map(s => s.trim()).filter(Boolean);
         const stateHtml = stateList.map(state => {
-          const durationMatch = state.match(/\(([^()]*?回合)\)/);
+          const durationMatch = state.match(/\(([^()]*?(?:回合|ターン))\)/);
           const duration = durationMatch ? ` (${durationMatch[1]})` : '';
-          const stateName = state.replace(/\([^()]*?回合\)/, '').trim();
+          const stateName = state.replace(/\([^()]*?(?:回合|ターン)\)/, '').trim();
           return `<span class="status-effect">${stateName}${duration}</span>`;
         }).join('');
         return `${prefix}<span class="status-label">状態:</span> ${stateHtml}`;
@@ -419,7 +423,7 @@
       html = html.replace(new RegExp(`${labels.checkResult}:\\s*(大失敗)`, 'g'), (m, g1) => `判定結果: <span style="color:#e53e3e;font-weight:700;"><i class="fa-solid fa-skull-crossbones"></i> ${g1}</span>`);
       html = html.replace(new RegExp(`${labels.checkResult}:\\s*(失敗)`, 'g'),     (m, g1) => `判定結果: <span style="color:#fc8181;font-weight:700;"><i class="fa-solid fa-times"></i> ${g1}</span>`);
       html = html.replace(new RegExp(`${labels.checkResult}:\\s*(成功)`, 'g'),           (m, g1) => `判定結果: <span style="color:#68d391;font-weight:700;"><i class="fa-solid fa-check"></i> ${g1}</span>`);
-      html = html.replace(new RegExp(`${labels.checkResult}:\\s*(完璧)`, 'g'),       (m, g1) => `判定結果: <span style="color:#ffd700;font-weight:700;text-shadow:0 0 8px rgba(255,215,0,0.5);"><i class="fa-solid fa-star"></i> ${g1}</span>`);
+      html = html.replace(new RegExp(`${labels.checkResult}:\\s*(完璧|精進)`, 'g'),  (m, g1) => `判定結果: <span style="color:#ffd700;font-weight:700;text-shadow:0 0 8px rgba(255,215,0,0.5);"><i class="fa-solid fa-star"></i> ${g1}</span>`);
 
       // ===== 結果/戦果 =====
       html = html.replace(new RegExp(`${labels.result}:\\s*(勝利|逃走成功)`, 'g'), (m, g1) =>
@@ -434,11 +438,11 @@
       html = html.replace(new RegExp(`${labels.expDetail}:\\s*([^|]+)`, 'g'), (m, val) =>
         `経験明細: <span style="color:#e2e8f0;line-height:1.5;">${val.trim()}</span>`);
       html = html.replace(new RegExp(`${labels.expBasis}:\\s*([^|]+)`, 'g'), (m, val) =>
-        `経験根拠: <span style="color:#fbd38d;">${val.trim()}</span>`);
+        `経験値の根拠: <span style="color:#fbd38d;">${val.trim()}</span>`);
       html = html.replace(new RegExp(`${labels.expTotal}:\\s*(\\[[^\\]]+\\]|\\d+)`, 'g'), (m, val) =>
         `EXP合計: <span style="color:#f6e05e;font-weight:700;"><i class="fa-solid fa-calculator"></i> ${val}</span>`);
       html = html.replace(new RegExp(`${labels.expActual}:\\s*(\\[[^\\]]+\\]|\\d+)`, 'g'), (m, val) =>
-        `上限後実得EXP: <span style="color:#ffd700;font-weight:700;"><i class="fa-solid fa-arrow-trend-up"></i> ${val}</span>`);
+        `上限後の実際獲得EXP: <span style="color:#ffd700;font-weight:700;"><i class="fa-solid fa-arrow-trend-up"></i> ${val}</span>`);
 
       // ===== 意図 =====
       html = html.replace(new RegExp(`${labels.intent}:\\s*([^|]+)`, 'g'), (m, val) =>
@@ -454,16 +458,16 @@
       wrapLabeledValue('投入:',   new RegExp(`${labels.input}:\\s*([^|]+)`, 'g'),      'tag tag-sp', 'fa-solid fa-box',           { background: '#276749', color: '#fff' }, 'tag-detail');
       wrapLabeledValue('損失:',   new RegExp(`${labels.loss}:\\s*([^|]+)`, 'g'),       'tag tag-hp', 'fa-solid fa-box-open',      { background: '#9b2c2c', color: '#fff' }, 'tag-detail');
       wrapLabeledValue('産出リスト:', new RegExp(`${labels.outputList}:\\s*([^|]+)`, 'g'), 'tag tag-sp', 'fa-solid fa-box-open',     { background: '#2f855a', color: '#fff' }, 'tag-detail');
-      wrapLabeledValue('予定時間:', new RegExp(`${labels.eta}:\\s*([^|]+)`, 'g'),      'tag tag-round', 'fa-solid fa-clock',      { background: '#4a5568', color: '#fff' }, 'tag-detail');
+      wrapLabeledValue('見積もり時間:', new RegExp(`${labels.eta}:\\s*([^|]+)`, 'g'),      'tag tag-round', 'fa-solid fa-clock',      { background: '#4a5568', color: '#fff' }, 'tag-detail');
       wrapLabeledValue('時間コスト:', new RegExp(`${labels.timeCost}:\\s*([^|]+)`, 'g'), 'tag tag-round', 'fa-solid fa-hourglass',  { background: '#4a5568', color: '#fff' }, 'tag-detail');
-      wrapLabeledValue('一括チェック:', new RegExp(`${labels.batchCheck}:\\s*([^|]+)`, 'g'), 'tag tag-type', 'fa-solid fa-layer-group', { background: '#2b6cb0', color: '#fff' });
-      wrapLabeledValue('品質要求チェック(半製品/完成品のみ):', new RegExp(`${labels.qualityCheck}:\\s*([^|]+)`, 'g'), 'tag tag-type', 'fa-solid fa-medal',          { background: '#2c5282', color: '#fff' }, 'tag-detail');
-      wrapLabeledValue('管制投入物チェック(半製品/完成品のみ):', new RegExp(`${labels.licenseCheck}:\\s*([^|]+)`, 'g'), 'tag tag-type', 'fa-solid fa-scale-balanced', { background: '#744210', color: '#fff' }, 'tag-detail');
+      wrapLabeledValue('一括検査:', new RegExp(`${labels.batchCheck}:\\s*([^|]+)`, 'g'), 'tag tag-type', 'fa-solid fa-layer-group', { background: '#2b6cb0', color: '#fff' });
+      wrapLabeledValue('品質要求検査(半成品/完成品のみ):', new RegExp(`${labels.qualityCheck}:\\s*([^|]+)`, 'g'), 'tag tag-type', 'fa-solid fa-medal',          { background: '#2c5282', color: '#fff' }, 'tag-detail');
+      wrapLabeledValue('規制投入物検査(半成品/完成品のみ):', new RegExp(`${labels.licenseCheck}:\\s*([^|]+)`, 'g'), 'tag tag-type', 'fa-solid fa-scale-balanced', { background: '#744210', color: '#fff' }, 'tag-detail');
 
       // ===== 生死状態 =====
-      html = html.replace(/死亡\/毁坏|死亡\/毀壞/g,
+      html = html.replace(/死亡\/毁坏|死亡\/毀壞|死亡\/破壊/g,
         '<span style="color:#e53e3e;font-weight:700;"><i class="fa-solid fa-skull"></i> 死亡/破壊</span>');
-      html = html.replace(/未死\/存活/g,
+      html = html.replace(/未死\/存活|未死\/生存/g,
         '<span style="color:#68d391;font-weight:700;"><i class="fa-solid fa-heart-pulse"></i> 生存</span>');
 
       // ===== EXP / FP =====

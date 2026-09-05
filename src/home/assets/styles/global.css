@@ -1,4 +1,47 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+SC:wght@400;500;700&display=swap');
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.3/static/vendor/fonts/cinzel-400.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.3/static/vendor/fonts/cinzel-700.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.3/static/vendor/fonts/noto-serif-sc-400.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.3/static/vendor/fonts/noto-serif-sc-500.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.3/static/vendor/fonts/noto-serif-sc-700.ttf')
+    format('truetype');
+}
 
 :root {
   --bg-color: #2b2014;

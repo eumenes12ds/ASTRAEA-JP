@@ -28,6 +28,11 @@ const HTMLInlineCSSWebpackPlugin =
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const packageVersion = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'package.json'), 'utf-8'),
+).version;
+const releaseVendorBase =
+  `https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v${packageVersion}/static/vendor`;
 
 interface Config {
   port: number;
@@ -550,9 +555,7 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
           __VUE_PROD_DEVTOOLS__: process.env.CI !== 'true',
           __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
           // バージョン番号を注入して CDN キャッシュ破棄を実現する
-          __APP_VERSION__: JSON.stringify(
-            JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf-8')).version,
-          ),
+          __APP_VERSION__: JSON.stringify(packageVersion),
         }),
       )
       .concat(
@@ -649,14 +652,19 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
         return callback(null, 'var ' + global[request as keyof typeof global]);
       }
       const cdn = {
-        sass: 'https://jspm.dev/sass',
+        scheduler: `${releaseVendorBase}/scheduler-0.27.0.esm.js`,
+        immer: `${releaseVendorBase}/immer-11.1.18.esm.js`,
+        gsap: `${releaseVendorBase}/gsap-3.15.0.esm.js`,
+        json5: `${releaseVendorBase}/json5-2.2.3.esm.js`,
+        openseadragon: `${releaseVendorBase}/openseadragon-6.1.0.esm.js`,
+        pinia: `${releaseVendorBase}/pinia-4.0.3.esm.js`,
+        klona: `${releaseVendorBase}/klona-2.0.6.esm.js`,
       };
-      return callback(
-        null,
-        'module-import ' +
-          (cdn[request as keyof typeof cdn] ??
-            `https://testingcf.jsdelivr.net/npm/${request}/+esm`),
-      );
+      const ownedModuleUrl = cdn[request as keyof typeof cdn];
+      if (!ownedModuleUrl) {
+        return callback(new Error(`No repository-owned browser vendor mapping for ${request}`));
+      }
+      return callback(null, 'module-import ' + ownedModuleUrl);
     },
   });
 }

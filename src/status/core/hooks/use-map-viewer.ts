@@ -65,7 +65,8 @@ export const useMapViewer = ({
 
     const viewer = OpenSeadragon({
       element: containerRef.current,
-      prefixUrl: 'https://openseadragon.github.io/openseadragon/images/',
+      prefixUrl:
+        'https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.3/static/vendor/openseadragon-images/',
       showNavigator: true,
       showNavigationControl: true,
       showFullPageControl: true,

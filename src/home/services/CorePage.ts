@@ -77,7 +77,7 @@ let cachedSpecialRecommendCores: Record<string, SpecialRecommendConfig> | null =
  * データのベースパス - CDN デプロイ環境
  * @latest の代わりにバージョン番号を使用してキャッシュが正しく更新されるようにする
  */
-const DATA_BASE_PATH = `https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@${__APP_VERSION__}/public/assets/data`;
+const DATA_BASE_PATH = `https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v${__APP_VERSION__}/public/assets/data`;
 
 /**
  * リモートからコア分類データを読み込む
