@@ -2,7 +2,7 @@
   <div class="core-page">
     <h2 class="main-title">コア選択</h2>
     <p class="core-subtitle">
-      星海を越えて降臨した異界の魂は、孤独な身に宿るユニークで永遠の共鳴であり、生死を共にする命定の霊である
+      星海を越えて降臨した異界の魂は、孤独な身に宿るユニークで永遠の共鳴であり、生死を共にする運命の霊である
     </p>
 
     <div class="control-panel-container">

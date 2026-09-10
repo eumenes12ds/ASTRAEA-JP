@@ -84,7 +84,7 @@ const PartnerListCategories: Array<{
   { key: 'all', label: '全部', matches: () => true },
   { key: 'present', label: '在席', matches: partner => Boolean(partner.在席) },
   { key: 'away', label: '不在席', matches: partner => !partner.在席 },
-  { key: 'contracted', label: '契約済み', matches: partner => Boolean(partner.命定契約) },
+  { key: 'contracted', label: '契約済み', matches: partner => Boolean(partner.運命契約) },
 ];
 
 const PartnerAssetSections: PartnerAssetSectionConfig[] = [
@@ -130,7 +130,7 @@ const PartnerAssetSections: PartnerAssetSectionConfig[] = [
 ];
 
 /**
- * 命定ページの内容コンポーネント
+ * 運命ページの内容コンポーネント
  */
 const DestinyTabContent: FC<WithMvuDataProps> = ({ data }) => {
   const editEnabled = useEditorSettingStore(state => state.editEnabled);
@@ -597,8 +597,8 @@ const DestinyTabContent: FC<WithMvuDataProps> = ({ data }) => {
         <span className={styles.affectionBadge}>好感度 {partner.好感度 ?? 0}</span>
         <div className={styles.partnerTags}>
           {partner.在席 && <span className={`${styles.tag} ${styles.tagPresent}`}>在席</span>}
-          {partner.命定契約 && (
-            <span className={`${styles.tag} ${styles.tagContract}`}>命定契約</span>
+          {partner.運命契約 && (
+            <span className={`${styles.tag} ${styles.tagContract}`}>運命契約</span>
           )}
         </div>
       </div>
@@ -1289,10 +1289,10 @@ const DestinyTabContent: FC<WithMvuDataProps> = ({ data }) => {
                       />
                     </div>
                     <div className={styles.toggleRow}>
-                      <span className={styles.toggleLabel}>命定契約</span>
+                      <span className={styles.toggleLabel}>運命契約</span>
                       <EditableField
-                        path={`関係一覧.${partnerName}.命定契約`}
-                        value={partner.命定契約 ?? false}
+                        path={`関係一覧.${partnerName}.運命契約`}
+                        value={partner.運命契約 ?? false}
                         type="toggle"
                         toggleConfig={{ labelOff: '未締結', labelOn: '締結済み', size: 'sm' }}
                       />
@@ -1897,6 +1897,6 @@ const DestinyTabContent: FC<WithMvuDataProps> = ({ data }) => {
 };
 
 /**
- * 命定ページコンポーネント（HOC でラップ）
+ * 運命ページコンポーネント（HOC でラップ）
  */
 export const DestinyTab = withMvuData({ baseClassName: styles.destinyTab })(DestinyTabContent);

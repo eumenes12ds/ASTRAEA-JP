@@ -128,7 +128,7 @@ watch(
             <span class="value">{{ item.personality }}</span>
           </div>
           <div class="info-row">
-            <span class="label">命定契約：</span>
+            <span class="label">運命契約：</span>
             <span class="value">{{ item.isContract ? 'あり' : 'なし' }}</span>
           </div>
         </div>

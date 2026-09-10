@@ -131,7 +131,7 @@ const toPartnerVariable = (partner: Partner) => ({
   装備: toNamedRecord(partner.equip, toEquipmentVariable),
   スキル: toNamedRecord(partner.skills, toSkillVariable),
   登神長階: toAscensionVariable(partner.stairway),
-  命定契約: partner.isContract,
+  運命契約: partner.isContract,
   好感度: partner.affinity,
   本音: partner.comment || '',
   背景ストーリー: partner.backgroundInfo || '',

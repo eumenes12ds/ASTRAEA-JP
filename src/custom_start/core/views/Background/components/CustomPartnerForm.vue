@@ -440,9 +440,9 @@ const confirmAdd = () => {
         </div>
       </div>
 
-      <!-- 命定契約 -->
+      <!-- 運命契約 -->
       <div class="form-row">
-        <FormLabel label="命定契約" />
+        <FormLabel label="運命契約" />
         <FormRadio v-model="itemIsContract" :options="contractOptions" />
       </div>
 

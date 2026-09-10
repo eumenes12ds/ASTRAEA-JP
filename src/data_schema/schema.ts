@@ -113,7 +113,10 @@ const partners = z
         マナ値上限: z.coerce.number().prefault(0),
         体力値: z.coerce.number().prefault(0),
         体力値上限: z.coerce.number().prefault(0),
-        命定契約: z.boolean().prefault(false),
+        運命契約: z.boolean().optional(),
+        // 旧保存データ専用の入力別名。transform で正規名だけを出力する。
+        命定契約: z.boolean().optional(),
+        運命の契約: z.boolean().optional(),
         好感度: clampedMum(0, -100, 100),
         状態効果: z.record(z.string(), StatusEffectSchema).prefault({}),
         インベントリ: z
@@ -128,6 +131,7 @@ const partners = z
       .transform(data => {
         const processed = {
           ...data,
+          運命契約: data.運命契約 ?? data.運命の契約 ?? data.命定契約 ?? false,
           生命値: _.clamp(data.生命値, 0, data.生命値上限),
           マナ値: _.clamp(data.マナ値, 0, data.マナ値上限),
           体力値: _.clamp(data.体力値, 0, data.体力値上限),
@@ -168,7 +172,7 @@ const partners = z
           'スキル',
           '登神長階',
           // 関係情報
-          '命定契約',
+          '運命契約',
           '好感度',
           // ストーリー情報
           '本音',

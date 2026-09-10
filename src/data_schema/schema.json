@@ -264,8 +264,13 @@
             "default": 0,
             "type": "number"
           },
+          "運命契約": {
+            "type": "boolean"
+          },
           "命定契約": {
-            "default": false,
+            "type": "boolean"
+          },
+          "運命の契約": {
             "type": "boolean"
           },
           "好感度": {

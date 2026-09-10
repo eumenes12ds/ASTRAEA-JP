@@ -66,7 +66,7 @@ const ParchmentTheme: Theme = {
     errorText: '#ef8272',
     errorSolidText: '#fff',
 
-    // 命定システム
+    // 運命システム
     affection: '#b4586c',
     affectionBg: 'rgba(180, 88, 108, 0.26)',
     affectionText: '#d79aa8',
@@ -149,7 +149,7 @@ const CrimsonTheme: Theme = {
     errorText: '#f07a7f',
     errorSolidText: '#0d090a',
 
-    // 命定システム
+    // 運命システム
     affection: '#c04b61',
     affectionBg: 'rgba(192, 75, 97, 0.28)',
     affectionText: '#e29aa6',
@@ -232,7 +232,7 @@ const IndigoTheme: Theme = {
     errorText: '#ee776b',
     errorSolidText: '#fff',
 
-    // 命定システム
+    // 運命システム
     affection: '#6b58c3',
     affectionBg: 'rgba(107, 88, 195, 0.28)',
     affectionText: '#a595e0',
@@ -315,7 +315,7 @@ const BronzeTheme: Theme = {
     errorText: '#e97862',
     errorSolidText: '#fff',
 
-    // 命定システム
+    // 運命システム
     affection: '#a85e44',
     affectionBg: 'rgba(168, 94, 68, 0.26)',
     affectionText: '#d0a57d',
@@ -398,7 +398,7 @@ const SakuraTheme: Theme = {
     errorText: '#ef7190',
     errorSolidText: '#100a0d',
 
-    // 命定システム
+    // 運命システム
     affection: '#c56a9a',
     affectionBg: 'rgba(197, 106, 154, 0.28)',
     affectionText: '#e5aec8',
@@ -481,7 +481,7 @@ const ObsidianTheme: Theme = {
     errorText: '#ff6d6d',
     errorSolidText: '#10131a',
 
-    // 命定システム
+    // 運命システム
     affection: '#ff6f91',
     affectionBg: 'rgba(255, 111, 145, 0.18)',
     affectionText: '#ffb2c1',
@@ -564,7 +564,7 @@ const IvoryTheme: Theme = {
     errorText: '#8f2f23',
     errorSolidText: '#fff',
 
-    // 命定システム
+    // 運命システム
     affection: '#b35b6d',
     affectionBg: 'rgba(179, 91, 109, 0.18)',
     affectionText: '#6f2d3a',
@@ -647,7 +647,7 @@ const MistyLilacTheme: Theme = {
     errorText: '#b02337',
     errorSolidText: '#fff',
 
-    // 命定システム
+    // 運命システム
     affection: '#F05CB2',
     affectionBg: 'rgba(240, 92, 178, 0.22)',
     affectionText: '#4a3f5c',

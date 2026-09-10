@@ -97,7 +97,7 @@ export interface ThemeColors {
   /** 塗りつぶしエラーコントロール文字 */
   errorSolidText: string;
 
-  // 命定システム専用
+  // 運命システム専用
   /** 好感度バー色 */
   affection: string;
   /** 好感度バー背景 */

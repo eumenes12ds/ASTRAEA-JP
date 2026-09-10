@@ -2,7 +2,7 @@ import type { TabItem } from '../layout';
 
 /**
  * Tab 設定
- * 順序：クエスト -> 状態 -> 所持品 -> 命定 -> ニュース
+ * 順序：クエスト -> 状態 -> 所持品 -> 運命 -> ニュース
  */
 export const TabsConfig: TabItem[] = [
   {
@@ -22,7 +22,7 @@ export const TabsConfig: TabItem[] = [
   },
   {
     id: 'destiny',
-    label: '命定',
+    label: '運命',
     icon: 'fa-solid fa-star',
   },
   {

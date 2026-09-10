@@ -20,7 +20,7 @@ export interface ToggleEditorProps {
 
 /**
  * ブールスイッチエディタ
- * 左右の状態テキスト表示に対応。"在席"、"命定契約"等のシーンに適する
+ * 左右の状態テキスト表示に対応。"在席"、"運命契約"等のシーンに適する
  */
 export const ToggleEditor: FC<ToggleEditorProps> = ({
   value,
