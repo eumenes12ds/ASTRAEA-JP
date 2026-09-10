@@ -145,6 +145,7 @@ async function handleNext() {
     await runStartSequence();
   } catch (error) {
     console.error('コア選択の保存に失敗しました:', error);
+    toastr.error('旅を始められませんでした。もう一度お試しください。');
   } finally {
     isSaving.value = false;
   }
@@ -159,7 +160,7 @@ async function runStartSequence() {
   await saveOutputSelection(api);
 
   // 3. カスタム序章に切り替え（swipe 1）
-  await switchSwipe(1);
+  if (!(await switchSwipe(1))) throw new Error('Character creation greeting is unavailable.');
 }
 
 // コンポーネントマウント時にコアリストを読み込む
