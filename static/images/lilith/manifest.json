@@ -1,0 +1,209 @@
+{
+  "release": "v1.5.8",
+  "sourceRepository": "https://github.com/AkabaneSaki/myrepo",
+  "sourceCommit": "1d2b5f335b66f02c5e7d20e5506c2a929bc55cff",
+  "note": "Portrait bytes are unchanged; only filenames and runtime hosting were changed. The two frame SVGs were decoded from the original dialogue regex.",
+  "assets": [
+    {
+      "filename": "serious.png",
+      "moodJa": "厳粛",
+      "moodLegacy": "严肃",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E4%B8%A5%E8%82%83.png",
+      "sourceGitBlob": "f9c97642e57fb3856410284aa4f7e1f06ebb6446",
+      "sha256": "a6654ec50926d358ffe0d4c7a42a307a4a8460238979d69588fe94ebe1db8b4d",
+      "bytes": 780049
+    },
+    {
+      "filename": "playful.png",
+      "moodJa": "お茶目",
+      "moodLegacy": "俏皮",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E4%BF%8F%E7%9A%AE.png",
+      "sourceGitBlob": "9d6c82f2c58d7c67e9fd58fc6150164800146d22",
+      "sha256": "21cb06b2deca3e4ef4dfe2523125cda23e09246176a5c3e89fd00384c72ae66f",
+      "bytes": 449917
+    },
+    {
+      "filename": "mocking.png",
+      "moodJa": "嘲笑",
+      "moodLegacy": "嘲笑",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E5%98%B2%E7%AC%91.png",
+      "sourceGitBlob": "7005fc8fc22ebb283eae7cf3c38dac34b9aafb64",
+      "sha256": "6b7e62d2a6f82099e81b579f7516de5ca8cf2d2ec251e9786905c8dad4669ccd",
+      "bytes": 797044
+    },
+    {
+      "filename": "disdainful.png",
+      "moodJa": "軽蔑",
+      "moodLegacy": "嫌弃",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E5%AB%8C%E5%BC%83.png",
+      "sourceGitBlob": "4529c3fb9b4b09b7ba65ef983a62dd60c391b14b",
+      "sha256": "1ab568ecd4aab43bb154cef3aeb0e5f9b77ba51acb4263fad88ac94641ba073c",
+      "bytes": 157569
+    },
+    {
+      "filename": "celebrating.png",
+      "moodJa": "祝賀",
+      "moodLegacy": "庆祝",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E5%BA%86%E7%A5%9D.png",
+      "sourceGitBlob": "7e13c26ab5735f48c010e9211007a2b656b0a46b",
+      "sha256": "7d9bf51e793c8bce332d2087943afc448bbdb9be05690abf5437c5333b9cbc0a",
+      "bytes": 828747
+    },
+    {
+      "filename": "happy.png",
+      "moodJa": "嬉しい",
+      "moodLegacy": "开心",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E5%BC%80%E5%BF%83.png",
+      "sourceGitBlob": "95b9c301c4e4593564a55ccba433d0a3eb6a8267",
+      "sha256": "726adf40851fedc2b7740464034e6a92990a4a0ce6fbdc4f726c80e43e21e5f3",
+      "bytes": 467883
+    },
+    {
+      "filename": "afraid.png",
+      "moodJa": "恐怖",
+      "moodLegacy": "恐惧",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E6%81%90%E6%83%A7.png",
+      "sourceGitBlob": "e7ca1e0e2193526bd9354c63229df5f83c4129b4",
+      "sha256": "9070bb29803fa9b552ec70515e828a59cfd3673fcc72d0a1e11e8cfa43c76534",
+      "bytes": 905234
+    },
+    {
+      "filename": "terrified.png",
+      "moodJa": "戦慄",
+      "moodLegacy": "惊恐",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E6%83%8A%E6%81%90.png",
+      "sourceGitBlob": "8dac16c6d5663dd6a6654375ee7e66e278686b37",
+      "sha256": "c5048c09d6da800263d78370ff3025d0ce240fa425776910d35589c73c6a3126",
+      "bytes": 182094
+    },
+    {
+      "filename": "surprised.png",
+      "moodJa": "驚き",
+      "moodLegacy": "惊讶",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E6%83%8A%E8%AE%B6.png",
+      "sourceGitBlob": "22ff1e82f83df7db26c630d4d1983337c5f8001d",
+      "sha256": "071bba622fc469c000879fa6d14f719089cc6970008829cebf1d46305bffea70",
+      "bytes": 524453
+    },
+    {
+      "filename": "guiding.png",
+      "moodJa": "指導",
+      "moodLegacy": "指导",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E6%8C%87%E5%AF%BC.png",
+      "sourceGitBlob": "64114bf25a4124b7fd9fda546cca56d61da5b68b",
+      "sha256": "66fb7a740008cd87548b5ccd9a8bcb38fb2705386dac5639bb4e5f4b3da963ba",
+      "bytes": 110857
+    },
+    {
+      "filename": "scolding.png",
+      "moodJa": "叱責",
+      "moodLegacy": "斥责",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E6%96%A5%E8%B4%A3.png",
+      "sourceGitBlob": "eac994a7e5368ef7dcd83b7fabe3c62d4fe9a1d9",
+      "sha256": "0e9e7c0d89d4eecaae1a6f326408d89d82ca0110d1ae70bc61aaf298d24210a5",
+      "bytes": 821507
+    },
+    {
+      "filename": "speechless.png",
+      "moodJa": "無言",
+      "moodLegacy": "无语",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E6%97%A0%E8%AF%AD.png",
+      "sourceGitBlob": "ef9c5710e8c650ed206d72d62631b5cd80ba63c8",
+      "sha256": "79cbafa7b6163b41c3ff0fa5ae00289066944ba91fe57ab6adc78c035c1eea45",
+      "bytes": 469451
+    },
+    {
+      "filename": "angry.png",
+      "moodJa": "怒り",
+      "moodLegacy": "气愤",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E6%B0%94%E6%84%A4.png",
+      "sourceGitBlob": "7e419c3030c44f77494ab7a862a3e8dcc0db89a2",
+      "sha256": "a130e4b8943b2c306fe9e027a7a1134bb331ab42c26a2a2645e3ec113e909514",
+      "bytes": 154090
+    },
+    {
+      "filename": "longing.png",
+      "moodJa": "渇望",
+      "moodLegacy": "渴望",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E6%B8%B4%E6%9C%9B.png",
+      "sourceGitBlob": "ab6681a9ebc8dda4de4cda24957949d4a7440107",
+      "sha256": "55b8934b26efc7752c221e39af24e8a0bd511dd153f88331ff7e369bdef45d18",
+      "bytes": 173288
+    },
+    {
+      "filename": "ecstatic.png",
+      "moodJa": "狂喜",
+      "moodLegacy": "狂喜",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E7%8B%82%E5%96%9C.png",
+      "sourceGitBlob": "35d5be95b8d5af9b596acafce35b755fe6b29f34",
+      "sha256": "6eac5205e46d2e6433ab84f9cedf35929d14c3329ef8294c1c9da9112c5ffe54",
+      "bytes": 836472
+    },
+    {
+      "filename": "crying.png",
+      "moodJa": "号泣",
+      "moodLegacy": "痛哭",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E7%97%9B%E5%93%AD.png",
+      "sourceGitBlob": "9c5ac830f3b497ccf38f68aecfd0aa7d5a583b1a",
+      "sha256": "646f4bba26707a5587b33d94e5faaf5df72ad092e78c4c7a004e95ea41951911",
+      "bytes": 456556
+    },
+    {
+      "filename": "flirty.png",
+      "moodJa": "エッチ",
+      "moodLegacy": "色色",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E8%89%B2%E8%89%B2.png",
+      "sourceGitBlob": "72958a092e277b32678978f93f3ea1c505db4432",
+      "sha256": "0d7235ae78768b43bb6e44c50737a56e9e9bf8905c0e5d46a21bdc9ef77fcd9c",
+      "bytes": 3233507
+    },
+    {
+      "filename": "proud.png",
+      "moodJa": "誇り",
+      "moodLegacy": "骄傲",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E9%AA%84%E5%82%B2.png",
+      "sourceGitBlob": "1f4b8d470d6e5811e405e2596f60fe1a7e930031",
+      "sha256": "f5bd7234d5bcea025a2e3359a557a6edf1bf598cb9c2f96af1bbcd60e036bfc2",
+      "bytes": 781426
+    },
+    {
+      "filename": "encouraging.png",
+      "moodJa": "励まし",
+      "moodLegacy": "鼓励",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E9%BC%93%E5%8A%B1.png",
+      "sourceGitBlob": "4711ea86186be1261fce9db6745212b7ff5031b6",
+      "sha256": "7e244e975b1568a383068fac3ba56308bec0b4f9e525d87c9a75b9eecf4b14d9",
+      "bytes": 786646
+    },
+    {
+      "filename": "mischievous.png",
+      "moodJa": "意地悪笑い",
+      "moodLegacy": "坏笑",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E5%9D%8F%E7%AC%91.png",
+      "sourceGitBlob": "c1461d3bc85f14d7cc5df460760ec0543746b255",
+      "sha256": "48782c41f11e51639187f010e2112ed5d9b0e755e27ff40adc044ff0f5ea2810",
+      "bytes": 171482
+    },
+    {
+      "filename": "excited.png",
+      "moodJa": "興奮",
+      "moodLegacy": "兴奋",
+      "source": "https://raw.githubusercontent.com/AkabaneSaki/myrepo/1d2b5f335b66f02c5e7d20e5506c2a929bc55cff/picture/lilith/%E5%85%B4%E5%A5%8B.png",
+      "sourceGitBlob": "3e3db96bf585d91d0eedea185f45a1d69a79a5c3",
+      "sha256": "1cd9f54af2718bcbfd9f303d1753b668be2a815d2b140716de2cd1cae0b04f74",
+      "bytes": 205594
+    },
+    {
+      "filename": "frame-top.svg",
+      "source": "Original dialogue regex inline SVG",
+      "sha256": "0608ea0aa1a4fa84b76d48e3e228140cc6dd06a220babbf351ef2bd87e8c6c78",
+      "bytes": 214
+    },
+    {
+      "filename": "frame-bottom.svg",
+      "source": "Original dialogue regex inline SVG",
+      "sha256": "7c53b2c0e1074ce82c74fed8ad00e0b3b018ac455a389e5165bcd1297a5bc7b6",
+      "bytes": 325
+    }
+  ]
+}
