@@ -1,0 +1,424 @@
+{
+  "tag": "v1.5.10",
+  "imageTag": "v1.5.9",
+  "residentCount": 27,
+  "automaticCandidatesPerPool": 7,
+  "removed": [
+    {
+      "id": "3d8f13e3-698a-43ce-a453-645ed40f0a5f",
+      "name": "长颈鹿对话美化0.2.1ver",
+      "reason": "replaced by resident dialogue"
+    },
+    {
+      "id": "b297874d-a0e6-410e-881b-94714501bba9",
+      "name": "命定核心-奥托美化",
+      "reason": "replaced by resident dialogue"
+    },
+    {
+      "id": "34904634-c9a0-4cb0-b740-8747b989e966",
+      "name": "命定核心-类脑娘美化",
+      "reason": "unused core absent from all 15 openings"
+    },
+    {
+      "id": "cd37f3e0-8782-4afd-a89b-63b1a76cdb4f",
+      "name": "命定核心-薇洛系美化1.0ver",
+      "reason": "replaced by resident dialogue"
+    },
+    {
+      "id": "0c2255cb-9c9d-44fa-9d02-f8661e5110b7",
+      "name": "命定核心-阿比盖尔美化-表(二选一)",
+      "reason": "unused core absent from all 15 openings"
+    },
+    {
+      "id": "1b85b529-4286-4ac7-bb77-4cf72d3cb1df",
+      "name": "命定核心-阿比盖尔美化-里(二选一)",
+      "reason": "unused core absent from all 15 openings"
+    },
+    {
+      "id": "062364e1-45a5-4329-b693-d87210109ccc",
+      "name": "命定核心-阿比奖励技能",
+      "reason": "unused core absent from all 15 openings"
+    },
+    {
+      "id": "d15a5611-5ca2-4437-8477-6d98f9a8725d",
+      "name": "命定核心-妲丽安对话美化",
+      "reason": "replaced by resident dialogue"
+    },
+    {
+      "id": "d1a73f3f-7b87-45fc-a93d-41fd376a7b2e",
+      "name": "命定核心-奶龙美化",
+      "reason": "unused core absent from all 15 openings"
+    },
+    {
+      "id": "448dff09-440a-4cce-834d-7ce66900ff39",
+      "name": "命定核心-小夜莺美化",
+      "reason": "replaced by resident dialogue"
+    },
+    {
+      "id": "a04b2712-eb36-4583-a8cc-394ed6149bfe",
+      "name": "命定核心-艾莉亚美化",
+      "reason": "replaced by resident dialogue"
+    },
+    {
+      "id": "7d5b8021-01e7-4f4a-abbb-72b8b6161931",
+      "name": "读者对话渲染",
+      "reason": "replaced by resident dialogue"
+    }
+  ],
+  "cores": [
+    {
+      "name": "小夜啼鳥コア",
+      "filename": "nightingale.png",
+      "regex": "nightingale.json",
+      "html": "nightingale.html",
+      "worldbookUID": 630842,
+      "tag": "nightingale",
+      "color": "#E9B44C",
+      "ruleId": "d92f65ba-4033-4f77-890b-c9862653e39b",
+      "ruleName": "運命コア・小夜啼鳥会話装飾"
+    },
+    {
+      "name": "ウィロー",
+      "filename": "willow.png",
+      "regex": "willow.json",
+      "html": "willow.html",
+      "worldbookUID": 236749,
+      "tag": "willow",
+      "color": "#55C57A",
+      "ruleId": "9194afba-0983-4923-9fc9-b79c3f97eb09",
+      "ruleName": "運命コア・ウィロー会話装飾"
+    },
+    {
+      "name": "黒ウィロー",
+      "filename": "dark-willow.png",
+      "regex": "dark-willow.json",
+      "html": "dark-willow.html",
+      "worldbookUID": 495930,
+      "tag": "dark_willow",
+      "color": "#7E3F8F",
+      "ruleId": "2678bee3-e8b0-40cc-8484-c6f1e5fadbb9",
+      "ruleName": "運命コア・黒ウィロー会話装飾"
+    },
+    {
+      "name": "エリア",
+      "filename": "ellia.png",
+      "regex": "ellia.json",
+      "html": "ellia.html",
+      "worldbookUID": 37830,
+      "tag": "ellia",
+      "color": "#8B8EE8",
+      "ruleId": "4b6a34b9-8476-4048-ab38-2aaac69d866e",
+      "ruleName": "運命コア・エリア会話装飾"
+    },
+    {
+      "name": "チャチャ",
+      "filename": "chacha.png",
+      "regex": "chacha.json",
+      "html": "chacha.html",
+      "worldbookUID": 656926,
+      "tag": "chacha",
+      "color": "#F27C38",
+      "ruleId": "36bfec05-27ff-4fa6-ad5f-acf38a4da455",
+      "ruleName": "運命コア・チャチャ会話装飾"
+    },
+    {
+      "name": "オットー・アポカリプス",
+      "filename": "otto.png",
+      "regex": "otto.json",
+      "html": "otto.html",
+      "worldbookUID": 12847,
+      "tag": "otto",
+      "color": "#C9AD63",
+      "ruleId": "2040956e-c66e-44be-8731-1dffa4798fb4",
+      "ruleName": "運命コア・オットー・アポカリプス会話装飾"
+    },
+    {
+      "name": "アーミヤ",
+      "filename": "amiya.png",
+      "regex": "amiya.json",
+      "html": "amiya.html",
+      "worldbookUID": 368438,
+      "tag": "amiya",
+      "color": "#49B7D1",
+      "ruleId": "841e2938-8ab2-4c9f-8151-f86dd22eafda",
+      "ruleName": "運命コア・アーミヤ会話装飾"
+    },
+    {
+      "name": "ドン・キホーテ",
+      "filename": "don-quixote.png",
+      "regex": "don-quixote.json",
+      "html": "don-quixote.html",
+      "worldbookUID": 407050,
+      "tag": "don_quixote",
+      "color": "#D94B49",
+      "ruleId": "63cbb967-e509-4ff5-bb87-ccbf45314667",
+      "ruleName": "運命コア・ドン・キホーテ会話装飾"
+    },
+    {
+      "name": "キリン",
+      "filename": "giraffe.png",
+      "regex": "giraffe.json",
+      "html": "giraffe.html",
+      "worldbookUID": 462884,
+      "tag": "giraffe",
+      "color": "#C75D9B",
+      "ruleId": "b59a8494-f921-4a6d-b31a-7f7aa98af2d1",
+      "ruleName": "運命コア・キリン会話装飾"
+    },
+    {
+      "name": "ガウェイン・セシル／琥珀",
+      "filename": "gawain.png",
+      "regex": "gawain.json",
+      "html": "gawain.html",
+      "worldbookUID": 490480,
+      "tag": "gawain",
+      "color": "#4C78A8",
+      "ruleId": "fc9f1ae3-597e-4e67-98b2-6efabfcaee79",
+      "ruleName": "運命コア・セシル通信会話装飾"
+    },
+    {
+      "name": "ダリアン",
+      "filename": "dalian.png",
+      "regex": "dalian.json",
+      "html": "dalian.html",
+      "worldbookUID": 518857,
+      "tag": "dalian",
+      "color": "#823C59",
+      "ruleId": "156fad35-c0ab-4a7e-8389-0b32ae370439",
+      "ruleName": "運命コア・ダリアン会話装飾"
+    },
+    {
+      "name": "マーリン",
+      "filename": "merlin.png",
+      "regex": "merlin.json",
+      "html": "merlin.html",
+      "worldbookUID": 685282,
+      "tag": "merlin",
+      "color": "#C5A3E8",
+      "ruleId": "d0e4cbd8-74f1-4a66-ab62-7b9bfb57b71a",
+      "ruleName": "運命コア・マーリン会話装飾"
+    },
+    {
+      "name": "九十九夜夢",
+      "filename": "reader.png",
+      "regex": "reader.json",
+      "html": "reader.html",
+      "worldbookUID": 740185,
+      "tag": "dream",
+      "color": "#A98264",
+      "ruleId": "394ef749-a12d-40ea-b229-5d4f5e535de8",
+      "ruleName": "運命コア・九十九夜夢会話装飾"
+    },
+    {
+      "name": "先祖",
+      "filename": "ancestor.png",
+      "regex": "ancestor.json",
+      "html": "ancestor.html",
+      "worldbookUID": 808019,
+      "tag": "ancestor",
+      "color": "#89919C",
+      "ruleId": "fa9efee3-61c6-41bf-9374-94d0c30c060b",
+      "ruleName": "運命コア・先祖会話装飾"
+    }
+  ],
+  "assets": [
+    {
+      "file": "static/regex/fate-cores/nightingale.json",
+      "bytes": 4172,
+      "sha256": "bc6a9bf484e0ea92b0a3d937fae7ae1752db537c9fb844d0a3557c08e79c253c",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/nightingale.json"
+    },
+    {
+      "file": "static/regex/fate-cores/nightingale.html",
+      "bytes": 3455,
+      "sha256": "9934ddda36078e51706d8751bd2a6847cf0100f59fcb36a5583099f27a58e7d7",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/nightingale.html"
+    },
+    {
+      "file": "static/regex/fate-cores/willow.json",
+      "bytes": 4043,
+      "sha256": "bc5433346ea66cb8b6d7b39772843ca06815195abbd3e1e0f800a4da6cfb50d3",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/willow.json"
+    },
+    {
+      "file": "static/regex/fate-cores/willow.html",
+      "bytes": 3433,
+      "sha256": "b8570f9c70b99ef2c515e34940fb23e5bd5df7a9563ec5304e9f3ed6e8dcd1c4",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/willow.html"
+    },
+    {
+      "file": "static/regex/fate-cores/dark-willow.json",
+      "bytes": 4188,
+      "sha256": "f8cc07810b7588c784bde4b94059a34c36b79f0ac854531b0f23d98196659f08",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/dark-willow.json"
+    },
+    {
+      "file": "static/regex/fate-cores/dark-willow.html",
+      "bytes": 3478,
+      "sha256": "eba39b5cbbd4eb802e419934631fb041b0a62945b3dddb6a084c1970ae8d3c49",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/dark-willow.html"
+    },
+    {
+      "file": "static/regex/fate-cores/ellia.json",
+      "bytes": 4045,
+      "sha256": "467b38b616d54461c7f873e51471f5edd314d8e5898d5447c0ed8adc5235235e",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/ellia.json"
+    },
+    {
+      "file": "static/regex/fate-cores/ellia.html",
+      "bytes": 3425,
+      "sha256": "f21fcc26e5ac29d06a8d69e64f74293b2e936f7f8b814176c18aaa592e82984b",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/ellia.html"
+    },
+    {
+      "file": "static/regex/fate-cores/chacha.json",
+      "bytes": 4037,
+      "sha256": "9a7334923077955da818ccb4acc43b2bbeae927e92985a4a06f31020bc8cac66",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/chacha.json"
+    },
+    {
+      "file": "static/regex/fate-cores/chacha.html",
+      "bytes": 3433,
+      "sha256": "462a383a1a3f76f94b58bf9a293918da8df7b9bff8f29b10bbc4f686d3d40e12",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/chacha.html"
+    },
+    {
+      "file": "static/regex/fate-cores/otto.json",
+      "bytes": 4210,
+      "sha256": "469d48bbe4ec2e269cfc613dfc1d9a42ad90b29c03583aeb0e38297deeb602c2",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/otto.json"
+    },
+    {
+      "file": "static/regex/fate-cores/otto.html",
+      "bytes": 3471,
+      "sha256": "22e3cba84240a1926ad3a1defe2b44b179b5a4ca49572193570ceeb1b41faa99",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/otto.html"
+    },
+    {
+      "file": "static/regex/fate-cores/amiya.json",
+      "bytes": 4060,
+      "sha256": "2618f9117c0ba630f30a0bbff4b9a211b4b5df38101fe0e33187f3281d544342",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/amiya.json"
+    },
+    {
+      "file": "static/regex/fate-cores/amiya.html",
+      "bytes": 3431,
+      "sha256": "d9e1141b9a212651bcd3bac85d195681780b16f159c32c21e953b29910403a14",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/amiya.html"
+    },
+    {
+      "file": "static/regex/fate-cores/don-quixote.json",
+      "bytes": 4135,
+      "sha256": "5886b29835db64548ce44173c4f2123a2fe1f42b3e614d366620ae62a39bdea8",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/don-quixote.json"
+    },
+    {
+      "file": "static/regex/fate-cores/don-quixote.html",
+      "bytes": 3461,
+      "sha256": "5b2511d4c9f6dd7e171dedffde3ddd93002b91eadb4eae1c99d05bf180e8880a",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/don-quixote.html"
+    },
+    {
+      "file": "static/regex/fate-cores/giraffe.json",
+      "bytes": 4051,
+      "sha256": "8f4479466178a769745bbd645eee9821ae2168621236568ad2ccc202d738e7df",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/giraffe.json"
+    },
+    {
+      "file": "static/regex/fate-cores/giraffe.html",
+      "bytes": 3429,
+      "sha256": "4ac5a0ded5416d03dcd2d578ef937176d8d88d63f2f9d4f0e2bd5c5a9797cc25",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/giraffe.html"
+    },
+    {
+      "file": "static/regex/fate-cores/gawain.json",
+      "bytes": 4356,
+      "sha256": "7c36e3aab4efd5a075c78e51ec385eb28703ba4b95de2aead0b77801a4dfb8a1",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/gawain.json"
+    },
+    {
+      "file": "static/regex/fate-cores/gawain.html",
+      "bytes": 3637,
+      "sha256": "5edb0f79cda4ff2464a6247b7e247dd048d7d1599aead42b08fa038d95aceace",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/gawain.html"
+    },
+    {
+      "file": "static/regex/fate-cores/dalian.json",
+      "bytes": 4092,
+      "sha256": "a0966b291f3f89e367b30023d9a2e36248a5d073fb0dda3a938638fb36d9593d",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/dalian.json"
+    },
+    {
+      "file": "static/regex/fate-cores/dalian.html",
+      "bytes": 3462,
+      "sha256": "c2166f3dc2cf6baf911f0d90d4ee785a325b387e70290feaefb428392b796e95",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/dalian.html"
+    },
+    {
+      "file": "static/regex/fate-cores/merlin.json",
+      "bytes": 4037,
+      "sha256": "da3d34a93c81a9696a160323a2e0fd2547be70939c2c43e112021e7c36efbfb9",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/merlin.json"
+    },
+    {
+      "file": "static/regex/fate-cores/merlin.html",
+      "bytes": 3433,
+      "sha256": "2b2ad5cff54f73089fab9d32c8291e8e3e10d1e8df4c44af39b389f8319923da",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/merlin.html"
+    },
+    {
+      "file": "static/regex/fate-cores/reader.json",
+      "bytes": 89612,
+      "sha256": "640d27ae927baa8e633fc66fa90b33a67a69e288b20cd507e2189daa0c1d2ca4",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/reader.json"
+    },
+    {
+      "file": "static/regex/fate-cores/reader.html",
+      "bytes": 85473,
+      "sha256": "2750414cd5d5a577a2f2b1e3144b7e4f07cbcc0466bed0a0327bbcaed501c670",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/reader.html"
+    },
+    {
+      "file": "static/regex/fate-cores/ancestor.json",
+      "bytes": 4035,
+      "sha256": "8d3973b839b0b4c701bb445b8bc99b18ee705c62e66169b2f1e4fa8e6154d4cc",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/ancestor.json"
+    },
+    {
+      "file": "static/regex/fate-cores/ancestor.html",
+      "bytes": 3454,
+      "sha256": "65e8f5efe34fcd78dc8828a79c77048964b1b180f9bb18f4c84940f714e3fabb",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/regex/fate-cores/ancestor.html"
+    },
+    {
+      "file": "static/vendor/stockfish-10.0.2/stockfish.js",
+      "bytes": 1579948,
+      "sha256": "723fda70117bfa8d5053a7bc4ae50cdc96dc9e3fd41b57627e4dfa0a0025957a",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/vendor/stockfish-10.0.2/stockfish.js"
+    },
+    {
+      "file": "static/vendor/stockfish-10.0.2/COPYING.txt",
+      "bytes": 35821,
+      "sha256": "0b383d5a63da644f628d99c33976ea6487ed89aaa59f0b3257992deac1171e6b",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/vendor/stockfish-10.0.2/COPYING.txt"
+    },
+    {
+      "file": "static/vendor/stockfish-10.0.2/README.upstream.md",
+      "bytes": 5065,
+      "sha256": "d39a4b0054e389e6e39b485fa7708418ab864fe2dc623808f977c746486bebad",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/vendor/stockfish-10.0.2/README.upstream.md"
+    },
+    {
+      "file": "static/vendor/stockfish-10.0.2/SOURCE.md",
+      "bytes": 1154,
+      "sha256": "e41c73168b555f31ac282793b4a0cf28168da51fca8707d97a4a41b1d5a7673c",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/vendor/stockfish-10.0.2/SOURCE.md"
+    },
+    {
+      "file": "static/auto_regex/index.js",
+      "bytes": 217702,
+      "sha256": "868ad2759acafa9324bf2876433976c39a2b49b86b4a36cba1503d2731d28d93",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v1.5.10/static/auto_regex/index.js"
+    }
+  ]
+}
