@@ -89,7 +89,7 @@ const getToolbarDescription = (markerAddMode: boolean, drawMode: boolean) => {
     return '現在は描画モードです。地図上に直接描き、同期保存できます。';
   }
 
-  return 'ノーマル閲覧モードでは地図マーカーをクリック選択できます。作業台は手動で開いた場合のみ集中編集に使用します。';
+  return '地図上のマーカーをクリックすると、詳細を確認できます。';
 };
 
 export const MapToolbar: FC<MapToolbarProps> = ({
@@ -113,7 +113,7 @@ export const MapToolbar: FC<MapToolbarProps> = ({
         <div className={styles.toolbarIntro}>
           <span className={styles.toolbarEyebrow}>地図ステージ</span>
           <div className={styles.toolbarTitleRow}>
-            <h3 className={styles.toolbarTitle}>マーカーと描画のワークスペース</h3>
+            <h3 className={styles.toolbarTitle}>地図とマーカー</h3>
             <span className={styles.toolbarMeta}>{mapMarkerCount} 個のマーカー</span>
           </div>
           <p className={styles.toolbarDescription}>
@@ -136,6 +136,8 @@ export const MapToolbar: FC<MapToolbarProps> = ({
             ))}
           </div>
           <button
+            hidden
+            style={{ display: 'none' }}
             className={`${styles.drawToggle} ${drawMode ? styles.drawToggleActive : ''}`}
             onClick={onToggleDrawMode}
             type="button"
@@ -143,6 +145,8 @@ export const MapToolbar: FC<MapToolbarProps> = ({
             {drawMode ? '描画を終了' : '描画を開始'}
           </button>
           <button
+            hidden
+            style={{ display: 'none' }}
             type="button"
             className={`${styles.markerWorkbenchButton} ${
               isMarkerPanelVisible ? styles.markerWorkbenchButtonActive : ''
