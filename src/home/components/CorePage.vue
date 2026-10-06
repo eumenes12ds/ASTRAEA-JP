@@ -25,7 +25,11 @@
                 </h3>
                 <div v-if="selectedCoreInfo.note" class="detail-row detail-row-note">
                   <span
+                    :key="selectedCoreKey"
                     class="detail-value core-note-content"
+                    role="region"
+                    :aria-label="`${selectedCoreInfo.label}の詳細`"
+                    tabindex="0"
                     v-html="renderMarkdown(selectedCoreInfo.note)"
                   ></span>
                 </div>
@@ -192,7 +196,7 @@ onMounted(() => {
   min-height: 200px;
 }
 
-/* 横方向のコア一覧と、ページの高さに合わせて伸びる説明欄 */
+/* 横方向のコア一覧と、高さを制限した説明欄 */
 .list-detail-layout {
   display: flex;
   flex-direction: column;
@@ -243,10 +247,37 @@ onMounted(() => {
 
 /* Markdown 描画後の備考内容 */
 .core-note-content {
+  display: block;
+  flex: none;
+  height: 320px;
+  box-sizing: border-box;
+  padding-right: 12px;
   line-height: 1.6;
   word-break: break-word;
-  overflow-x: auto;
+  overflow: auto;
   max-width: 100%;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong-color) rgba(0, 0, 0, 0.2);
+}
+
+.core-note-content::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.core-note-content::-webkit-scrollbar-thumb {
+  background: var(--border-strong-color);
+  border-radius: 4px;
+}
+
+.core-note-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.core-note-content:focus-visible {
+  outline: 1px solid var(--border-strong-color);
+  outline-offset: 2px;
 }
 
 .core-note-content :deep(h1),
@@ -385,6 +416,9 @@ onMounted(() => {
   }
   .tab-content {
     padding: 12px;
+  }
+  .core-note-content {
+    height: 280px;
   }
 }
 </style>

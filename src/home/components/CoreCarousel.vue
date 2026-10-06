@@ -1,5 +1,5 @@
 <template>
-  <section class="core-carousel" aria-label="運命コア一覧">
+  <section class="core-carousel" aria-label="運命コア一覧" :style="{ '--arrow-scale': arrowScale }">
     <p class="carousel-hint">左右にスワイプして、コアをひとつ選択</p>
     <div class="carousel-row">
       <button
@@ -56,11 +56,15 @@
               <span v-else class="portrait-fallback" aria-hidden="true">{{
                 coreDisplayName(core.label).slice(0, 1)
               }}</span>
-              <span v-if="selected === core.value" class="selection-mark" aria-hidden="true"
-                >✓</span
-              >
+              <span v-if="selected === core.value" class="selection-mark" aria-hidden="true">
+                <svg class="selection-check" viewBox="0 0 24 24">
+                  <path d="M5 12L10 17L20 7" />
+                </svg>
+              </span>
             </span>
-            <span class="core-name">{{ coreDisplayName(core.label) }}</span>
+            <span class="core-name" :title="coreDisplayName(core.label)">{{
+              coreDisplayName(core.label)
+            }}</span>
           </button>
         </template>
       </div>
@@ -78,10 +82,6 @@
         </svg>
       </button>
     </div>
-    <p class="carousel-position" aria-live="polite">
-      {{ selectedIndex < 0 ? '—' : String(selectedIndex + 1).padStart(2, '0') }} /
-      {{ cores.length }}
-    </p>
   </section>
 </template>
 
@@ -95,6 +95,7 @@ const emit = defineEmits<{ select: [value: string] }>();
 const track = ref<HTMLDivElement>();
 const dragging = ref(false);
 const portraitCenter = ref(0);
+const arrowScale = ref(1);
 const failedImages = ref(new Set<string>());
 const selectedIndex = computed(() => props.cores.findIndex(core => core.value === props.selected));
 let resizeObserver: ResizeObserver | undefined;
@@ -273,6 +274,11 @@ onMounted(async () => {
     if (portrait && row) {
       const bounds = portrait.getBoundingClientRect();
       portraitCenter.value = bounds.top - row.getBoundingClientRect().top + bounds.height / 2;
+      // モバイルで矢印用の列を確保した分だけ、画像と同じ比率で矢印も縮小。
+      const originalMobilePortraitWidth = (row.clientWidth - 20) / 3;
+      arrowScale.value = window.matchMedia('(max-width: 600px)').matches
+        ? Math.min(1, bounds.width / originalMobilePortraitWidth)
+        : 1;
     }
     if (width !== lastWidth) {
       lastWidth = width;
@@ -294,16 +300,11 @@ onBeforeUnmount(() => {
   min-width: 0;
   contain: inline-size;
 }
-.carousel-hint,
-.carousel-position {
+.carousel-hint {
   text-align: center;
   color: var(--link-color);
   margin: 8px 0 14px;
   font-size: 0.9em;
-}
-.carousel-position {
-  margin: 12px 0 4px;
-  font-variant-numeric: tabular-nums;
 }
 .carousel-row {
   position: relative;
@@ -370,27 +371,41 @@ onBeforeUnmount(() => {
   font-size: 2em;
 }
 .core-option.selected .portrait-wrap {
-  border-color: var(--border-strong-color);
-  box-shadow: 0 0 0 1px var(--border-strong-color) inset;
+  border: 3px solid #f5c765;
+  box-shadow:
+    0 0 0 1px #fff0c2,
+    0 0 6px 1px rgba(245, 199, 101, 0.55);
 }
 .selection-mark {
   position: absolute;
-  top: 3px;
-  right: 3px;
+  top: 0;
+  right: 0;
   display: grid;
   place-items: center;
-  width: 23px;
-  height: 23px;
-  border-radius: 50%;
-  background: #2b2014;
-  border: 1px solid var(--border-strong-color);
-  color: var(--border-strong-color);
-  font-size: 16px;
+  width: 32%;
+  min-width: 12px;
+  max-width: 27px;
+  aspect-ratio: 1;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 18% 100%, 0 82%);
+  background: linear-gradient(135deg, #ffe7af, #f3c768);
+  color: #3e2d12;
+  pointer-events: none;
+}
+.selection-check {
+  width: 75%;
+  height: 75%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .core-name {
-  font-size: 0.9em;
+  font-size: 12px;
   line-height: 1.5;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .core-option.selected .core-name {
   color: var(--border-strong-color);
@@ -413,8 +428,8 @@ onBeforeUnmount(() => {
 }
 .arrow-icon {
   display: block;
-  width: 24px;
-  height: 32px;
+  width: calc(24px * var(--arrow-scale, 1));
+  height: calc(32px * var(--arrow-scale, 1));
   margin: auto;
   pointer-events: none;
   fill: #f2cf87;
@@ -450,12 +465,8 @@ onBeforeUnmount(() => {
   .core-option {
     flex-basis: calc((100% - 16px) / 3);
   }
-  .selection-mark {
-    top: 2px;
-    right: 2px;
-    width: 18px;
-    height: 18px;
-    font-size: 13px;
+  .core-name {
+    font-size: 11px;
   }
 }
 </style>
