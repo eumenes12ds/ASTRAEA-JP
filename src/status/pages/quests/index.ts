@@ -1,1 +1,0 @@
-export { QuestsTab } from './QuestsTab';
