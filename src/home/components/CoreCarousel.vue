@@ -5,6 +5,7 @@
       <button
         type="button"
         class="carousel-arrow previous"
+        :style="{ top: `${portraitCenter}px` }"
         aria-label="前のコアを表示"
         @click="browse(-1)"
       >
@@ -62,6 +63,7 @@
       <button
         type="button"
         class="carousel-arrow next"
+        :style="{ top: `${portraitCenter}px` }"
         aria-label="次のコアを表示"
         @click="browse(1)"
       >
@@ -84,6 +86,7 @@ const props = defineProps<{ cores: CoreOption[]; selected: string | null }>();
 const emit = defineEmits<{ select: [value: string] }>();
 const track = ref<HTMLDivElement>();
 const dragging = ref(false);
+const portraitCenter = ref(0);
 const failedImages = ref(new Set<string>());
 const selectedIndex = computed(() => props.cores.findIndex(core => core.value === props.selected));
 let resizeObserver: ResizeObserver | undefined;
@@ -257,6 +260,12 @@ onMounted(async () => {
   center(selectedIndex.value, false);
   resizeObserver = new ResizeObserver(() => {
     const width = track.value?.clientWidth || 0;
+    const portrait = track.value?.querySelector<HTMLElement>('.portrait-wrap');
+    const row = track.value?.parentElement;
+    if (portrait && row) {
+      const bounds = portrait.getBoundingClientRect();
+      portraitCenter.value = bounds.top - row.getBoundingClientRect().top + bounds.height / 2;
+    }
     if (width !== lastWidth) {
       lastWidth = width;
       center(selectedIndex.value, false);
@@ -379,17 +388,22 @@ onBeforeUnmount(() => {
   color: var(--border-strong-color);
 }
 .carousel-arrow {
+  position: relative;
+  align-self: start;
+  transform: translateY(-50%);
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 0;
-  background: transparent;
+  border: 1px solid var(--border-strong-color);
+  border-radius: 4px;
+  background: rgba(43, 32, 20, 0.94);
   color: var(--link-color);
   font-size: 28px;
   cursor: pointer;
 }
 .carousel-arrow:hover {
   color: var(--title-color);
+  background: #493923;
 }
 .core-option:focus-visible {
   outline: 2px solid var(--border-strong-color);
@@ -413,7 +427,6 @@ onBeforeUnmount(() => {
   .carousel-arrow {
     position: absolute;
     z-index: 1;
-    top: 30%;
     width: 44px;
     height: 44px;
     opacity: 0.93;
