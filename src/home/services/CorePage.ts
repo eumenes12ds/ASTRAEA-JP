@@ -42,8 +42,9 @@ export interface CoreOption {
   specialNote: string; // 特別おすすめの note
 }
 
-// コアエントリのマッチパターン - "命定システム-" で始まるエントリにマッチ
-const CORE_PATTERN = /^命定システム-/;
+// コアエントリのマッチパターン - "運命システム-" で始まるエントリにマッチ
+// 旧チャットのエントリ名も入力として受け付ける。表示ラベルは共通化する。
+const CORE_PATTERN = /^(?:運命|命定)システム-/;
 
 // 作者情報を抽出する正規表現 - 末尾の括弧内容にマッチ
 const AUTHOR_PATTERN = /\(([^)]*)\)$/;
@@ -271,8 +272,8 @@ export function generateSpecialRecommendCores(
       break;
     }
 
-    // "命定システム-" プレフィックスを除去
-    const nameWithoutPrefix = coreValue.replace(/^命定システム-/, '');
+    // "運命システム-" プレフィックスを除去
+    const nameWithoutPrefix = coreValue.replace(CORE_PATTERN, '');
     // 作者情報を抽出（括弧内）
     const authorMatch = nameWithoutPrefix.match(/\(([^)]*)\)$/);
     const author = authorMatch ? authorMatch[1] : '';
@@ -344,7 +345,7 @@ export async function loadCoreOptions(
   );
 
   const coreOptions = entries.map((entry: { name: string; enabled: boolean }) => {
-    // "命定システム-" プレフィックスを除去
+    // "運命システム-" プレフィックスを除去
     const nameWithoutPrefix = entry.name.replace(CORE_PATTERN, '');
     // 作者情報を抽出（括弧内）
     const authorMatch = nameWithoutPrefix.match(AUTHOR_PATTERN);

@@ -28,9 +28,6 @@
       </div>
     </Transition>
   </div>
-
-  <!-- フローティングミュージックプレイヤー。契約同意後に表示 -->
-  <VinylPlayer v-if="hasAgreed" />
 </template>
 
 <script setup>
@@ -39,7 +36,6 @@ import AgreementPage from './components/AgreementPage.vue';
 import CorePage from './components/CorePage.vue';
 import PageTitle from './components/PageTitle.vue';
 import ShowcaseSection from './components/ShowcaseSection.vue';
-import VinylPlayer from './components/VinylPlayer.vue';
 
 const AGREEMENT_KEY = 'Astraea-agreed';
 

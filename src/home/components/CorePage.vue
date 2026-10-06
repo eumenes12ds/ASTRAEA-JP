@@ -2,7 +2,7 @@
   <div class="core-page">
     <h2 class="main-title">コア選択</h2>
     <p class="core-subtitle">
-      星海を越えて降臨した異界の魂は、孤独な身に宿るユニークで永遠の共鳴であり、生死を共にする命定の霊である
+      星海を越えて降臨した異界の魂は、孤独な身に宿るユニークで永遠の共鳴であり、生死を共にする運命の霊である
     </p>
 
     <div class="control-panel-container">
@@ -13,37 +13,21 @@
             利用可能なコアが見つかりません
           </div>
           <div v-else class="list-detail-layout">
-            <div class="item-list">
-              <button
-                v-for="core in coreOptions"
-                :key="core.value"
-                class="list-item"
-                :class="{
-                  'toggled-on': localCoreSelections.get(core.value),
-                  selected: selectedCoreKey === core.value,
-                }"
-                @click="handleCoreClick(core.value)"
-              >
-                {{ core.label }}
-              </button>
-            </div>
+            <CoreCarousel
+              :cores="coreOptions"
+              :selected="selectedCoreKey"
+              @select="handleCoreClick"
+            />
             <div class="item-detail">
               <template v-if="selectedCoreKey && selectedCoreInfo">
-                <h3 class="detail-name">{{ selectedCoreInfo.label }}</h3>
+                <h3 class="detail-name">
+                  {{ selectedCoreInfo.label }} <span class="selected-badge">選択中</span>
+                </h3>
                 <div v-if="selectedCoreInfo.note" class="detail-row detail-row-note">
                   <span
                     class="detail-value core-note-content"
                     v-html="renderMarkdown(selectedCoreInfo.note)"
                   ></span>
-                </div>
-                <div class="detail-actions">
-                  <button
-                    class="toggle-btn"
-                    :class="{ 'toggled-on': localCoreSelections.get(selectedCoreKey) }"
-                    @click="handleSelectCore(selectedCoreKey)"
-                  >
-                    {{ localCoreSelections.get(selectedCoreKey) ? '選択済み' : '未選択' }}
-                  </button>
                 </div>
               </template>
               <div v-else class="detail-placeholder">コアを選択すると詳細が表示されます</div>
@@ -67,6 +51,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
+import CoreCarousel from './CoreCarousel.vue';
 import {
   initialCoreState,
   loadCoreOptions as loadCoreOptionsService,
@@ -108,6 +93,7 @@ async function loadCoreOptions() {
     const result = await loadCoreOptionsService();
     coreOptions.value = result.coreOptions;
     localCoreSelections.value = result.localCoreSelections;
+    selectedCoreKey.value = result.coreOptions.find(core => core.enabled)?.value ?? null;
     bookName.value = result.bookName;
   } catch (error) {
     console.error('コアリストの読み込みに失敗しました:', error);
@@ -123,7 +109,7 @@ function handleSelectCore(coreValue: string) {
   localCoreSelections.value = selectCore(localCoreSelections.value, coreValue);
 }
 
-// 左側のコアをクリック = 自動選択（単一選択式）+ 詳細表示
+// クリック時のみ単一選択と詳細を更新。スクロールでは選択しない。
 function handleCoreClick(coreValue: string) {
   selectedCoreKey.value = coreValue;
   handleSelectCore(coreValue);
@@ -145,6 +131,7 @@ async function handleNext() {
     await runStartSequence();
   } catch (error) {
     console.error('コア選択の保存に失敗しました:', error);
+    toastr.error('旅を始められませんでした。もう一度お試しください。');
   } finally {
     isSaving.value = false;
   }
@@ -159,7 +146,7 @@ async function runStartSequence() {
   await saveOutputSelection(api);
 
   // 3. カスタム序章に切り替え（swipe 1）
-  await switchSwipe(1);
+  if (!(await switchSwipe(1))) throw new Error('Character creation greeting is unavailable.');
 }
 
 // コンポーネントマウント時にコアリストを読み込む
@@ -205,97 +192,28 @@ onMounted(() => {
   min-height: 200px;
 }
 
-/* ===== リスト-詳細レイアウト ===== */
+/* 横方向のコア一覧と、ページの高さに合わせて伸びる説明欄 */
 .list-detail-layout {
   display: flex;
-  gap: 20px;
-  height: 450px;
-}
-
-.item-list {
-  flex: 0 0 200px;
-  display: flex;
   flex-direction: column;
-  gap: 8px;
-  height: 100%;
-  max-height: 450px;
-  overflow-y: auto;
-  padding-right: 10px;
-  border-right: 1px solid var(--border-color);
-  scrollbar-width: none;
+  gap: 20px;
 }
-
-.item-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.item-list::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.item-list::-webkit-scrollbar-thumb {
-  background-color: transparent;
-  border-radius: 3px;
-  transition: background-color 0.2s ease;
-}
-
-.item-list:hover {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
-}
-
-.item-list:hover::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-.item-list:hover::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.list-item {
-  font-family: var(--body-font);
-  font-size: 0.95em;
-  padding: 10px 12px;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  background-color: var(--item-bg-color);
-  color: var(--text-color);
-  text-align: left;
-  width: 100%;
-}
-
-.list-item:hover {
-  background-color: var(--item-bg-hover-color);
-  border-color: var(--border-strong-color);
-}
-
-.list-item.selected {
-  background-color: var(--item-bg-selected-color);
-  border-color: var(--title-color);
-  color: var(--title-color);
-  font-weight: 500;
-}
-
-.list-item.toggled-on {
-  border-left: 3px solid #a8842f;
-}
-
-.list-item.toggled-on.selected {
-  border-left: 3px solid #a8842f;
-}
-
-/* 詳細パネル */
 .item-detail {
-  flex: 1;
-  padding: 10px 20px;
-  height: 100%;
-  max-height: 450px;
-  overflow-y: auto;
-  background-color: rgba(50, 40, 26, 0.85);
-  border-radius: 0 6px 6px 0;
   min-width: 0;
+  contain: inline-size;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--border-color);
+}
+.selected-badge {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 3px 10px;
+  border: 1px solid var(--border-strong-color);
+  border-radius: 5px;
+  color: var(--link-color);
+  font-size: 0.65em;
+  font-weight: 400;
+  vertical-align: middle;
 }
 
 .detail-name {
@@ -406,34 +324,6 @@ onMounted(() => {
   background-color: rgba(0, 0, 0, 0.02);
 }
 
-.detail-actions {
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px dashed var(--border-color);
-}
-
-.toggle-btn {
-  font-family: var(--body-font);
-  font-size: 0.95em;
-  padding: 8px 20px;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  background-color: rgba(58, 46, 30, 0.85);
-  color: #e9dcc4;
-}
-
-.toggle-btn:hover {
-  opacity: 0.9;
-}
-
-.toggle-btn.toggled-on {
-  background-color: #5f4c30;
-  color: #f2e8d2;
-  border-color: #d8b678;
-}
-
 .detail-placeholder {
   display: flex;
   align-items: center;
@@ -493,26 +383,8 @@ onMounted(() => {
   .main-title {
     font-size: 1.8em;
   }
-
-  .list-detail-layout {
-    flex-direction: column;
-    height: auto;
-  }
-
-  .item-list {
-    flex: none;
-    height: auto;
-    max-height: 150px;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-    padding-right: 0;
-    padding-bottom: 10px;
-  }
-
-  .item-detail {
-    height: auto;
-    max-height: none;
-    padding: 10px 0;
+  .tab-content {
+    padding: 12px;
   }
 }
 </style>

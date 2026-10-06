@@ -98,9 +98,10 @@ async function handleNext() {
     await saveOutputSelection(selectedOutput.value);
 
     // 選択したシナリオに切り替え
-    await switchSwipe(selectedIndex.value!);
+    if (!(await switchSwipe(selectedIndex.value!))) throw new Error('Selected greeting is unavailable.');
   } catch (error) {
     console.error('設定の保存に失敗しました:', error);
+    toastr.error('シナリオを開けませんでした。もう一度お試しください。');
   } finally {
     isLoading.value = false;
   }
