@@ -9,7 +9,11 @@
         aria-label="前のコアを表示"
         @click="browse(-1)"
       >
-        ‹
+        <svg class="arrow-icon" viewBox="0 0 24 32" aria-hidden="true">
+          <path class="arrow-highlight" d="M16 4H21L9 16L21 28H16L4 16Z" />
+          <path class="arrow-outline" d="M16 4H21L9 16L21 28H16L4 16Z" />
+          <path class="arrow-fill" d="M16 4H21L9 16L21 28H16L4 16Z" />
+        </svg>
       </button>
       <div
         ref="track"
@@ -67,7 +71,11 @@
         aria-label="次のコアを表示"
         @click="browse(1)"
       >
-        ›
+        <svg class="arrow-icon" viewBox="0 0 24 32" aria-hidden="true">
+          <path class="arrow-highlight" d="M8 4H3L15 16L3 28H8L20 16Z" />
+          <path class="arrow-outline" d="M8 4H3L15 16L3 28H8L20 16Z" />
+          <path class="arrow-fill" d="M8 4H3L15 16L3 28H8L20 16Z" />
+        </svg>
       </button>
     </div>
     <p class="carousel-position" aria-live="polite">
@@ -394,16 +402,34 @@ onBeforeUnmount(() => {
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid var(--border-strong-color);
-  border-radius: 4px;
-  background: rgba(43, 32, 20, 0.94);
+  border: 0;
+  background: transparent;
   color: var(--link-color);
   font-size: 28px;
   cursor: pointer;
 }
 .carousel-arrow:hover {
   color: var(--title-color);
-  background: #493923;
+}
+.arrow-icon {
+  display: block;
+  width: 24px;
+  height: 32px;
+  margin: auto;
+  pointer-events: none;
+  fill: #f2cf87;
+  stroke-linejoin: round;
+}
+.arrow-highlight {
+  stroke: #ffe9b5;
+  stroke-width: 5px;
+}
+.arrow-outline {
+  stroke: #21170d;
+  stroke-width: 3px;
+}
+.arrow-fill {
+  stroke: none;
 }
 .core-option:focus-visible {
   outline: 2px solid var(--border-strong-color);
@@ -416,26 +442,20 @@ onBeforeUnmount(() => {
 }
 @media (max-width: 600px) {
   .carousel-row {
-    display: block;
+    gap: 4px;
   }
   .core-track {
-    gap: 10px;
+    gap: 8px;
   }
   .core-option {
-    flex-basis: calc((100% - 20px) / 3);
+    flex-basis: calc((100% - 16px) / 3);
   }
-  .carousel-arrow {
-    position: absolute;
-    z-index: 1;
-    width: 44px;
-    height: 44px;
-    opacity: 0.93;
-  }
-  .previous {
-    left: -12px;
-  }
-  .next {
-    right: -12px;
+  .selection-mark {
+    top: 2px;
+    right: 2px;
+    width: 18px;
+    height: 18px;
+    font-size: 13px;
   }
 }
 </style>
