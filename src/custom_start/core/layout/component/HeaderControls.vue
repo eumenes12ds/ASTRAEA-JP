@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
  * ヘッダー操作エリアコンポーネント
- * 転生ポイント表示、Roll ポイントボタン、プリセット管理ボタンを含む
+ * 転生ポイント表示、プリセット管理ボタンを含む
  */
 import { storeToRefs } from 'pinia';
 
@@ -10,7 +10,7 @@ import { useCharacterStore } from '../../store';
 
 const characterStore = useCharacterStore();
 const { character } = storeToRefs(characterStore);
-const { availablePoints, canRollPoints, rollPoints } = usePoints();
+const { availablePoints } = usePoints();
 
 const emit = defineEmits<{
   openPreset: [];
@@ -27,19 +27,6 @@ const emit = defineEmits<{
       <span class="points-total">/ {{ character.reincarnationPoints }}</span>
     </div>
     <div class="control-buttons">
-      <button
-        class="control-button roll-button"
-        :disabled="!canRollPoints"
-        :title="
-          canRollPoints
-            ? '新しい転生ポイントをランダム生成'
-            : 'コストポイントがあるため Roll できません（先にリセットしてください）'
-        "
-        @click="rollPoints"
-      >
-        <i class="fa-solid fa-dice"></i>
-        <span class="button-text">Roll ポイント</span>
-      </button>
       <button
         class="control-button preset-button"
         title="キャラクタープリセットを管理"
@@ -120,26 +107,6 @@ const emit = defineEmits<{
   }
 }
 
-.roll-button {
-  background: linear-gradient(135deg, var(--accent-color) 0%, #b8941f 100%);
-  color: white;
-
-  &:hover {
-    background: linear-gradient(135deg, #e0c04a 0%, #d4af37 100%);
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background: var(--border-color-light);
-    color: var(--text-light);
-
-    &:hover {
-      transform: none;
-      box-shadow: var(--shadow-sm);
-    }
-  }
-}
 
 .preset-button {
   background: linear-gradient(135deg, #8b7355 0%, #6f5840 100%);

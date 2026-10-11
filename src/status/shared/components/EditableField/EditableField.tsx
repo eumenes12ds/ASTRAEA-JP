@@ -27,8 +27,6 @@ export interface EditableFieldProps {
   label?: string;
   /** 無効かどうか */
   disabled?: boolean;
-  /** 編集モードロックを迂回: 「データ編集を許可」がオフでも編集可能（確認モーダルは経由） */
-  bypassEditGuard?: boolean;
   /** カスタムクラス名 */
   className?: string;
   /** 数字エディタ設定 */
@@ -71,7 +69,6 @@ export const EditableField: FC<EditableFieldProps> = ({
   type = 'text',
   label,
   disabled = false,
-  bypassEditGuard = false,
   className,
   numberConfig,
   keyValueConfig,
@@ -87,7 +84,7 @@ export const EditableField: FC<EditableFieldProps> = ({
   const [showConfirm, setShowConfirm] = useState(false);
 
   const { editEnabled } = useEditorSettingStore();
-  const isDisabled = disabled || (!bypassEditGuard && !editEnabled);
+  const isDisabled = disabled || !editEnabled;
 
   const formattedCurrentValue = useMemo(() => value, [value]);
 
@@ -119,7 +116,7 @@ export const EditableField: FC<EditableFieldProps> = ({
 
   /** 確定して送信 */
   const confirmUpdate = useCallback(async () => {
-    if (!showConfirm) return;
+    if (!showConfirm || isDisabled) return;
     const success = await updateField(path, pendingValue);
     setShowConfirm(false);
     setPendingValue(null);
@@ -131,7 +128,7 @@ export const EditableField: FC<EditableFieldProps> = ({
     } else {
       toastr.error('保存に失敗しました');
     }
-  }, [showConfirm, updateField, path, pendingValue, onUpdateSuccess]);
+  }, [showConfirm, isDisabled, updateField, path, pendingValue, onUpdateSuccess]);
 
   /** 送信をキャンセル */
   const cancelUpdate = useCallback(() => {
