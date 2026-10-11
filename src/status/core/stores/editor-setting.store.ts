@@ -18,33 +18,24 @@ interface EditorSettingActions {
 type EditorSettingStore = EditorSettingState & EditorSettingActions;
 
 export const useEditorSettingStore = create<EditorSettingStore>()(
-  immer((set, get) => ({
+  immer(set => ({
     editEnabled: false,
 
-    setEditEnabled: enabled => {
+    setEditEnabled: () => {
       set(state => {
-        state.editEnabled = enabled;
+        state.editEnabled = false;
       });
     },
 
     loadSettings: () => {
-      try {
-        const variables = getVariables({ type: 'character' });
-        const setting = _.get(variables, 'status_edit_enabled', null);
-        if (typeof setting === 'boolean') {
-          set(state => {
-            state.editEnabled = setting;
-          });
-        }
-      } catch (error) {
-        console.error('[StatusBar] 編集設定の読み込みに失敗:', error);
-      }
+      // 旧チャット・キャラクター変数に true が残っていても編集を有効にしない。
+      set(state => { state.editEnabled = false; });
     },
 
     saveSettings: async () => {
       try {
         await insertOrAssignVariables(
-          { status_edit_enabled: get().editEnabled },
+          { status_edit_enabled: false },
           { type: 'character' },
         );
       } catch (error) {

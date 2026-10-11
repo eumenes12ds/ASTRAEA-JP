@@ -1311,7 +1311,6 @@ const DestinyTabContent: FC<WithMvuDataProps> = ({ data }) => {
                         path={`関係一覧.${partnerName}.タグ`}
                         value={partner.タグ ?? []}
                         type="tags"
-                        bypassEditGuard
                       />
                     </div>
                     {renderEditableRow(

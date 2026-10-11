@@ -3,7 +3,6 @@ import { computed, ref, watch } from 'vue';
 import {
   ATTRIBUTES,
   calculateAPByLevel,
-  generateInitialPoints,
   getIdentityCosts,
   getRaceCosts,
   getTierAttributeBonus,
@@ -103,7 +102,10 @@ export const useCharacterStore = defineStore('character', () => {
   // Actions
 
   const updateCharacterField = (field: keyof CharacterConfig, value: unknown) => {
-    character.value[field] = value as never;
+    // 旧プリセットの Roll 結果を引き継がず、総予算は常に 1000 点に固定する。
+    character.value[field] = (field === 'reincarnationPoints'
+      ? INITIAL_REINCARNATION_POINTS
+      : value) as never;
   };
 
   const updateAttribute = (attr: keyof Attributes, points: number) => {
@@ -134,12 +136,6 @@ export const useCharacterStore = defineStore('character', () => {
     if (character.value.attributePoints[attr] > 0) {
       character.value.attributePoints[attr]--;
     }
-  };
-
-  const rollInitialPoints = () => {
-    const newPoints = generateInitialPoints(character.value.name);
-    character.value.reincarnationPoints = newPoints;
-    return newPoints;
   };
 
   const resetCharacter = () => {
@@ -375,7 +371,6 @@ export const useCharacterStore = defineStore('character', () => {
     removeBasePoint,
     addAttributePoint,
     removeAttributePoint,
-    rollInitialPoints,
     resetCharacter,
     addEquipment,
     removeEquipment,

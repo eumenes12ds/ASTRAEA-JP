@@ -46,38 +46,6 @@ export const getStartLocationsCascader = computed(() => {
   return cascaderOptions;
 });
 
-/**
- * 開発者モードが有効かどうかを確認（名前の合言葉で判定）
- * 合言葉：名前に特定の文字列が含まれる
- */
-const checkDevModeByName = (name: string): boolean => {
-  // 合言葉
-  const devPatterns = ['[dev]', '[test]'];
-  const lowerName = name.toLowerCase();
-  return devPatterns.some(pattern => lowerName.includes(pattern));
-};
-
-/**
- * ランダムな初期転生ポイントを生成
- * 範囲: 1000-10000
- * より良い加重ランダム
- * @param characterName 任意のキャラクター名。開発者モードの判定に使用
- */
-export const generateInitialPoints = (characterName?: string): number => {
-  // 開発者モード：名前が特定の合言葉を含む場合、高ポイントを返す
-  if (characterName && checkDevModeByName(characterName)) {
-    return 888888;
-  }
-
-  const random = Math.random();
-  const weight = 3;
-  const weightRandom = Math.pow(random, weight);
-
-  const result = Math.floor(1000 + weightRandom * (10000 - 1000 + 1));
-
-  return Math.min(result, 10000);
-};
-
 // 初期転生ポイント（デフォルト値）
 export const INITIAL_REINCARNATION_POINTS = 1000;
 

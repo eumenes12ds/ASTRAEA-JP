@@ -8,10 +8,6 @@ import { useCharacterStore } from '../store';
 interface UsePointsReturn {
   /** 利用可能ポイント */
   availablePoints: ComputedRef<number>;
-  /** ポイントを Roll できるか */
-  canRollPoints: ComputedRef<boolean>;
-  /** 新しい転生ポイントを Roll */
-  rollPoints: () => number;
 }
 
 /**
@@ -27,19 +23,7 @@ export function usePoints(): UsePointsReturn {
     return character.value.reincarnationPoints - consumed;
   });
 
-  // Roll できるかどうかを判定（コストポイントがない場合のみ許可）
-  const canRollPoints = computed(() => {
-    return characterStore.consumedPoints === 0;
-  });
-
-  // 転生ポイントを Roll
-  const rollPoints = () => {
-    return characterStore.rollInitialPoints();
-  };
-
   return {
     availablePoints,
-    canRollPoints,
-    rollPoints,
   };
 }

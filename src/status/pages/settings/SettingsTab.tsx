@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { ThemeList } from '../../config/theme-presets';
-import { useEditorSettingStore, useThemeStore } from '../../core/stores';
+import { useThemeStore } from '../../core/stores';
 import { Card } from '../../shared/components';
 import { ToggleEditor } from '../../shared/components/editors/ToggleEditor/ToggleEditor';
 import styles from './SettingsTab.module.scss';
@@ -10,13 +10,6 @@ import styles from './SettingsTab.module.scss';
  */
 export const SettingsTab: FC = () => {
   const { currentThemeId, setTheme, reset, saveTheme } = useThemeStore();
-  const { editEnabled, setEditEnabled, saveSettings } = useEditorSettingStore();
-
-  const handleToggle = async (next: boolean) => {
-    setEditEnabled(next);
-    await saveSettings();
-    toastr.success(next ? '編集を有効にしました' : '編集を無効にしました');
-  };
 
   /** テーマ変更の処理 */
   const handleThemeChange = (themeId: string) => {
@@ -41,8 +34,9 @@ export const SettingsTab: FC = () => {
       <div className={styles.editSettingBar}>
         <span className={styles.editSettingLabel}>データ編集を許可</span>
         <ToggleEditor
-          value={editEnabled}
-          onChange={handleToggle}
+          value={false}
+          onChange={() => {}}
+          disabled
           labelOff="オフ"
           labelOn="オン"
           size="sm"
