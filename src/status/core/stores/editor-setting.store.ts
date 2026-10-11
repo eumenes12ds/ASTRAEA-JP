@@ -29,15 +29,14 @@ export const useEditorSettingStore = create<EditorSettingStore>()(
 
     loadSettings: () => {
       // 旧チャット・キャラクター変数に true が残っていても編集を有効にしない。
-      set(state => { state.editEnabled = false; });
+      set(state => {
+        state.editEnabled = false;
+      });
     },
 
     saveSettings: async () => {
       try {
-        await insertOrAssignVariables(
-          { status_edit_enabled: false },
-          { type: 'character' },
-        );
+        await insertOrAssignVariables({ status_edit_enabled: false }, { type: 'character' });
       } catch (error) {
         console.error('[StatusBar] 編集設定の保存に失敗:', error);
       }

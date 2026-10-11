@@ -107,7 +107,6 @@ const emit = defineEmits<{
   }
 }
 
-
 .preset-button {
   background: linear-gradient(135deg, #8b7355 0%, #6f5840 100%);
   color: white;

@@ -103,9 +103,9 @@ export const useCharacterStore = defineStore('character', () => {
 
   const updateCharacterField = (field: keyof CharacterConfig, value: unknown) => {
     // 旧プリセットの Roll 結果を引き継がず、総予算は常に 1000 点に固定する。
-    character.value[field] = (field === 'reincarnationPoints'
-      ? INITIAL_REINCARNATION_POINTS
-      : value) as never;
+    character.value[field] = (
+      field === 'reincarnationPoints' ? INITIAL_REINCARNATION_POINTS : value
+    ) as never;
   };
 
   const updateAttribute = (attr: keyof Attributes, points: number) => {
