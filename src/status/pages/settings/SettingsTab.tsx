@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { ThemeList } from '../../config/theme-presets';
 import { useThemeStore } from '../../core/stores';
 import { Card } from '../../shared/components';
-import { ToggleEditor } from '../../shared/components/editors/ToggleEditor/ToggleEditor';
 import styles from './SettingsTab.module.scss';
 
 /**
@@ -30,19 +29,6 @@ export const SettingsTab: FC = () => {
 
   return (
     <div className={styles.settingsTab}>
-      {/* 編集設定 */}
-      <div className={styles.editSettingBar}>
-        <span className={styles.editSettingLabel}>データ編集を許可</span>
-        <ToggleEditor
-          value={false}
-          onChange={() => {}}
-          disabled
-          labelOff="オフ"
-          labelOn="オン"
-          size="sm"
-        />
-      </div>
-
       <Card title="テーマ設定" className={styles.settingsTabTheme}>
         <div className={styles.themeSelector}>
           <div className={styles.themeSelectorLabel}>テーマを選択</div>
