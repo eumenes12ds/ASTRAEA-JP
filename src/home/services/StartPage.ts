@@ -10,30 +10,20 @@ export const scenarios = [
  * シナリオの切り替え（スワイプ）
  */
 export async function switchSwipe(swipeId: number): Promise<boolean> {
-  if (typeof SillyTavern === 'undefined' || !SillyTavern.chat || SillyTavern.chat.length === 0) {
-    console.warn('SillyTavern environment not detected. Action will not be executed.');
+  if (!Number.isInteger(swipeId) || swipeId < 0) {
+    console.warn('Invalid scenario index.');
     return false;
   }
 
-  const swipeIndex = swipeId;
-
-  if (
-    typeof SillyTavern.chat[0].swipe_id !== 'undefined' &&
-    SillyTavern.chat[0].swipe_id !== swipeIndex
-  ) {
-    if (SillyTavern.chat[0].swipes && SillyTavern.chat[0].swipes.length > swipeIndex) {
-      SillyTavern.chat[0].swipe_id = swipeIndex;
-      SillyTavern.chat[0].mes = SillyTavern.chat[0].swipes[swipeIndex];
-      await SillyTavern.saveChat();
-      await SillyTavern.reloadCurrentChat();
-      console.log(`Successfully switched to scenario (swipe_id: ${swipeIndex}).`);
-      return true;
-    } else {
-      console.error(`Swipe index ${swipeIndex} is out of bounds or swipes array is missing.`);
-      return false;
-    }
-  } else {
-    console.log(`Scenario ${swipeIndex} is already selected or swipe data is unavailable.`);
-    return true;
+  const greeting = getChatMessages(0, { include_swipes: true })[0];
+  if (!greeting || typeof greeting.swipes?.[swipeId] !== 'string') {
+    console.error(`Scenario ${swipeId} is unavailable.`);
+    return false;
   }
+  if (greeting.swipe_id === swipeId) return true;
+
+  // 初回入力前の会話はサーバーに保存されない場合がある。
+  // 再読込せず、助手の API で本文・変数・表示を同じスワイプに切り替える。
+  await setChatMessages([{ message_id: 0, swipe_id: swipeId }], { refresh: 'affected' });
+  return true;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="page-title-section">
-    <h1 class="page-super-title">ASTRAEA</h1>
-    <p class="page-subtitle-english">ASTRAEA</p>
+    <h1 class="page-super-title"><span>アスタリア：</span><span>運命の詩</span></h1>
+    <p class="page-subtitle-english">Astalia: The Poem of Destiny</p>
     <hr class="ornamental-divider" />
   </div>
 </template>
@@ -16,6 +16,10 @@
   color: var(--title-color);
   margin: 10px 0 0 0;
   letter-spacing: 2px;
+}
+
+.page-super-title span {
+  display: inline-block;
 }
 
 .page-subtitle-english {
@@ -57,7 +61,11 @@
 /* Responsive */
 @media screen and (max-width: 600px) {
   .page-super-title {
-    font-size: 2em;
+    font-size: clamp(1.6rem, 7.5vw, 2rem);
+  }
+
+  .page-super-title span {
+    display: block;
   }
 }
 </style>

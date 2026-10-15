@@ -15,3 +15,7 @@ components.d.ts
 初期テンプレート
 temp
 backup
+/source/MagVarUpdate/node_modules/
+/source/MagVarUpdate/slash-runner/
+/source/MagVarUpdate/artifact/
+/source/MagVarUpdate/coverage/
