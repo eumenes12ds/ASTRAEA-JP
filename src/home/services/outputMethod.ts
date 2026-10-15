@@ -1,27 +1,11 @@
 // ==================== 変数出力方式関連 ====================
 
-import { getWorldBookName, updateWorldBook } from '@/home/services/worldbookload&update';
+import { getWorldBookName } from '@/home/services/worldbookload&update';
 
-// 固定のエントリ名
-const OUTPUT_ENTRY_MAIN_API = 'output_format (AI出力に合わせてオン、メインAPI)';
-const OUTPUT_ENTRY_EXTRA_API = '[mvu_update]output_format (追加モデルで変数を更新する時にオン)';
-const OUTPUT_ENTRY_EXTRA_API_LATEST_INPUT =
-  '[mvu_update]ユーザーの最新入力(追加モデルで変数を更新する時にオン)';
-
-// 変数出力方式の選択肢
+// Published worldbook UIDs survive display-name localization.
 export const OUTPUT_OPTIONS = [
-  {
-    value: 'メインAPI',
-    label: 'メインAPI',
-    desc: 'メインAPIで変数更新を解析する',
-    entryNames: [OUTPUT_ENTRY_MAIN_API],
-  },
-  {
-    value: '追加API',
-    label: '追加API',
-    desc: '追加APIで変数更新を解析する',
-    entryNames: [OUTPUT_ENTRY_EXTRA_API, OUTPUT_ENTRY_EXTRA_API_LATEST_INPUT],
-  },
+  { value: '主AI追従出力', label: '主AI追従出力', desc: '本文と同じ応答で変数を更新する', entryIds: [48699] },
+  { value: '追加モデル解析', label: '追加モデル解析', desc: '追加モデルで変数を更新する', entryIds: [902272] },
 ];
 
 // 現在のキャラクターカードを取得（ホーム/カスタム開始は iframe として酒場ページ内で動作）
@@ -76,19 +60,24 @@ export async function resolveCardUpdateMode(): Promise<'main' | 'extra'> {
  * @param selectedValue 選択された出力方式の値（'メインAPI' または '追加API'）
  */
 export async function saveOutputSelection(selectedValue: string): Promise<void> {
+  const aliases: Record<string,string> = { 'メインAPI':'主AI追従出力', '追加API':'追加モデル解析', '随AI输出':'主AI追従出力', '额外模型解析':'追加モデル解析', 'AI出力に従う':'主AI追従出力' };
+  const selected = aliases[selectedValue] || selectedValue;
+  if (!OUTPUT_OPTIONS.some(option => option.value === selected)) throw new Error('変数の出力方式が無効です。');
   const bookName = getWorldBookName();
-  if (!bookName) {
-    console.error('世界書が見つかりません');
-    return;
-  }
-
-  // 選択に基づいて更新エントリを構築；選択された出力方式に対応する全エントリを有効化する
-  const updatedEntries = OUTPUT_OPTIONS.flatMap(opt =>
-    opt.entryNames.map(name => ({
-      name,
-      enabled: opt.value === selectedValue,
-    })),
-  );
-
-  await updateWorldBook(updatedEntries, bookName);
+  if (!bookName) throw new Error('世界書が見つかりません。');
+  const helper = window.top?.TavernHelper;
+  if (!helper?.updateWorldbookWith) throw new Error('世界書更新インターフェースが見つかりません。');
+  await helper.updateWorldbookWith(bookName, entries => {
+    const required = OUTPUT_OPTIONS.flatMap(option => option.entryIds);
+    if (!required.every(uid => entries.filter(entry => entry.uid === uid).length === 1)) throw new Error('変数更新エントリの識別子が見つからないか重複しています。');
+    return entries.map(entry => {
+      const option = OUTPUT_OPTIONS.find(option => option.entryIds.includes(entry.uid));
+      if (option) return { ...entry, enabled: option.value === selected };
+      if (entry.uid === 998553) {
+        const config = JSON.parse(entry.content);
+        return { ...entry, content: JSON.stringify({ ...config, 更新方式: selected }) };
+      }
+      return entry;
+    });
+  });
 }
