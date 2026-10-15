@@ -1,1 +1,0 @@
-export { ResourceBar } from './ResourceBar';
