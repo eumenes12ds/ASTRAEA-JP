@@ -1,0 +1,161 @@
+{
+  "tag": "v2026.11.21-core-portraits-webp.2",
+  "generator": "Built-in imagegen",
+  "export": "1024x1024 WebP; original dimensions, composition, and pixel alpha preserved. The previous PNG release is available at v1.5.9.",
+  "assets": [
+    {
+      "name": "小夜啼鳥コア",
+      "filename": "nightingale.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 131372,
+      "sha256": "c832c54bb3a4777dc970282447908adcfe17725ddea1a35f252cfde29d66c55d",
+      "provenance": "栗色短发、野花、琥珀眼与活泼诗灵来自世界书；暖色围肩为美术补充。",
+      "prompt": "Create exactly ONE square 1024x1024 PNG character portrait for a Japanese fantasy RPG dialogue UI. Unified series art direction: polished Japanese fantasy anime illustration, delicate clean line art, softly painted dimensional shading, luminous but restrained colors, detailed expressive eyes, normal fully clothed head-and-shoulders composition. Center the face and keep the entire head comfortably inside the central 75% so it works cropped to a circle. Subtle softly blurred fantasy background, no text, no letters, no logo, no watermark, no frame. Subject: Nightingale, a cheerful curious female poetic spirit and traveling bard. Fluffy short chestnut-brown hair adorned with a small unfading wildflower; large amber eyes, lively warm smile. A tasteful cream blouse and warm ochre traveling shoulder cape, small drifting golden motes around her. The character is a friendly whimsical guide. Primary palette amber gold, chestnut and cream. Depict only this one character.",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v2026.11.21-core-portraits-webp.2/static/images/fate-cores/nightingale.webp"
+    },
+    {
+      "name": "ウィロー",
+      "filename": "willow.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 158436,
+      "sha256": "abbdd2c1ea78500862350790d0ac96cda2ebc94231ca33065c1fc945540b65d1",
+      "provenance": "蓝绿长发、绿眼、双对光翼与花叶衣装来自世界书。",
+      "prompt": "Create exactly ONE square 1024x1024 PNG portrait for a Japanese fantasy RPG dialogue UI. Polished Japanese fantasy anime illustration, delicate clean line art, softly painted dimensional shading, luminous restrained colors, detailed expressive eyes, fully clothed head-and-shoulders composition. Center face and keep entire head comfortably inside central 75% for circular cropping. Soft blurred fantasy background. No text, letters, logo, watermark, or frame. Subject: Willow, a gentle joyful forest fairy girl. Long flowing hair in cornflower blue fading into jade green, bright green eyes, pointed fairy ears, TWO PAIRS of delicate translucent luminous wings visible beside her shoulders. A modest elegant outfit woven from leaves and flower petals covering shoulders and chest. Kind caring smile, glowing spring forest backdrop. Main palette fresh green and turquoise. Exactly one character.",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v2026.11.21-core-portraits-webp.2/static/images/fate-cores/willow.webp"
+    },
+    {
+      "name": "黒ウィロー",
+      "filename": "dark-willow.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 161110,
+      "sha256": "78fd623c1ee85f5840c4e4f6cf428db9772dddf485b9663493191da72d0491f5",
+      "provenance": "与ウィロー同源的外观及暗紫翼缘来自世界书；双人设须保持辨识关联。",
+      "prompt": "Create exactly ONE square 1024x1024 PNG portrait for a Japanese fantasy RPG dialogue UI. Polished Japanese fantasy anime illustration, delicate clean line art, softly painted dimensional shading, luminous restrained colors, detailed expressive eyes, fully clothed head-and-shoulders composition. Center face and keep entire head comfortably inside central 75% for circular cropping. Soft blurred fantasy background. No text, letters, logo, watermark, or frame. Input image is a reference for Willow identity and art style. Generate her alternate Dark Willow persona: preserve blue-to-jade long hair, bright green eyes, pointed ears, and leafy flower outfit. TWO PAIRS of translucent wings now edged in deep dark plum purple. Her expression is gently smiling but intensely attached and quietly possessive, not violent. Dusk forest, purple magical specks, purple-edged leaves, naturally covered chest, single fairy head-and-shoulders portrait.",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v2026.11.21-core-portraits-webp.2/static/images/fate-cores/dark-willow.webp"
+    },
+    {
+      "name": "エリア",
+      "filename": "ellia.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 140394,
+      "sha256": "0368478029347ee6dd2fbfd1073b27bb7fe7fae5bb5e7d9d9204437ddacb0d67",
+      "provenance": "深紫发、淡紫眼、黑兜帽、白眼纹章来自世界书。",
+      "prompt": "Create exactly ONE square 1024x1024 PNG portrait for a Japanese fantasy RPG dialogue UI. Polished Japanese fantasy anime illustration, delicate clean line art, softly painted dimensional shading, luminous restrained colors, detailed expressive eyes, fully clothed head-and-shoulders composition. Center face and keep entire head comfortably inside central 75% for circular cropping. Soft blurred fantasy background. No text, letters, logo, watermark, or frame. Subject: Ellia, a mysterious calm elf woman, long deep-purple hair, pale violet eyes with subtle diamond-shaped highlights, pointed elven ears. Black hooded traveling cloak with a small WHITE stylized eye emblem on the forehead of the hood (pictorial eye only, no text). Fully covered shoulders, reserved knowing expression. Softly luminous periwinkle lights in a dark magical background. Exactly one character.",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v2026.11.21-core-portraits-webp.2/static/images/fate-cores/ellia.webp"
+    },
+    {
+      "name": "チャチャ",
+      "filename": "chacha.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 108878,
+      "sha256": "ac5bea92127a92c946107b2f16c23c13479bb9bfd30c58983b2a71585b7a005d",
+      "provenance": "邻家妹妹气质、可乐零食与浮屏来自世界书；栗棕短发及休闲连帽衣为美术补充。",
+      "prompt": "Create exactly ONE square 1024x1024 PNG portrait for a Japanese fantasy RPG dialogue UI. Polished Japanese fantasy anime illustration, delicate clean line art, softly painted dimensional shading, luminous restrained colors, detailed expressive eyes, fully clothed head-and-shoulders composition. Center face and keep entire head comfortably inside central 75% for circular cropping. Soft blurred fantasy background. No text, letters, logo, watermark, or frame. Subject: Chacha, a friendly playful girl-next-door digital companion with short chestnut-brown hair and mischievous bright eyes. Normal modest orange casual hoodie. A plain unbranded cola cup with straw and a few snacks at bottom edge; small floating abstract screens behind her, absolutely no readable text. Warm orange cozy atmosphere, teasing grin. One character.",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v2026.11.21-core-portraits-webp.2/static/images/fate-cores/chacha.webp"
+    },
+    {
+      "name": "オットー・アポカリプス",
+      "filename": "otto.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 94404,
+      "sha256": "0205d18a57848fb91cd513e738a84a5e47cf980ca4a5ea1cf6813fea57e8daca",
+      "provenance": "金发绿眼、年轻成年男性、白金主教服与优雅气质来自世界书。",
+      "prompt": "Create exactly ONE square 1024x1024 PNG portrait for a Japanese fantasy RPG dialogue UI. Polished Japanese fantasy anime illustration, delicate clean line art, softly painted dimensional shading, luminous restrained colors, detailed expressive eyes, fully clothed head-and-shoulders composition. Center face and keep entire head comfortably inside central 75% for circular cropping. Soft blurred fantasy background. No text, letters, logo, watermark, or frame. Subject: Otto Apocalypse, an elegant young adult male strategist. Long blond hair drawn back loosely, emerald green eyes, refined masculine face, calm restrained intelligent smile. White bishop robes with champagne-gold embroidery, upright collar, completely clothed. Soft cathedral arches behind him, understated champagne gold light. One man.",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v2026.11.21-core-portraits-webp.2/static/images/fate-cores/otto.webp"
+    },
+    {
+      "name": "アーミヤ",
+      "filename": "amiya.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 107354,
+      "sha256": "86c6622cd31bcb73f88cd45fd9c547bb5ad2657c57413ecb5e9c5d3b7a05e907",
+      "provenance": "采用本卡的幼年兔族外观、棕黑发耳、蓝眼和素白服装；正常着装的中性肖像。",
+      "prompt": "Create exactly ONE square 1024x1024 PNG portrait for a Japanese fantasy RPG dialogue UI. Polished Japanese fantasy anime illustration, delicate clean line art, softly painted dimensional shading, luminous restrained colors, detailed expressive eyes, fully clothed head-and-shoulders composition. Center face and keep entire head comfortably inside central 75% for circular cropping. Soft blurred fantasy background. No text, letters, logo, watermark, or frame. Subject: Amiya as defined in this RPG card: a small young rabbit girl, childlike innocent proportions and gentle determined expression. Long dark brown hair, TWO long dark brown rabbit ears, clear crystal-blue eyes, a simple modest pure-white high-neck long-sleeve dress, fully covered shoulders and chest. Family-friendly neutral portrait, absolutely no suggestive styling. Clear cyan-blue magical background, soft daylight. Frame sufficiently loosely that both long ears fit inside the square with space above. Exactly one character.",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v2026.11.21-core-portraits-webp.2/static/images/fate-cores/amiya.webp"
+    },
+    {
+      "name": "ドン・キホーテ",
+      "filename": "don-quixote.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 151518,
+      "sha256": "b180aabd872188a539d4ecbfda2aa3da984be204e732b120455dab5dc2a66b84",
+      "provenance": "老骑士、瘦削身形、旧盔甲与灼热眼神来自世界书；灰白胡须为美术补充。",
+      "prompt": "Create exactly ONE square 1024x1024 PNG portrait for a Japanese fantasy RPG dialogue UI. Polished Japanese fantasy anime illustration, delicate clean line art, softly painted dimensional shading, luminous restrained colors, detailed expressive eyes, fully clothed head-and-shoulders composition. Center face and keep entire head comfortably inside central 75% for circular cropping. Soft blurred fantasy background. No text, letters, logo, watermark, or frame. Subject: Don Quixote, a thin ELDERLY male wandering knight, angular weathered face, gray hair and sparse pointed gray beard, burning firm kind eyes full of chivalric conviction. Worn old-fashioned steel armor with rough dents and ill-fitting shoulder plates, a muted knight-red tabard. No helmet covering face. Warm red and steel palette, blurred windmill and evening horizon. One old man, not a young man or woman.",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v2026.11.21-core-portraits-webp.2/static/images/fate-cores/don-quixote.webp"
+    },
+    {
+      "name": "キリン",
+      "filename": "giraffe.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 83330,
+      "sha256": "4485eab08e051f53988284ee53fbbf56c9422f306984a2e1564dec71a8a31ef7",
+      "provenance": "必须是现实长颈鹿，圆环舞台与克制观察者气质来自世界书。",
+      "prompt": "Create exactly ONE square 1024x1024 PNG portrait for a Japanese fantasy RPG dialogue UI. Polished Japanese fantasy anime illustration, delicate clean line art, softly painted dimensional shading, luminous restrained colors, detailed expressive eyes, fully clothed head-and-shoulders composition. Center face and keep entire head comfortably inside central 75% for circular cropping. Soft blurred fantasy background. No text, letters, logo, watermark, or frame. Subject: a real anatomically accurate giraffe, its head and upper neck, natural golden-brown patch patterned fur, ossicones and large ears, calm restrained attentive observer eyes. NOT a human, NOT a mythical kirin, NOT a humanoid. Portrait perspective slightly turned toward viewer, entire head and ears fully visible. Soft out-of-focus empty circular theatre behind it with burgundy velvet curtains and rose spotlights, thoughtful theatrical atmosphere. Japanese fantasy illustrated animal portrait, not a photo.",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v2026.11.21-core-portraits-webp.2/static/images/fate-cores/giraffe.webp"
+    },
+    {
+      "name": "ガウェイン・セシル／琥珀",
+      "filename": "gawain.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 150288,
+      "sha256": "17733dd6b566d8906c294b3ff6638bba24db7cbc6b08d5a7d6ac92e613e09dc0",
+      "provenance": "用户选择双人头像；高文金发黑甲、琥珀黑短发半精灵均来自世界书。",
+      "prompt": "Create exactly ONE square 1024x1024 PNG portrait for a Japanese fantasy RPG dialogue UI. Polished Japanese fantasy anime illustration, delicate clean line art, softly painted dimensional shading, luminous restrained colors, detailed expressive eyes, fully clothed head-and-shoulders composition. Center face and keep entire head comfortably inside central 75% for circular cropping. Soft blurred fantasy background. No text, letters, logo, watermark, or frame. Subject: a DOUBLE portrait of two companions close together, both heads fully within the central circular-crop safe area. Gawain Cecil: mature adult heroic man with blond hair and practical BLACK plate armor, confident thoughtful expression. Amber: youthful adult half-elf woman with short BLACK hair, clearly pointed half-elf ears and agile rogue-like dark leather outfit, sly witty smile. Both naturally clothed head-and-shoulders, no romance pose, equal readable face sizes. Both must appear in ONE shared portrait. Blue steel accents, softly blurred stone city and blue magical light, polished Japanese anime fantasy illustration with visible linework.",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v2026.11.21-core-portraits-webp.2/static/images/fate-cores/gawain.webp"
+    },
+    {
+      "name": "ダリアン",
+      "filename": "dalian.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 123486,
+      "sha256": "43aa76d89984db29282db4b393be7f2e8ef56113f4600651e6b311552cadaa31",
+      "provenance": "黑长发、紫瞳、黑哥特服、锁与书库来自世界书；采用正常着装的中性肖像。",
+      "prompt": "Create exactly ONE square 1024x1024 PNG portrait for a Japanese fantasy RPG dialogue UI. Polished Japanese fantasy anime illustration, delicate clean line art, softly painted dimensional shading, luminous restrained colors, detailed expressive eyes, fully clothed head-and-shoulders composition. Center face and keep entire head comfortably inside central 75% for circular cropping. Soft blurred fantasy background. No text, letters, logo, watermark, or frame. Subject: Dalian, a proud mysterious young gothic librarian girl with long jet-black hair, porcelain pale complexion and vivid purple eyes. Modest high-collared long-sleeved black Gothic dress with ruffles and an antique metal lock at the collar. Holds a CLOSED dark antique book at bottom edge, no text. Quietly haughty expression, old library blurred behind, burgundy warm highlights. Family-friendly fully clothed neutral portrait, one character.",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v2026.11.21-core-portraits-webp.2/static/images/fate-cores/dalian.webp"
+    },
+    {
+      "name": "マーリン",
+      "filename": "merlin.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 142096,
+      "sha256": "8bfdc6cb6f01fccc3865da412eb08d460723fb0ac3521326abbe4ed23ba9d418",
+      "provenance": "采用世界书明确参照的花之魔术师青年形象，银白发紫眼与白金法衣。",
+      "prompt": "Create exactly ONE square 1024x1024 PNG portrait for a Japanese fantasy RPG dialogue UI. Polished Japanese fantasy anime illustration, delicate clean line art, softly painted dimensional shading, luminous restrained colors, detailed expressive eyes, fully clothed head-and-shoulders composition. Center face and keep entire head comfortably inside central 75% for circular cropping. Soft blurred fantasy background. No text, letters, logo, watermark, or frame. Subject: Merlin, the youthful ADULT MALE Flower Magician from Japanese fantasy, long flowing silver-white hair, amethyst-purple eyes, and a playful knowing gentle smile. Elegant white and gold hooded magician robes with a fluffy soft collar, fully clothed. Floating pale petals and wisteria-purple magical light, flower garden blurred behind. One adult man with refined androgynous handsome face. Clearly Japanese anime fantasy illustration.",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v2026.11.21-core-portraits-webp.2/static/images/fate-cores/merlin.webp"
+    },
+    {
+      "name": "九十九夜夢",
+      "filename": "reader.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 113078,
+      "sha256": "93181d52c1528ae3643d72a692b868511bb533436012d3914f3e96a93bca1123",
+      "provenance": "用户选择默认 reader/cute 外观；灰银短发、紫眼、黑贝雷帽和黑白学院服来自世界书。",
+      "prompt": "Create exactly ONE square 1024x1024 PNG portrait for a Japanese fantasy RPG dialogue UI. Polished Japanese fantasy anime illustration, delicate clean line art, softly painted dimensional shading, luminous restrained colors, detailed expressive eyes, fully clothed head-and-shoulders composition. Center face and keep entire head comfortably inside central 75% for circular cropping. Soft blurred fantasy background. No text, letters, logo, watermark, or frame. Subject: Tsukumo Yamu, a friendly clever female literary café companion in her default reader persona. Silver-gray shoulder-length short hair, purple eyes, BLACK beret, modest WHITE blouse with collar and BLACK knitted school-style vest. Warm approachable smile, a plain coffee cup at bottom edge, retro literary café blurred behind her. Soft coffee-brown lamplight and warm cream highlights. One character, no text.",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v2026.11.21-core-portraits-webp.2/static/images/fate-cores/reader.webp"
+    },
+    {
+      "name": "先祖",
+      "filename": "ancestor.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 123488,
+      "sha256": "e39e8e57733e89efa3a09eba29a1950da07e524d70c11a90f45bca7a24c8cd61",
+      "provenance": "老人幽灵、消瘦严峻脸庞、古旧维多利亚礼服与深邃目光来自世界书。",
+      "prompt": "Create exactly ONE square 1024x1024 PNG portrait for a Japanese fantasy RPG dialogue UI. Polished Japanese fantasy anime illustration, delicate clean line art, softly painted dimensional shading, luminous restrained colors, detailed expressive eyes, fully clothed head-and-shoulders composition. Center face and keep entire head comfortably inside central 75% for circular cropping. Soft blurred fantasy background. No text, letters, logo, watermark, or frame. Subject: the Ancestor, a gaunt stern ELDERLY MALE GHOST, aged lined face, short gray-white swept-back hair and a neatly trimmed gray beard. Deep hollow shadowed eyes, melancholic ominous restrained expression. Antiquated Victorian formal dark suit, high white collar and faded cravat. Fully clothed upper body subtly fading into silver-gray ghostly wisps. Dark haunted ancestral library blurred behind. Stylized Japanese dark fantasy illustration, no blood, no gore, not a photo. One old man.",
+      "url": "https://testingcf.jsdelivr.net/gh/eumenes12ds/ASTRAEA-JP@v2026.11.21-core-portraits-webp.2/static/images/fate-cores/ancestor.webp"
+    }
+  ]
+}
